@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectED & Agentic AI Stack - Presentation Hub</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- Highlight.js for Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <style>
+        :root {
+            /* Light Green theme (default) */
+            --bg-base: #f0fdf4;
+            --bg-surface: #ffffff;
+            --bg-surface-elevated: #dcfce7;
+            --border-color: rgba(16, 185, 129, 0.18);
+            
+            --text-primary: #064e3b;
+            --text-secondary: #065f46;
+            --text-muted: #6b7280;
+            
+            --accent-primary: #059669;
+            --accent-secondary: #10b981;
+            --accent-hover: #047857;
+            --accent-gradient: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-main: 'Inter', sans-serif;
+            --font-title: 'Be Vietnam Pro', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.18);
+        }
+
+        .dark-mode {
+            --bg-base: #0a1a12;
+            --bg-surface: #0f2318;
+            --bg-surface-elevated: #173525;
+            --border-color: rgba(52, 211, 153, 0.12);
+            
+            --text-primary: #ecfdf5;
+            --text-secondary: #6ee7b7;
+            --text-muted: #34d399;
+            
+            --accent-primary: #10b981;
+            --accent-secondary: #34d399;
+            --accent-hover: #059669;
+            --accent-gradient: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 28px rgba(16, 185, 129, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--bg-surface-elevated) transparent;
+        }
+
+        /* Scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-surface-elevated);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- Sidebar Styles --- */
+        aside {
+            width: 300px;
+            height: 100vh;
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-box {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .search-container {
+            padding: 16px 24px 8px 24px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .search-box:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 36px;
+            top: 28px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        nav {
+            flex: 1;
+            padding: 16px 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 16px 0 8px 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item:hover {
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-primary);
+            font-weight: 600;
+            border-left: 3px solid var(--accent-primary);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .sidebar-footer {
+            padding: 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .theme-toggle, .reset-btn {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .theme-toggle:hover, .reset-btn:hover {
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* --- Main Content Layout --- */
+        main {
+            margin-left: 300px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        header {
+            height: 80px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            backdrop-filter: blur(8px);
+        }
+
+        .header-left h2 {
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .header-left .breadcrumbs {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-base);
+            transform: translateY(-2px);
+        }
+
+        /* --- Tabs --- */
+        .tabs-container {
+            padding: 24px 40px 0 40px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 24px;
+        }
+
+        .tab {
+            padding: 12px 8px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        /* --- Scrollable Content --- */
+        .content-body {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .content-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 40px;
+            animation: fadeIn 0.4s ease-out;
+            min-height: 700px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- In-page Slideshow for topic content --- */
+        .topic-slideshow {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 680px;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .slideshow-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-surface-elevated);
+            gap: 16px;
+        }
+        .slideshow-doc-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+        }
+        .slideshow-counter {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .slideshow-viewport {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+        .topic-slide {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            padding: 40px 48px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(40px);
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            overflow-y: auto;
+        }
+        .topic-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+        .topic-slide.exit-left {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+        .slide-section-num {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-primary);
+            background: rgba(16,185,129,0.1);
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 20px;
+            padding: 3px 10px;
+            margin-bottom: 14px;
+        }
+        .slide-section-title {
+            font-family: var(--font-title);
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .slide-section-body {
+            font-size: 0.97rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+        .slide-section-body p { margin-bottom: 1em; }
+        .slide-section-body ul, .slide-section-body ol {
+            padding-left: 20px;
+            margin-bottom: 1em;
+        }
+        .slide-section-body li { margin-bottom: 0.4em; }
+        .slide-section-body h3 {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 1.4em 0 0.5em;
+        }
+        .slide-section-body h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 1em 0 0.4em;
+        }
+        .slide-section-body code {
+            font-family: var(--font-mono);
+            font-size: 0.82em;
+            background: var(--bg-surface-elevated);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            color: var(--accent-primary);
+        }
+        .slide-section-body pre {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+        .slide-section-body pre code {
+            background: none; border: none; padding: 0; font-size: 0.88em;
+        }
+        .slide-section-body table {
+            width: 100%; border-collapse: collapse; margin: 1em 0;
+            border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;
+        }
+        .slide-section-body th {
+            background: var(--bg-surface-elevated);
+            padding: 10px 14px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .slide-section-body td {
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .slideshow-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            gap: 16px;
+        }
+        .slide-arrow-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: var(--font-main);
+        }
+        .slide-arrow-btn:hover:not(:disabled) {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            background: rgba(16,185,129,0.08);
+        }
+        .slide-arrow-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        .slide-dots {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .slide-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            border: 1px solid var(--accent-primary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .slide-dot.active {
+            background: var(--accent-primary);
+            transform: scale(1.3);
+        }
+
+        /* --- Markdown Styling (Clean & Premium) --- */
+        .markdown-body {
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+            font-family: var(--font-title);
+            color: var(--text-primary);
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+            font-weight: 700;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.3em;
+            margin-top: 0;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .markdown-body h2 {
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.2em;
+        }
+
+        .markdown-body h3 {
+            font-size: 1.25rem;
+        }
+
+        .markdown-body p {
+            margin-bottom: 1.2em;
+            color: var(--text-secondary);
+        }
+
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1.2em;
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        .markdown-body li {
+            margin-bottom: 0.4em;
+        }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            background: var(--bg-base);
+            padding: 3px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            color: var(--accent-secondary);
+        }
+
+        .markdown-body pre {
+            background: var(--bg-base);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin-bottom: 1.6em;
+            border: 1px solid var(--border-color);
+        }
+
+        .markdown-body pre code {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            border: none;
+            color: inherit;
+            font-size: 0.9em;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.6em;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .markdown-body th, .markdown-body td {
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .markdown-body th {
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .markdown-body td {
+            color: var(--text-secondary);
+        }
+
+        .markdown-body tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .markdown-body blockquote {
+            border-left: 4px solid var(--accent-primary);
+            padding: 12px 24px;
+            margin-bottom: 1.6em;
+            background: rgba(16, 185, 129, 0.07);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+
+        .markdown-body blockquote p {
+            margin-bottom: 0;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        /* --- Stat cards row --- */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-info .stat-value {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            line-height: 1;
+        }
+
+        .stat-info .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* --- Interactive Dashboard styles --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .dashboard-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            min-height: 380px;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .dash-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .dash-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard-card:nth-child(2) .dash-icon {
+            background: rgba(52, 211, 153, 0.12);
+            color: var(--accent-secondary);
+        }
+
+        .dashboard-card:nth-child(3) .dash-icon {
+            background: rgba(110, 231, 183, 0.12);
+            color: #6ee7b7;
+        }
+
+        .dashboard-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .dash-card-footer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+        }
+
+        /* --- Interactive Checklist Styles --- */
+        .checklist-group {
+            margin-bottom: 32px;
+        }
+        .checklist-group-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .checklist-group-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: var(--accent-gradient);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .checklist-group-title {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            flex: 1;
+        }
+        .checklist-group-pct {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+        .checklist-group-bar {
+            height: 4px;
+            background: var(--bg-surface-elevated);
+            border-radius: 2px;
+            overflow: hidden;
+            width: 100px;
+        }
+        .checklist-group-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        /* Sub-section mini-card grid */
+        .checklist-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .checklist-mini-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            min-height: 115px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .checklist-mini-card:hover {
+            border-color: rgba(16,185,129,0.4);
+            background: var(--bg-surface-elevated);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        .checklist-mini-card.all-done {
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(16,185,129,0.06);
+        }
+        .mini-card-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .mini-card-count {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .mini-card-count span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .mini-card-bar {
+            height: 3px;
+            background: var(--bg-base);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .mini-card-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+        /* Expanded checklist items (shown in a drawer) */
+        .checklist-drawer {
+            display: none;
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 400px;
+            max-width: 90vw;
+            background: var(--bg-surface);
+            border-left: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            z-index: 300;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .checklist-drawer.open {
+            display: flex;
+        }
+        .drawer-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, transparent 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        .drawer-title {
+            font-family: var(--font-title);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .drawer-close {
+            background: var(--bg-surface-elevated);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition-smooth);
+        }
+        .drawer-close:hover { background: var(--bg-base); color: var(--text-primary); }
+        .drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .checklist-item:hover {
+            border-color: var(--accent-primary);
+            background: var(--bg-surface-elevated);
+        }
+        .checklist-item.checked {
+            border-color: rgba(16,185,129,0.4);
+            opacity: 0.75;
+        }
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            border: 2px solid var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            margin-top: 1px;
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+        }
+        .checklist-item.checked .checklist-checkbox {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+        .checklist-item.checked .checklist-checkbox::after {
+            content: "✓"; font-size: 0.75rem; font-weight: 700; color: #fff;
+        }
+        .checklist-label {
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+        .checklist-item.checked .checklist-label {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+        }
+        .drawer-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin: 14px 0 8px 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .checklist-progress-bar { height: 6px; background: var(--bg-surface-elevated); border-radius: 3px; overflow: hidden; }
+        .checklist-progress-fill { height: 100%; background: var(--accent-gradient); width: 0%; transition: width 0.3s ease; }
+
+        /* --- Slide Presenter Modal Styles --- */
+        .presenter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #090d16;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            color: #f8fafc;
+        }
+
+        .presenter-header {
+            height: 70px;
+            background: rgba(30, 41, 59, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+        }
+
+        .presenter-title {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .presenter-close {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .presenter-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .presenter-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 90%;
+            max-width: 960px;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .slide-content h2 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 24px;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-content h3 {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #f8fafc;
+        }
+
+        .slide-content p {
+            font-size: 1.4rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .slide-content ul {
+            text-align: left;
+            display: inline-block;
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .slide-content li {
+            margin-bottom: 10px;
+        }
+
+        /* Slide Speaker Notes panel */
+        .notes-panel {
+            width: 100%;
+            height: 150px;
+            background: #111827;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 24px 40px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .notes-label {
+            font-size: 0.75rem;
+            color: var(--accent-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .notes-content {
+            font-size: 1rem;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .presenter-footer {
+            height: 60px;
+            background: #0f172a;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .slide-counter {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .presenter-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .control-btn:hover {
+            background: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* --- Modal styles --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 600px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .modal-body p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        /* --- Search Results styles --- */
+        .search-results-container {
+            position: absolute;
+            top: 70px;
+            left: 24px;
+            right: 24px;
+            max-height: 350px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            z-index: 120;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: var(--bg-surface-elevated);
+        }
+
+        .result-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .result-snippet {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .result-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-primary);
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        /* --- Floating present button --- */
+        .floating-present-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            z-index: 80;
+            transition: var(--transition-smooth);
+        }
+
+        .floating-present-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="sidebar-header">
+            <div class="logo-box">
+                <i data-lucide="layers"></i>
+            </div>
+            <div class="logo-text">
+                <h1>ConnectED</h1>
+                <span>Agentic Hub</span>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Search topics, slides..." id="globalSearch">
+            <i data-lucide="search" class="search-icon" size="18"></i>
+            
+            <div class="search-results-container" id="searchResults">
+                <!-- Dynamic Search Results -->
+            </div>
+        </div>
+        
+        <nav>
+            <div class="nav-item active" onclick="showDashboard()" id="nav-dashboard">
+                <i data-lucide="layout-dashboard"></i>
+                Dashboard
+            </div>
+            
+            <div class="nav-label">Curriculum topics</div>
+            
+            <div class="nav-item" onclick="showTopic('01_connected_platform')" id="nav-01_connected_platform">
+                <i data-lucide="school"></i>
+                01. ConnectED Platform
+            </div>
+            
+            <div class="nav-item" onclick="showTopic('02_agentic_stack')" id="nav-02_agentic_stack">
+                <i data-lucide="cpu"></i>
+                02. Agentic AI Stack
+            </div>
+            
+            <div class="nav-item" onclick="showTopic('03_challenges_ops')" id="nav-03_challenges_ops">
+                <i data-lucide="shield-alert"></i>
+                03. Challenges & Ops
+            </div>
+            
+            <div class="nav-label">Handouts</div>
+            
+            <div class="nav-item" onclick="showTopic('04_deployment_handouts')" id="nav-04_deployment_handouts">
+                <i data-lucide="check-square"></i>
+                04. Checklists
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <i data-lucide="moon" id="theme-icon"></i>
+            </div>
+            
+            <div class="reset-btn" onclick="resetChecklist()" title="Reset Checklist Progress">
+                <i data-lucide="rotate-ccw"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN MAIN -->
+    <main>
+        <header>
+            <div class="header-left">
+                <h2 id="currentCategoryTitle">Dashboard</h2>
+                <div class="breadcrumbs" id="currentCategoryPath">Home / Dashboard</div>
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="openAboutModal()">
+                    <i data-lucide="info"></i>
+                    About Project
+                </button>
+                <button class="btn btn-primary" onclick="presentSlides()" id="presentBtn" style="display: none;">
+                    <i data-lucide="play"></i>
+                    Present Slides
+                </button>
+            </div>
+        </header>
+        
+        <!-- TABS FOR CONTENT TOPICS -->
+        <div class="tabs-container" id="tabsContainer" style="display: none;">
+            <div class="tab active" onclick="switchTab('reference')" id="tab-reference">
+                <i data-lucide="book-open"></i>
+                Reference Doc
+            </div>
+            <div class="tab" onclick="switchTab('detailed_notes')" id="tab-detailed_notes">
+                <i data-lucide="file-text"></i>
+                Detailed Notes
+            </div>
+            <div class="tab" onclick="switchTab('presentation_script')" id="tab-presentation_script">
+                <i data-lucide="presentation"></i>
+                Presentation Script
+            </div>
+        </div>
+        
+        <!-- SCROLLABLE BODY -->
+        <div class="content-body">
+            
+            <!-- DASHBOARD CONTENT -->
+            <div id="dashboardView">
+                <!-- Hero -->
+                <div class="content-card" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 60%, #a7f3d0 100%); border: 1px solid rgba(16,185,129,0.25); padding: 40px; margin-bottom: 24px; min-height: auto;">
+                    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                        <div style="width:52px;height:52px;border-radius:14px;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;border:1px solid rgba(16,185,129,0.3);">
+                            <i data-lucide="layers" style="color:#059669;"></i>
+                        </div>
+                        <div>
+                            <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#059669;margin-bottom:4px;">Workshop Hub</div>
+                            <h2 style="font-family: var(--font-title); font-size: 1.9rem; font-weight: 800; color:#064e3b;">ConnectED &amp; The Agentic Stack</h2>
+                        </div>
+                    </div>
+                    <p style="color: #065f46; font-size: 1rem; line-height: 1.7; max-width: 780px; margin-bottom: 0;">
+                        Explore the lesson planning foundation of ConnectED and dive deep into the layers of the emerging Agentic AI Stack — from orchestration and reasoning to AgentOps, commerce protocols, and production checklists.
+                    </p>
+                </div>
+
+                <!-- Stat Cards -->
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-lucide="book-open"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Curriculum Topics</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-lucide="check-square"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Deployment Checklists</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-lucide="layers"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Agentic Stack Layers</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-lucide="trending-up"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="overallPercentage">0%</div>
+                            <div class="stat-label">Checklist Progress</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 style="font-family: var(--font-title); margin: 0 0 16px 0; font-weight: 700; font-size: 1.3rem; color: var(--text-secondary);">Curriculum Topics</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" onclick="showTopic('01_connected_platform')">
+                        <div class="dash-card-header">
+                            <div class="dash-icon"><i data-lucide="school"></i></div>
+                            <i data-lucide="arrow-right" style="color: var(--text-muted);"></i>
+                        </div>
+                        <h3>01. ConnectED Platform</h3>
+                        <p>Learn about the AI-native lesson planning platform designed for Vietnamese teachers, the ADDIE instructional model, and localization infrastructure.</p>
+                        <div class="dash-card-footer">
+                            <span>Explore Topic</span>
+                            <i data-lucide="chevron-right" size="16"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" onclick="showTopic('02_agentic_stack')">
+                        <div class="dash-card-header">
+                            <div class="dash-icon"><i data-lucide="cpu"></i></div>
+                            <i data-lucide="arrow-right" style="color: var(--text-muted);"></i>
+                        </div>
+                        <h3>02. Agentic AI Stack</h3>
+                        <p>Explore the 5 layers of modern agents: Orchestration, Reasoning, reusable Skills, MCP/A2A tools, AP2/ACP commerce, and Memory loops.</p>
+                        <div class="dash-card-footer">
+                            <span>Explore Topic</span>
+                            <i data-lucide="chevron-right" size="16"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" onclick="showTopic('03_challenges_ops')">
+                        <div class="dash-card-header">
+                            <div class="dash-icon"><i data-lucide="shield-alert"></i></div>
+                            <i data-lucide="arrow-right" style="color: var(--text-muted);"></i>
+                        </div>
+                        <h3>03. Challenges &amp; AgentOps</h3>
+                        <p>Deep-dive into critical developer bottlenecks: reliability issues, evaluation frameworks, computational costs, and AgentOps platforms.</p>
+                        <div class="dash-card-footer">
+                            <span>Explore Topic</span>
+                            <i data-lucide="chevron-right" size="16"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 style="font-family: var(--font-title); margin: 32px 0 16px 0; font-weight: 700; font-size: 1.3rem; color: var(--text-secondary);">Handouts &amp; Checklists</h2>
+                <div class="content-card" style="padding: 24px 30px; display:flex; align-items:center; gap:24px; flex-wrap:wrap; min-height: auto;">
+                    <div style="flex:1; min-width:220px;">
+                        <div style="font-weight: 700; font-size: 1rem; margin-bottom:6px;">Overall Deployment Readiness</div>
+                        <div class="checklist-progress-bar" style="width: 100%; height: 10px;">
+                            <div class="checklist-progress-fill" id="overallProgressFill" style="width: 0%;"></div>
+                        </div>
+                        <p style="font-size: 0.83rem; color: var(--text-secondary); margin-top: 10px; margin-bottom: 0;">
+                            Go to <b>04. Checklists</b> to track deployment, optimization, token use, evaluation, and AgentOps readiness.
+                        </p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showTopic('04_deployment_handouts')" style="flex-shrink:0;">
+                        <i data-lucide="check-square"></i>
+                        Open Checklists
+                    </button>
+                </div>
+            </div>
+            
+            <!-- MARKDOWN & CHECKLISTS VIEW -->
+            <div id="contentView" style="display: none;">
+                <div class="content-card">
+                    <div id="renderedMarkdown" class="markdown-body">
+                        <!-- Rendered Markdown goes here -->
+                    </div>
+                    
+                    <div id="interactiveChecklist" style="display: none;">
+                        <!-- Interactive Checklists go here -->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- FLOATING PRESENT BUTTON -->
+    <div class="floating-present-btn" id="floatingPresentBtn" style="display: none;" onclick="presentSlides()" title="Launch Presentation Slides">
+        <i data-lucide="play" size="24"></i>
+    </div>
+
+    <!-- PRESENTATION MODAL -->
+    <div class="presenter-modal" id="presenterModal">
+        <div class="presenter-header">
+            <div class="presenter-title" id="presenterSlideTitle">Slide Presentation Mode</div>
+            <button class="presenter-close" onclick="closePresenter()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        
+        <div class="presenter-main">
+            <div class="slide-container">
+                <div id="slideContent" class="slide-content">
+                    <!-- Dynamic Slide content -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="notes-panel">
+            <div class="notes-label">Speaker Notes</div>
+            <div class="notes-content" id="slideNotes">
+                No notes available.
+            </div>
+        </div>
+        
+        <div class="presenter-footer">
+            <div class="slide-counter" id="slideCounter">Slide 1 of 10</div>
+            
+            <div class="presenter-controls">
+                <button class="control-btn" id="prevSlideBtn" onclick="prevSlide()">
+                    <i data-lucide="arrow-left"></i>
+                </button>
+                <button class="control-btn" id="nextSlideBtn" onclick="nextSlide()">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT MODAL -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>About ConnectED & Agentic AI Stack</h3>
+                <button class="presenter-close" onclick="closeAboutModal()"><i data-lucide="x" size="18"></i></button>
+            </div>
+            <div class="modal-body">
+                <p><b>ConnectED & The Emerging Agentic AI Stack</b> represents a research and workshop syllabus mapping specialized local domain expertise (Vietnamese education curriculum) into state-of-the-art agent frameworks.</p>
+                <p>This UI parses split markdown documents directly from the <code>ref_doc</code> folder of the workspace, organizing content into topics:
+                <ul>
+                    <li style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 6px;"><b>01. Platform:</b> Focuses on the ADDIE instruction framework, localization, and impact.</li>
+                    <li style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 6px;"><b>02. Stack:</b> Explores orchestration, reasoning, skills, MCP protocols, and commerce trust mandates.</li>
+                    <li style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 6px;"><b>03. Challenges:</b> Addresses latency, costs, trajectory evaluation, and AgentOps.</li>
+                    <li style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 6px;"><b>04. Checklists:</b> Interactive checklists to prepare your agentic deployment.</li>
+                </ul>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeAboutModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DATA SCRIPT -->
+    <script>
+        /* CONTENT_PLACEHOLDER */
+    </script>
+
+    <!-- UI INTERACTIVE ENGINE -->
+    <script>
+        // Global variables
+        let currentCategory = 'dashboard';
+        let currentTab = 'reference'; // reference, detailed_notes, presentation_script
+        let isDarkMode = false;
+        let slideDeck = [];
+        let currentSlideIndex = 0;
+
+        // Custom Marked Renderer for Checklists to allow interactive rendering in Category 4
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (__) {}
+                }
+                return code; // use external default escaping
+            }
+        });
+
+        window.onload = function() {
+            lucide.createIcons();
+            
+            // Check localStorage theme (light is default)
+            if (localStorage.getItem('theme') === 'dark') {
+                toggleTheme();
+            }
+            
+            showDashboard();
+            initChecklistCounter();
+            setupSearch();
+            
+            // Register keypress for slide navigation
+            document.addEventListener('keydown', function(e) {
+                if (document.getElementById('presenterModal').style.display === 'flex') {
+                    if (e.key === 'ArrowRight' || e.key === 'Space') {
+                        nextSlide();
+                    } else if (e.key === 'ArrowLeft') {
+                        prevSlide();
+                    } else if (e.key === 'Escape') {
+                        closePresenter();
+                    }
+                }
+            });
+        };
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                isDarkMode = false;
+                themeIcon.setAttribute('data-lucide', 'moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-mode');
+                isDarkMode = true;
+                themeIcon.setAttribute('data-lucide', 'sun');
+                localStorage.setItem('theme', 'dark');
+            }
+            lucide.createIcons();
+        }
+
+        function showDashboard() {
+            currentCategory = 'dashboard';
+            document.getElementById('dashboardView').style.display = 'block';
+            document.getElementById('contentView').style.display = 'none';
+            document.getElementById('tabsContainer').style.display = 'none';
+            document.getElementById('presentBtn').style.display = 'none';
+            document.getElementById('floatingPresentBtn').style.display = 'none';
+            
+            document.getElementById('currentCategoryTitle').innerText = 'Dashboard';
+            document.getElementById('currentCategoryPath').innerText = 'Home / Dashboard';
+            
+            // Update active state in sidebar nav
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('nav-dashboard').classList.add('active');
+            
+            updateOverallProgress();
+        }
+
+        function showTopic(catId) {
+            currentCategory = catId;
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(`nav-${catId}`).classList.add('active');
+            
+            const catData = WORKSHOP_CONTENT[catId];
+            document.getElementById('currentCategoryTitle').innerText = catData.title;
+            document.getElementById('currentCategoryPath').innerText = `Home / ${catData.title}`;
+            
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('contentView').style.display = 'block';
+            
+            if (catId === '04_deployment_handouts') {
+                // Category 4: Render Checklists Interactively
+                document.getElementById('tabsContainer').style.display = 'none';
+                document.getElementById('presentBtn').style.display = 'none';
+                document.getElementById('floatingPresentBtn').style.display = 'none';
+                document.getElementById('renderedMarkdown').style.display = 'none';
+                document.getElementById('interactiveChecklist').style.display = 'block';
+                
+                renderInteractiveChecklists(catData.files['handout_checklists']);
+            } else {
+                // Category 1, 2, 3: Tabs & Normal markdown
+                document.getElementById('tabsContainer').style.display = 'flex';
+                document.getElementById('renderedMarkdown').style.display = 'block';
+                document.getElementById('interactiveChecklist').style.display = 'none';
+                
+                // Show present button
+                document.getElementById('presentBtn').style.display = 'inline-flex';
+                document.getElementById('floatingPresentBtn').style.display = 'flex';
+                
+                // Set default tab if not in files
+                if (!catData.files[currentTab]) {
+                    currentTab = 'reference';
+                }
+                
+                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                document.getElementById(`tab-${currentTab}`).classList.add('active');
+                
+                renderMarkdownContent(catData.files[currentTab]);
+            }
+        }
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            
+            const catData = WORKSHOP_CONTENT[currentCategory];
+            renderMarkdownContent(catData.files[tabId]);
+        }
+
+        // Slideshow state
+        let topicSlides = [];
+        let topicSlideIndex = 0;
+
+        function renderMarkdownContent(markdownText) {
+            const container = document.getElementById('renderedMarkdown');
+            container.innerHTML = '';
+            topicSlides = [];
+            topicSlideIndex = 0;
+
+            if (!markdownText) {
+                container.innerHTML = `<p style="color:var(--text-muted);font-style:italic;">No content available.</p>`;
+                return;
+            }
+
+            // Parse ## sections into slides
+            const lines = markdownText.split('\n');
+            let docTitle = '';
+            let currentSection = null;
+            lines.forEach(line => {
+                const h1 = line.match(/^#\s+(.+)/);
+                const h2 = line.match(/^##\s+(.+)/);
+                if (h1 && !docTitle) { docTitle = h1[1]; }
+                else if (h2) {
+                    if (currentSection) topicSlides.push(currentSection);
+                    currentSection = { title: h2[1], lines: [] };
+                } else if (currentSection) {
+                    currentSection.lines.push(line);
+                }
+            });
+            if (currentSection) topicSlides.push(currentSection);
+
+            if (topicSlides.length === 0) {
+                container.innerHTML = marked.parse(markdownText);
+                container.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+                return;
+            }
+
+            // Build slideshow shell
+            const shell = document.createElement('div');
+            shell.className = 'topic-slideshow';
+
+            // Top bar
+            const topbar = document.createElement('div');
+            topbar.className = 'slideshow-topbar';
+            topbar.innerHTML = `
+                <div class="slideshow-doc-title">${docTitle || 'Content'}</div>
+                <div class="slideshow-counter" id="slideshowCounter">1 / ${topicSlides.length}</div>`;
+            shell.appendChild(topbar);
+
+            // Viewport with all slides
+            const viewport = document.createElement('div');
+            viewport.className = 'slideshow-viewport';
+            viewport.style.minHeight = '420px';
+
+            topicSlides.forEach((sec, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'topic-slide' + (idx === 0 ? ' active' : '');
+                slide.id = `topicSlide_${idx}`;
+
+                const body = document.createElement('div');
+                body.className = 'slide-section-body';
+                body.innerHTML = marked.parse(sec.lines.join('\n'));
+                body.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+
+                slide.innerHTML = `
+                    <div class="slide-section-num">Section ${idx + 1} of ${topicSlides.length}</div>
+                    <div class="slide-section-title">${sec.title}</div>`;
+                slide.appendChild(body);
+                viewport.appendChild(slide);
+            });
+            shell.appendChild(viewport);
+
+            // Footer: prev / dots / next
+            const footer = document.createElement('div');
+            footer.className = 'slideshow-footer';
+
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'slide-arrow-btn';
+            prevBtn.id = 'slideshowPrev';
+            prevBtn.innerHTML = '&#8592; Prev';
+            prevBtn.disabled = true;
+            prevBtn.onclick = () => navigateTopicSlide(-1);
+
+            const dots = document.createElement('div');
+            dots.className = 'slide-dots';
+            dots.id = 'slideshowDots';
+            topicSlides.forEach((_, idx) => {
+                const dot = document.createElement('div');
+                dot.className = 'slide-dot' + (idx === 0 ? ' active' : '');
+                dot.onclick = () => goToTopicSlide(idx);
+                dots.appendChild(dot);
+            });
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'slide-arrow-btn';
+            nextBtn.id = 'slideshowNext';
+            nextBtn.innerHTML = 'Next &#8594;';
+            nextBtn.disabled = topicSlides.length <= 1;
+            nextBtn.onclick = () => navigateTopicSlide(1);
+
+            footer.appendChild(prevBtn);
+            footer.appendChild(dots);
+            footer.appendChild(nextBtn);
+            shell.appendChild(footer);
+
+            container.appendChild(shell);
+        }
+
+        function navigateTopicSlide(dir) {
+            const next = topicSlideIndex + dir;
+            if (next < 0 || next >= topicSlides.length) return;
+            goToTopicSlide(next);
+        }
+
+        function goToTopicSlide(idx) {
+            const prev = document.getElementById(`topicSlide_${topicSlideIndex}`);
+            if (prev) {
+                prev.classList.remove('active');
+                prev.classList.add(idx > topicSlideIndex ? 'exit-left' : '');
+                setTimeout(() => prev.classList.remove('exit-left'), 350);
+            }
+            topicSlideIndex = idx;
+            const cur = document.getElementById(`topicSlide_${idx}`);
+            if (cur) {
+                cur.style.transform = idx > (topicSlideIndex - 1) ? 'translateX(40px)' : 'translateX(-40px)';
+                requestAnimationFrame(() => cur.classList.add('active'));
+            }
+            // Update counter
+            const counter = document.getElementById('slideshowCounter');
+            if (counter) counter.textContent = `${idx + 1} / ${topicSlides.length}`;
+            // Update dots
+            document.querySelectorAll('#slideshowDots .slide-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === idx);
+            });
+            // Update buttons
+            const prevBtn = document.getElementById('slideshowPrev');
+            const nextBtn = document.getElementById('slideshowNext');
+            if (prevBtn) prevBtn.disabled = idx === 0;
+            if (nextBtn) nextBtn.disabled = idx === topicSlides.length - 1;
+        }
+
+        // Checklist Parser and Interactive Renderer
+        function renderInteractiveChecklists(rawMarkdown) {
+            const container = document.getElementById('interactiveChecklist');
+            container.innerHTML = '';
+
+            // Ensure drawer exists
+            if (!document.getElementById('checklistDrawer')) {
+                const drawer = document.createElement('div');
+                drawer.id = 'checklistDrawer';
+                drawer.className = 'checklist-drawer';
+                drawer.innerHTML = `
+                    <div class="drawer-header">
+                        <div class="drawer-title" id="drawerTitle">Section</div>
+                        <button class="drawer-close" onclick="closeChecklistDrawer()">✕</button>
+                    </div>
+                    <div class="drawer-body" id="drawerBody"></div>`;
+                document.body.appendChild(drawer);
+            }
+
+            const pageHeader = document.createElement('div');
+            pageHeader.style.cssText = 'margin-bottom:24px;';
+            pageHeader.innerHTML = `
+                <h2 style="font-family:var(--font-title);font-size:1.6rem;font-weight:800;color:var(--text-primary);margin-bottom:6px;">Deployment Checklists</h2>
+                <p style="color:var(--text-secondary);font-size:0.95rem;">Click any card to review and track items. <b>[CRITICAL]</b> items are non-negotiable.</p>`;
+            container.appendChild(pageHeader);
+
+            const lines = rawMarkdown.split('\n');
+            let currentSection = null;
+            let currentSubSection = 'General';
+            let sections = []; // [{title, subSections: [{name, items:[{label,key}]}]}]
+            let itemCounter = 0;
+
+            lines.forEach((line) => {
+                const headerMatch = line.match(/^##\s+(CHECKLIST\s+\d+:\s+.*)$/i);
+                const subHeaderMatch = line.match(/^###\s+(.*)$/);
+                const checkboxMatch = line.match(/^-\s+\[\s*\]\s+(.*)$/);
+
+                if (headerMatch) {
+                    currentSection = { title: headerMatch[1], subSections: [] };
+                    sections.push(currentSection);
+                    currentSubSection = 'General';
+                } else if (subHeaderMatch && currentSection) {
+                    currentSubSection = subHeaderMatch[1];
+                } else if (checkboxMatch && currentSection) {
+                    const label = checkboxMatch[1];
+                    const storageKey = `checklist_item_${currentSection.title.split(':')[0].trim()}_${itemCounter++}`;
+                    let sub = currentSection.subSections.find(s => s.name === currentSubSection);
+                    if (!sub) { sub = { name: currentSubSection, items: [] }; currentSection.subSections.push(sub); }
+                    sub.items.push({ label, key: storageKey });
+                }
+            });
+
+            sections.forEach((section, idx) => {
+                container.appendChild(createGroupUI(section, idx + 1));
+            });
+
+            updateOverallProgress();
+        }
+
+        function createGroupUI(section, num) {
+            const group = document.createElement('div');
+            group.className = 'checklist-group';
+
+            // Count totals
+            let totalItems = 0, totalChecked = 0;
+            section.subSections.forEach(sub => {
+                sub.items.forEach(item => {
+                    totalItems++;
+                    if (localStorage.getItem(item.key) === 'true') totalChecked++;
+                });
+            });
+            const pct = totalItems > 0 ? Math.round((totalChecked / totalItems) * 100) : 0;
+            const cleanTitle = section.title.replace(/^CHECKLIST\s+\d+:\s*/i, '');
+
+            // Group header
+            const gh = document.createElement('div');
+            gh.className = 'checklist-group-header';
+            const fillId = `gfill_${num}`;
+            const pctId = `gpct_${num}`;
+            gh.innerHTML = `
+                <div class="checklist-group-num">${num}</div>
+                <div class="checklist-group-title">${cleanTitle}</div>
+                <span class="checklist-group-pct" id="${pctId}">${pct}%</span>
+                <div class="checklist-group-bar"><div class="checklist-group-fill" id="${fillId}" style="width:${pct}%"></div></div>`;
+            group.appendChild(gh);
+
+            // Mini-card grid
+            const grid = document.createElement('div');
+            grid.className = 'checklist-mini-grid';
+
+            section.subSections.forEach(sub => {
+                let subChecked = sub.items.filter(i => localStorage.getItem(i.key) === 'true').length;
+                const subPct = sub.items.length > 0 ? Math.round((subChecked / sub.items.length) * 100) : 0;
+                const allDone = subChecked === sub.items.length && sub.items.length > 0;
+
+                const mini = document.createElement('div');
+                mini.className = `checklist-mini-card${allDone ? ' all-done' : ''}`;
+                const cardFillId = `mfill_${num}_${sub.name.replace(/\s/g,'_')}`;
+                mini.innerHTML = `
+                    <div class="mini-card-label">${sub.name}</div>
+                    <div class="mini-card-count">${subChecked}<span> / ${sub.items.length}</span></div>
+                    <div class="mini-card-bar"><div class="mini-card-fill" id="${cardFillId}" style="width:${subPct}%"></div></div>`;
+
+                mini.onclick = () => openChecklistDrawer(sub, cleanTitle, fillId, pctId, totalItems, section);
+                grid.appendChild(mini);
+            });
+
+            group.appendChild(grid);
+            return group;
+        }
+
+        function openChecklistDrawer(sub, sectionTitle, groupFillId, groupPctId, totalGroupItems, section) {
+            const drawer = document.getElementById('checklistDrawer');
+            const body = document.getElementById('drawerBody');
+            const titleEl = document.getElementById('drawerTitle');
+            titleEl.textContent = `${sectionTitle} — ${sub.name}`;
+            body.innerHTML = '';
+
+            sub.items.forEach(item => {
+                const checked = localStorage.getItem(item.key) === 'true';
+                const el = document.createElement('div');
+                el.className = `checklist-item${checked ? ' checked' : ''}`;
+                el.innerHTML = `<div class="checklist-checkbox"></div><div class="checklist-label">${item.label}</div>`;
+                el.onclick = function() {
+                    const isChecked = el.classList.contains('checked');
+                    el.classList.toggle('checked', !isChecked);
+                    localStorage.setItem(item.key, String(!isChecked));
+                    // Update mini-card count
+                    const cardFillId = `mfill_${groupFillId.split('_')[1]}_${sub.name.replace(/\s/g,'_')}`;
+                    const subChecked = sub.items.filter(i => localStorage.getItem(i.key) === 'true').length;
+                    const subPct = Math.round((subChecked / sub.items.length) * 100);
+                    const mf = document.getElementById(cardFillId);
+                    if (mf) mf.style.width = subPct + '%';
+                    // Update group totals
+                    let gc = 0, gt = 0;
+                    section.subSections.forEach(s => s.items.forEach(i => { gt++; if (localStorage.getItem(i.key)==='true') gc++; }));
+                    const gPct = gt > 0 ? Math.round((gc/gt)*100) : 0;
+                    const gf = document.getElementById(groupFillId);
+                    const gp = document.getElementById(groupPctId);
+                    if (gf) gf.style.width = gPct + '%';
+                    if (gp) gp.textContent = gPct + '%';
+                    updateOverallProgress();
+                };
+                body.appendChild(el);
+            });
+
+            drawer.classList.add('open');
+        }
+
+        function closeChecklistDrawer() {
+            document.getElementById('checklistDrawer').classList.remove('open');
+        }
+
+        function updateSectionProgress(bodyEl, fillEl, pctEl) {
+            const items = bodyEl.querySelectorAll('.checklist-item');
+            const checked = bodyEl.querySelectorAll('.checklist-item.checked');
+            const pct = items.length > 0 ? Math.round((checked.length / items.length) * 100) : 0;
+            fillEl.style.width = `${pct}%`;
+            if (pctEl) pctEl.textContent = `${pct}%`;
+        }
+
+        function updateOverallProgress() {
+            let totalItems = 0;
+            let totalChecked = 0;
+            
+            // Scan all stored keys matching checklist_item_
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('checklist_item_')) {
+                    totalItems++;
+                    if (localStorage.getItem(key) === 'true') {
+                        totalChecked++;
+                    }
+                }
+            }
+            
+            // We can also calculate total statically if we scan the handout content
+            const pct = totalItems > 0 ? Math.round((totalChecked / totalItems) * 100) : 0;
+            
+            const overallPercentage = document.getElementById('overallPercentage');
+            const overallProgressFill = document.getElementById('overallProgressFill');
+            
+            if (overallPercentage && overallProgressFill) {
+                overallPercentage.innerText = `${pct}%`;
+                overallProgressFill.style.width = `${pct}%`;
+            }
+        }
+
+        function initChecklistCounter() {
+            // Seed localStorage with keys if empty to track progress properly
+            if (localStorage.length === 0 || !Object.keys(localStorage).some(k => k.startsWith('checklist_item_'))) {
+                const catData = WORKSHOP_CONTENT['04_deployment_handouts'];
+                if (catData) {
+                    const rawMarkdown = catData.files['handout_checklists'];
+                    const lines = rawMarkdown.split('\n');
+                    let currentSection = null;
+                    let itemCounter = 0;
+                    
+                    lines.forEach(line => {
+                        const headerMatch = line.match(/^##\s+(CHECKLIST\s+\d+:\s+.*)$/i);
+                        const checkboxMatch = line.match(/^-\s+\[\s*\]\s+(.*)$/);
+                        
+                        if (headerMatch) {
+                            currentSection = headerMatch[1];
+                        } else if (checkboxMatch && currentSection) {
+                            const storageKey = `checklist_item_${currentSection.split(':')[0].trim()}_${itemCounter++}`;
+                            if (!localStorage.getItem(storageKey)) {
+                                localStorage.setItem(storageKey, 'false');
+                            }
+                        }
+                    });
+                }
+            }
+            updateOverallProgress();
+        }
+
+        function resetChecklist() {
+            if (confirm("Are you sure you want to reset all checklist progress?")) {
+                for (let i = localStorage.length - 1; i >= 0; i--) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('checklist_item_')) {
+                        localStorage.setItem(key, 'false');
+                    }
+                }
+                
+                // Rerender if we are currently looking at Category 4
+                if (currentCategory === '04_deployment_handouts') {
+                    showTopic('04_deployment_handouts');
+                } else {
+                    updateOverallProgress();
+                }
+            }
+        }
+
+        // Slide Presenter Engine
+        function presentSlides() {
+            const catData = WORKSHOP_CONTENT[currentCategory];
+            if (!catData) return;
+            
+            const presentationScript = catData.files['presentation_script'];
+            if (!presentationScript) {
+                alert("No presentation script slides available for this section.");
+                return;
+            }
+            
+            parseSlides(presentationScript);
+            
+            if (slideDeck.length === 0) {
+                alert("Could not extract slides from presentation script.");
+                return;
+            }
+            
+            currentSlideIndex = 0;
+            renderSlide(currentSlideIndex);
+            
+            document.getElementById('presenterModal').style.display = 'flex';
+        }
+
+        function parseSlides(scriptText) {
+            slideDeck = [];
+            
+            // 1. Try to parse as JSON first (flexible with object representation)
+            try {
+                const trimmedText = scriptText.trim();
+                if (trimmedText.startsWith('[') || trimmedText.startsWith('{')) {
+                    const parsed = JSON.parse(trimmedText);
+                    const slidesArray = Array.isArray(parsed) ? parsed : [parsed];
+                    
+                    slidesArray.forEach((slide, idx) => {
+                        const slideTitle = slide.title || slide.slide || `Slide ${idx + 1}`;
+                        const slideVisual = slide.visual || slide.content || slide.body || "";
+                        const slideNotes = slide.notes || slide.script || slide.speakerNotes || "No notes available.";
+                        
+                        slideDeck.push({
+                            title: slideTitle,
+                            content: marked.parse(slideVisual),
+                            notes: marked.parse(slideNotes)
+                        });
+                    });
+                    
+                    if (slideDeck.length > 0) return;
+                }
+            } catch (e) {
+                // Not valid JSON, fallback to markdown parsing
+            }
+            
+            // 2. Loose Markdown Parsing
+            // Slides are delimited by '---'
+            const slideBlocks = scriptText.split('---');
+            let slideIndex = 1;
+            
+            slideBlocks.forEach(block => {
+                block = block.trim();
+                if (!block) return;
+                
+                // Identify the title: match any heading from # to ####
+                let titleMatch = block.match(/^#{1,4}\s*(.*)/mi);
+                let slideTitle = "";
+                let slideBody = block;
+                
+                if (titleMatch) {
+                    slideTitle = titleMatch[1].trim();
+                    // Remove title line from slide body
+                    slideBody = block.replace(/^#{1,4}\s*.*/mi, '').trim();
+                } else {
+                    // Default title if no heading is found
+                    slideTitle = `Slide ${slideIndex}`;
+                }
+                
+                // Flexible script/notes extraction: search for Visual and Script/Notes segments
+                // We search for patterns like "**Script:**", "**Speaker Notes:**", "**Notes:**", "Script:", "Speaker Notes:", "Notes:"
+                const scriptRegex = /\*\*(Script|Speaker Notes|Notes):\*\*([\s\S]*)/i;
+                const plainScriptRegex = /(Script|Speaker Notes|Notes):([\s\S]*)/i;
+                
+                let notes = "No notes available.";
+                let scriptMatch = slideBody.match(scriptRegex);
+                if (!scriptMatch) {
+                    scriptMatch = slideBody.match(plainScriptRegex);
+                }
+                
+                if (scriptMatch) {
+                    notes = scriptMatch[2].trim();
+                    // Remove notes section from content body
+                    slideBody = slideBody.replace(scriptMatch[0], '').trim();
+                }
+                
+                // Clean up Visual keyword if present at start of body (e.g. "**Visual:** ..." or "Visual: ...")
+                const visualRegex = /^\*\*(Visual|Visuals):\*\*\s*/i;
+                const plainVisualRegex = /^(Visual|Visuals):\s*/i;
+                if (slideBody.match(visualRegex)) {
+                    slideBody = slideBody.replace(visualRegex, '');
+                } else if (slideBody.match(plainVisualRegex)) {
+                    slideBody = slideBody.replace(plainVisualRegex, '');
+                }
+                
+                slideDeck.push({
+                    title: slideTitle,
+                    content: marked.parse(slideBody),
+                    notes: marked.parse(notes)
+                });
+                
+                slideIndex++;
+            });
+        }
+
+        function renderSlide(index) {
+            const slide = slideDeck[index];
+            const contentEl = document.getElementById('slideContent');
+            const notesEl = document.getElementById('slideNotes');
+            const counterEl = document.getElementById('slideCounter');
+            const presenterSlideTitle = document.getElementById('presenterSlideTitle');
+            
+            presenterSlideTitle.innerText = `${WORKSHOP_CONTENT[currentCategory].title} - Presentation Mode`;
+            contentEl.innerHTML = slide.content;
+            notesEl.innerHTML = slide.notes;
+            counterEl.innerText = `Slide ${index + 1} of ${slideDeck.length}`;
+            
+            document.getElementById('prevSlideBtn').disabled = index === 0;
+            document.getElementById('nextSlideBtn').disabled = index === slideDeck.length - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slideDeck.length - 1) {
+                currentSlideIndex++;
+                renderSlide(currentSlideIndex);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                renderSlide(currentSlideIndex);
+            }
+        }
+
+        function closePresenter() {
+            document.getElementById('presenterModal').style.display = 'none';
+        }
+
+        // About Modal
+        function openAboutModal() {
+            document.getElementById('aboutModal').style.display = 'flex';
+        }
+
+        function closeAboutModal() {
+            document.getElementById('aboutModal').style.display = 'none';
+        }
+
+        // Simple Global Search across all markdown texts
+        function setupSearch() {
+            const searchInput = document.getElementById('globalSearch');
+            const searchResults = document.getElementById('searchResults');
+            
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                
+                if (query.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                searchResults.innerHTML = '';
+                let hits = 0;
+                
+                for (const catId in WORKSHOP_CONTENT) {
+                    const cat = WORKSHOP_CONTENT[catId];
+                    for (const fileId in cat.files) {
+                        const content = cat.files[fileId];
+                        const text = content.toLowerCase();
+                        
+                        let index = text.indexOf(query);
+                        if (index !== -1) {
+                            hits++;
+                            // Extract snippet
+                            const start = Math.max(0, index - 30);
+                            const end = Math.min(text.length, index + query.length + 50);
+                            let snippet = content.substring(start, end).replace(/[\r\n]+/g, ' ');
+                            
+                            // Highlight query in snippet
+                            const regex = new RegExp(`(${query})`, 'gi');
+                            snippet = snippet.replace(regex, '<mark>$1</mark>');
+                            
+                            const el = document.createElement('div');
+                            el.className = 'search-result-item';
+                            el.innerHTML = `
+                                <div class="result-title">${cat.title} - ${fileId.replace('_', ' ')}</div>
+                                <div class="result-snippet">...${snippet}...</div>
+                                <div class="result-badge">${fileId}</div>
+                            `;
+                            
+                            el.onclick = function() {
+                                showTopic(catId);
+                                if (catId !== '04_deployment_handouts') {
+                                    switchTab(fileId);
+                                }
+                                searchInput.value = '';
+                                searchResults.style.display = 'none';
+                            };
+                            
+                            searchResults.appendChild(el);
+                        }
+                    }
+                }
+                
+                if (hits > 0) {
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.innerHTML = '<div style="padding: 14px 18px; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">No matching content found.</div>';
+                    searchResults.style.display = 'block';
+                }
+            });
+            
+            // Close search results on click outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-container')) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

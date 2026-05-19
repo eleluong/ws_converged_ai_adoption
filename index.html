@@ -1,0 +1,2464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectED & Agentic AI Stack - Presentation Hub</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- Highlight.js for Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <style>
+        :root {
+            /* Light Green theme (default) */
+            --bg-base: #f0fdf4;
+            --bg-surface: #ffffff;
+            --bg-surface-elevated: #dcfce7;
+            --border-color: rgba(16, 185, 129, 0.18);
+            
+            --text-primary: #064e3b;
+            --text-secondary: #065f46;
+            --text-muted: #6b7280;
+            
+            --accent-primary: #059669;
+            --accent-secondary: #10b981;
+            --accent-hover: #047857;
+            --accent-gradient: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-main: 'Inter', sans-serif;
+            --font-title: 'Be Vietnam Pro', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.18);
+        }
+
+        .dark-mode {
+            --bg-base: #0a1a12;
+            --bg-surface: #0f2318;
+            --bg-surface-elevated: #173525;
+            --border-color: rgba(52, 211, 153, 0.12);
+            
+            --text-primary: #ecfdf5;
+            --text-secondary: #6ee7b7;
+            --text-muted: #34d399;
+            
+            --accent-primary: #10b981;
+            --accent-secondary: #34d399;
+            --accent-hover: #059669;
+            --accent-gradient: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 28px rgba(16, 185, 129, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--bg-surface-elevated) transparent;
+        }
+
+        /* Scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-surface-elevated);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- Sidebar Styles --- */
+        aside {
+            width: 300px;
+            height: 100vh;
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-box {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .search-container {
+            padding: 16px 24px 8px 24px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .search-box:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 36px;
+            top: 28px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        nav {
+            flex: 1;
+            padding: 16px 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 16px 0 8px 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item:hover {
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-primary);
+            font-weight: 600;
+            border-left: 3px solid var(--accent-primary);
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .sidebar-footer {
+            padding: 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .theme-toggle, .reset-btn {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .theme-toggle:hover, .reset-btn:hover {
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* --- Main Content Layout --- */
+        main {
+            margin-left: 300px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        header {
+            height: 80px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            backdrop-filter: blur(8px);
+        }
+
+        .header-left h2 {
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .header-left .breadcrumbs {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-base);
+            transform: translateY(-2px);
+        }
+
+        /* --- Tabs --- */
+        .tabs-container {
+            padding: 24px 40px 0 40px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 24px;
+        }
+
+        .tab {
+            padding: 12px 8px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        /* --- Scrollable Content --- */
+        .content-body {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .content-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 40px;
+            animation: fadeIn 0.4s ease-out;
+            min-height: 700px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- In-page Slideshow for topic content --- */
+        .topic-slideshow {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 680px;
+            animation: fadeIn 0.3s ease-out;
+        }
+        .slideshow-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-surface-elevated);
+            gap: 16px;
+        }
+        .slideshow-doc-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+        }
+        .slideshow-counter {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .slideshow-viewport {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+        .topic-slide {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            padding: 40px 48px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(40px);
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            overflow-y: auto;
+        }
+        .topic-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+        .topic-slide.exit-left {
+            opacity: 0;
+            transform: translateX(-40px);
+        }
+        .slide-section-num {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-primary);
+            background: rgba(16,185,129,0.1);
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 20px;
+            padding: 3px 10px;
+            margin-bottom: 14px;
+        }
+        .slide-section-title {
+            font-family: var(--font-title);
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .slide-section-body {
+            font-size: 0.97rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+        .slide-section-body p { margin-bottom: 1em; }
+        .slide-section-body ul, .slide-section-body ol {
+            padding-left: 20px;
+            margin-bottom: 1em;
+        }
+        .slide-section-body li { margin-bottom: 0.4em; }
+        .slide-section-body h3 {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 1.4em 0 0.5em;
+        }
+        .slide-section-body h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 1em 0 0.4em;
+        }
+        .slide-section-body code {
+            font-family: var(--font-mono);
+            font-size: 0.82em;
+            background: var(--bg-surface-elevated);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            color: var(--accent-primary);
+        }
+        .slide-section-body pre {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+        .slide-section-body pre code {
+            background: none; border: none; padding: 0; font-size: 0.88em;
+        }
+        .slide-section-body table {
+            width: 100%; border-collapse: collapse; margin: 1em 0;
+            border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;
+        }
+        .slide-section-body th {
+            background: var(--bg-surface-elevated);
+            padding: 10px 14px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .slide-section-body td {
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .slideshow-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            gap: 16px;
+        }
+        .slide-arrow-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-family: var(--font-main);
+        }
+        .slide-arrow-btn:hover:not(:disabled) {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            background: rgba(16,185,129,0.08);
+        }
+        .slide-arrow-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        .slide-dots {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .slide-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            border: 1px solid var(--accent-primary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .slide-dot.active {
+            background: var(--accent-primary);
+            transform: scale(1.3);
+        }
+
+        /* --- Markdown Styling (Clean & Premium) --- */
+        .markdown-body {
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+            font-family: var(--font-title);
+            color: var(--text-primary);
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+            font-weight: 700;
+        }
+
+        .markdown-body h1 {
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.3em;
+            margin-top: 0;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .markdown-body h2 {
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.2em;
+        }
+
+        .markdown-body h3 {
+            font-size: 1.25rem;
+        }
+
+        .markdown-body p {
+            margin-bottom: 1.2em;
+            color: var(--text-secondary);
+        }
+
+        .markdown-body ul, .markdown-body ol {
+            margin-bottom: 1.2em;
+            padding-left: 24px;
+            color: var(--text-secondary);
+        }
+
+        .markdown-body li {
+            margin-bottom: 0.4em;
+        }
+
+        .markdown-body code {
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            background: var(--bg-base);
+            padding: 3px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            color: var(--accent-secondary);
+        }
+
+        .markdown-body pre {
+            background: var(--bg-base);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin-bottom: 1.6em;
+            border: 1px solid var(--border-color);
+        }
+
+        .markdown-body pre code {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            border: none;
+            color: inherit;
+            font-size: 0.9em;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.6em;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .markdown-body th, .markdown-body td {
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .markdown-body th {
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .markdown-body td {
+            color: var(--text-secondary);
+        }
+
+        .markdown-body tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .markdown-body blockquote {
+            border-left: 4px solid var(--accent-primary);
+            padding: 12px 24px;
+            margin-bottom: 1.6em;
+            background: rgba(16, 185, 129, 0.07);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+
+        .markdown-body blockquote p {
+            margin-bottom: 0;
+            font-style: italic;
+            color: var(--text-primary);
+        }
+
+        /* --- Stat cards row --- */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-info .stat-value {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            line-height: 1;
+        }
+
+        .stat-info .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* --- Interactive Dashboard styles --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .dashboard-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            min-height: 380px;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .dash-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .dash-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard-card:nth-child(2) .dash-icon {
+            background: rgba(52, 211, 153, 0.12);
+            color: var(--accent-secondary);
+        }
+
+        .dashboard-card:nth-child(3) .dash-icon {
+            background: rgba(110, 231, 183, 0.12);
+            color: #6ee7b7;
+        }
+
+        .dashboard-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .dash-card-footer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+        }
+
+        /* --- Interactive Checklist Styles --- */
+        .checklist-group {
+            margin-bottom: 32px;
+        }
+        .checklist-group-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .checklist-group-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: var(--accent-gradient);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .checklist-group-title {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            flex: 1;
+        }
+        .checklist-group-pct {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+        .checklist-group-bar {
+            height: 4px;
+            background: var(--bg-surface-elevated);
+            border-radius: 2px;
+            overflow: hidden;
+            width: 100px;
+        }
+        .checklist-group-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        /* Sub-section mini-card grid */
+        .checklist-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .checklist-mini-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            min-height: 115px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .checklist-mini-card:hover {
+            border-color: rgba(16,185,129,0.4);
+            background: var(--bg-surface-elevated);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        .checklist-mini-card.all-done {
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(16,185,129,0.06);
+        }
+        .mini-card-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .mini-card-count {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .mini-card-count span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .mini-card-bar {
+            height: 3px;
+            background: var(--bg-base);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .mini-card-fill {
+            height: 100%;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+        /* Expanded checklist items (shown in a drawer) */
+        .checklist-drawer {
+            display: none;
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 400px;
+            max-width: 90vw;
+            background: var(--bg-surface);
+            border-left: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            z-index: 300;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .checklist-drawer.open {
+            display: flex;
+        }
+        .drawer-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, transparent 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        .drawer-title {
+            font-family: var(--font-title);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .drawer-close {
+            background: var(--bg-surface-elevated);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition-smooth);
+        }
+        .drawer-close:hover { background: var(--bg-base); color: var(--text-primary); }
+        .drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .checklist-item:hover {
+            border-color: var(--accent-primary);
+            background: var(--bg-surface-elevated);
+        }
+        .checklist-item.checked {
+            border-color: rgba(16,185,129,0.4);
+            opacity: 0.75;
+        }
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            border: 2px solid var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            margin-top: 1px;
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+        }
+        .checklist-item.checked .checklist-checkbox {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+        .checklist-item.checked .checklist-checkbox::after {
+            content: "✓"; font-size: 0.75rem; font-weight: 700; color: #fff;
+        }
+        .checklist-label {
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+        .checklist-item.checked .checklist-label {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+        }
+        .drawer-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin: 14px 0 8px 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .checklist-progress-bar { height: 6px; background: var(--bg-surface-elevated); border-radius: 3px; overflow: hidden; }
+        .checklist-progress-fill { height: 100%; background: var(--accent-gradient); width: 0%; transition: width 0.3s ease; }
+
+        /* --- Slide Presenter Modal Styles --- */
+        .presenter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #090d16;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            color: #f8fafc;
+        }
+
+        .presenter-header {
+            height: 70px;
+            background: rgba(30, 41, 59, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+        }
+
+        .presenter-title {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .presenter-close {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .presenter-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .presenter-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 90%;
+            max-width: 960px;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .slide-content h2 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 24px;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-content h3 {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #f8fafc;
+        }
+
+        .slide-content p {
+            font-size: 1.4rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .slide-content ul {
+            text-align: left;
+            display: inline-block;
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .slide-content li {
+            margin-bottom: 10px;
+        }
+
+        /* Slide Speaker Notes panel */
+        .notes-panel {
+            width: 100%;
+            height: 150px;
+            background: #111827;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 24px 40px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .notes-label {
+            font-size: 0.75rem;
+            color: var(--accent-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .notes-content {
+            font-size: 1rem;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .presenter-footer {
+            height: 60px;
+            background: #0f172a;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .slide-counter {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .presenter-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .control-btn:hover {
+            background: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* --- Modal styles --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 600px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .modal-body p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        /* --- Search Results styles --- */
+        .search-results-container {
+            position: absolute;
+            top: 70px;
+            left: 24px;
+            right: 24px;
+            max-height: 350px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            z-index: 120;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: var(--bg-surface-elevated);
+        }
+
+        .result-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .result-snippet {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .result-badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-primary);
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        /* --- Floating present button --- */
+        .floating-present-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            z-index: 80;
+            transition: var(--transition-smooth);
+        }
+
+        .floating-present-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="sidebar-header">
+            <div class="logo-box">
+                <i data-lucide="layers"></i>
+            </div>
+            <div class="logo-text">
+                <h1>ConnectED</h1>
+                <span>Agentic Hub</span>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Search topics, slides..." id="globalSearch">
+            <i data-lucide="search" class="search-icon" size="18"></i>
+            
+            <div class="search-results-container" id="searchResults">
+                <!-- Dynamic Search Results -->
+            </div>
+        </div>
+        
+        <nav>
+            <div class="nav-item active" onclick="showDashboard()" id="nav-dashboard">
+                <i data-lucide="layout-dashboard"></i>
+                Dashboard
+            </div>
+            
+            <div class="nav-label">Curriculum topics</div>
+            
+            <div class="nav-item" onclick="showTopic('01_connected_platform')" id="nav-01_connected_platform">
+                <i data-lucide="school"></i>
+                01. ConnectED Platform
+            </div>
+            
+            <div class="nav-item" onclick="showTopic('02_agentic_stack')" id="nav-02_agentic_stack">
+                <i data-lucide="cpu"></i>
+                02. Agentic AI Stack
+            </div>
+            
+            <div class="nav-item" onclick="showTopic('03_challenges_ops')" id="nav-03_challenges_ops">
+                <i data-lucide="shield-alert"></i>
+                03. Challenges & Ops
+            </div>
+            
+            <div class="nav-label">Handouts</div>
+            
+            <div class="nav-item" onclick="showTopic('04_deployment_handouts')" id="nav-04_deployment_handouts">
+                <i data-lucide="check-square"></i>
+                04. Checklists
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <i data-lucide="moon" id="theme-icon"></i>
+            </div>
+            
+            <div class="reset-btn" onclick="resetChecklist()" title="Reset Checklist Progress">
+                <i data-lucide="rotate-ccw"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN MAIN -->
+    <main>
+        <header>
+            <div class="header-left">
+                <h2 id="currentCategoryTitle">Dashboard</h2>
+                <div class="breadcrumbs" id="currentCategoryPath">Home / Dashboard</div>
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="openAboutModal()">
+                    <i data-lucide="info"></i>
+                    About Project
+                </button>
+                <button class="btn btn-primary" onclick="presentSlides()" id="presentBtn" style="display: none;">
+                    <i data-lucide="play"></i>
+                    Present Slides
+                </button>
+            </div>
+        </header>
+        
+        <!-- TABS FOR CONTENT TOPICS -->
+        <div class="tabs-container" id="tabsContainer" style="display: none;">
+            <div class="tab active" onclick="switchTab('reference')" id="tab-reference">
+                <i data-lucide="book-open"></i>
+                Reference Doc
+            </div>
+            <div class="tab" onclick="switchTab('detailed_notes')" id="tab-detailed_notes">
+                <i data-lucide="file-text"></i>
+                Detailed Notes
+            </div>
+            <div class="tab" onclick="switchTab('presentation_script')" id="tab-presentation_script">
+                <i data-lucide="presentation"></i>
+                Presentation Script
+            </div>
+        </div>
+        
+        <!-- SCROLLABLE BODY -->
+        <div class="content-body">
+            
+            <!-- DASHBOARD CONTENT -->
+            <div id="dashboardView">
+                <!-- Hero -->
+                <div class="content-card" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 60%, #a7f3d0 100%); border: 1px solid rgba(16,185,129,0.25); padding: 40px; margin-bottom: 24px; min-height: auto;">
+                    <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                        <div style="width:52px;height:52px;border-radius:14px;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;border:1px solid rgba(16,185,129,0.3);">
+                            <i data-lucide="layers" style="color:#059669;"></i>
+                        </div>
+                        <div>
+                            <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#059669;margin-bottom:4px;">Workshop Hub</div>
+                            <h2 style="font-family: var(--font-title); font-size: 1.9rem; font-weight: 800; color:#064e3b;">ConnectED &amp; The Agentic Stack</h2>
+                        </div>
+                    </div>
+                    <p style="color: #065f46; font-size: 1rem; line-height: 1.7; max-width: 780px; margin-bottom: 0;">
+                        Explore the lesson planning foundation of ConnectED and dive deep into the layers of the emerging Agentic AI Stack — from orchestration and reasoning to AgentOps, commerce protocols, and production checklists.
+                    </p>
+                </div>
+
+                <!-- Stat Cards -->
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-lucide="book-open"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Curriculum Topics</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-lucide="check-square"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Deployment Checklists</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-lucide="layers"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Agentic Stack Layers</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i data-lucide="trending-up"></i></div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="overallPercentage">0%</div>
+                            <div class="stat-label">Checklist Progress</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 style="font-family: var(--font-title); margin: 0 0 16px 0; font-weight: 700; font-size: 1.3rem; color: var(--text-secondary);">Curriculum Topics</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" onclick="showTopic('01_connected_platform')">
+                        <div class="dash-card-header">
+                            <div class="dash-icon"><i data-lucide="school"></i></div>
+                            <i data-lucide="arrow-right" style="color: var(--text-muted);"></i>
+                        </div>
+                        <h3>01. ConnectED Platform</h3>
+                        <p>Learn about the AI-native lesson planning platform designed for Vietnamese teachers, the ADDIE instructional model, and localization infrastructure.</p>
+                        <div class="dash-card-footer">
+                            <span>Explore Topic</span>
+                            <i data-lucide="chevron-right" size="16"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" onclick="showTopic('02_agentic_stack')">
+                        <div class="dash-card-header">
+                            <div class="dash-icon"><i data-lucide="cpu"></i></div>
+                            <i data-lucide="arrow-right" style="color: var(--text-muted);"></i>
+                        </div>
+                        <h3>02. Agentic AI Stack</h3>
+                        <p>Explore the 5 layers of modern agents: Orchestration, Reasoning, reusable Skills, MCP/A2A tools, AP2/ACP commerce, and Memory loops.</p>
+                        <div class="dash-card-footer">
+                            <span>Explore Topic</span>
+                            <i data-lucide="chevron-right" size="16"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" onclick="showTopic('03_challenges_ops')">
+                        <div class="dash-card-header">
+                            <div class="dash-icon"><i data-lucide="shield-alert"></i></div>
+                            <i data-lucide="arrow-right" style="color: var(--text-muted);"></i>
+                        </div>
+                        <h3>03. Challenges &amp; AgentOps</h3>
+                        <p>Deep-dive into critical developer bottlenecks: reliability issues, evaluation frameworks, computational costs, and AgentOps platforms.</p>
+                        <div class="dash-card-footer">
+                            <span>Explore Topic</span>
+                            <i data-lucide="chevron-right" size="16"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 style="font-family: var(--font-title); margin: 32px 0 16px 0; font-weight: 700; font-size: 1.3rem; color: var(--text-secondary);">Handouts &amp; Checklists</h2>
+                <div class="content-card" style="padding: 24px 30px; display:flex; align-items:center; gap:24px; flex-wrap:wrap; min-height: auto;">
+                    <div style="flex:1; min-width:220px;">
+                        <div style="font-weight: 700; font-size: 1rem; margin-bottom:6px;">Overall Deployment Readiness</div>
+                        <div class="checklist-progress-bar" style="width: 100%; height: 10px;">
+                            <div class="checklist-progress-fill" id="overallProgressFill" style="width: 0%;"></div>
+                        </div>
+                        <p style="font-size: 0.83rem; color: var(--text-secondary); margin-top: 10px; margin-bottom: 0;">
+                            Go to <b>04. Checklists</b> to track deployment, optimization, token use, evaluation, and AgentOps readiness.
+                        </p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showTopic('04_deployment_handouts')" style="flex-shrink:0;">
+                        <i data-lucide="check-square"></i>
+                        Open Checklists
+                    </button>
+                </div>
+            </div>
+            
+            <!-- MARKDOWN & CHECKLISTS VIEW -->
+            <div id="contentView" style="display: none;">
+                <div class="content-card">
+                    <div id="renderedMarkdown" class="markdown-body">
+                        <!-- Rendered Markdown goes here -->
+                    </div>
+                    
+                    <div id="interactiveChecklist" style="display: none;">
+                        <!-- Interactive Checklists go here -->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- FLOATING PRESENT BUTTON -->
+    <div class="floating-present-btn" id="floatingPresentBtn" style="display: none;" onclick="presentSlides()" title="Launch Presentation Slides">
+        <i data-lucide="play" size="24"></i>
+    </div>
+
+    <!-- PRESENTATION MODAL -->
+    <div class="presenter-modal" id="presenterModal">
+        <div class="presenter-header">
+            <div class="presenter-title" id="presenterSlideTitle">Slide Presentation Mode</div>
+            <button class="presenter-close" onclick="closePresenter()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        
+        <div class="presenter-main">
+            <div class="slide-container">
+                <div id="slideContent" class="slide-content">
+                    <!-- Dynamic Slide content -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="notes-panel">
+            <div class="notes-label">Speaker Notes</div>
+            <div class="notes-content" id="slideNotes">
+                No notes available.
+            </div>
+        </div>
+        
+        <div class="presenter-footer">
+            <div class="slide-counter" id="slideCounter">Slide 1 of 10</div>
+            
+            <div class="presenter-controls">
+                <button class="control-btn" id="prevSlideBtn" onclick="prevSlide()">
+                    <i data-lucide="arrow-left"></i>
+                </button>
+                <button class="control-btn" id="nextSlideBtn" onclick="nextSlide()">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT MODAL -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>About ConnectED & Agentic AI Stack</h3>
+                <button class="presenter-close" onclick="closeAboutModal()"><i data-lucide="x" size="18"></i></button>
+            </div>
+            <div class="modal-body">
+                <p><b>ConnectED & The Emerging Agentic AI Stack</b> represents a research and workshop syllabus mapping specialized local domain expertise (Vietnamese education curriculum) into state-of-the-art agent frameworks.</p>
+                <p>This UI parses split markdown documents directly from the <code>ref_doc</code> folder of the workspace, organizing content into topics:
+                <ul>
+                    <li style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 6px;"><b>01. Platform:</b> Focuses on the ADDIE instruction framework, localization, and impact.</li>
+                    <li style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 6px;"><b>02. Stack:</b> Explores orchestration, reasoning, skills, MCP protocols, and commerce trust mandates.</li>
+                    <li style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 6px;"><b>03. Challenges:</b> Addresses latency, costs, trajectory evaluation, and AgentOps.</li>
+                    <li style="margin-left: 20px; color: var(--text-secondary); margin-bottom: 6px;"><b>04. Checklists:</b> Interactive checklists to prepare your agentic deployment.</li>
+                </ul>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeAboutModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DATA SCRIPT -->
+    <script>
+        const WORKSHOP_CONTENT = {
+  "01_connected_platform": {
+    "title": "ConnectED Platform",
+    "files": {
+      "reference": "# ConnectED: Một Nền Tảng AI-Native Cho Giáo Dục Việt Nam\n\n## Tổng Quan (Overview)\nConnectED là một nền tảng soạn giáo án tích hợp AI được thiết kế đặc biệt cho hệ thống giáo dục K–12 Việt Nam.\n* **Mục Tiêu Cốt Lõi (Core Goal):** Tăng tốc quy trình thiết kế bài giảng chất lượng cao từ vài giờ xuống còn vài phút.\n* **Sản Phẩm Đầu Ra:** Các giáo án chuẩn chương trình giáo dục phổ thông mới, slide bài giảng, tài liệu giảng dạy và phòng thí nghiệm ảo (virtual labs).\n* **Cách Tiếp Cận (Approach):** Định hình việc tạo nội dung bằng AI theo các quy trình nghiệp vụ sư phạm thực tế tại địa phương thay vì sử dụng các one-shot prompts chung chung.\n\n---\n\n## Bối Cảnh Vấn Đề (Problem Context)\nĐể chuẩn bị một bài giảng chất lượng cao hoàn chỉnh, giáo viên phải mất từ **3 đến 4 tiếng** làm việc thủ công. Các mô hình ngôn ngữ lớn chung chung (như ChatGPT) thường thất bại khi triển khai thực tế trong lớp học vì:\n* **Sự Phù Hợp Chương Trình Kém (Weak Curriculum Alignment):** Đưa ra các chủ đề ngoài sách giáo khoa.\n* **Trình Tự Không Chính Xác (Inaccurate Sequencing):** Luồng sư phạm nghèo nàn.\n* **Thiếu Bản Địa Hóa (Lack of Localization):** Giả định và thuật ngữ mang tính phương Tây.\n* **Thiết Kế Hoạt Động Mơ Hồ (Vague Activity Design):** Các nhiệm vụ trong lớp không khả thi.\n* **Nội Dung Bị Ảo Tưởng (Hallucinated Content):** Tham chiếu thông tin thực tế sai lệch.\n\n*Bài học:* AI trong giáo dục phải được bản địa hóa sâu sắc (localized) và được xây dựng trên nền tảng sư phạm vững chắc (pedagogically grounded).\n\n---\n\n## Nền Tảng Thiết Kế Sư Phạm: ADDIE (Instructional Design Foundation)\nThay vì tạo nội dung một lần duy nhất, ConnectED chia nhỏ quy trình soạn bài giảng bằng mô hình **ADDIE**:\n\n1. **Phân Tích (Analyze):** Xử lý sách giáo khoa/chương trình học để trích xuất các khái niệm cốt lõi (core concepts), kết quả học tập mong đợi (learning outcomes) và kiến thức tiền đề (prerequisites).\n2. **Thiết Kế (Design):** Tạo cấu trúc bài học, các hoạt động, phân bổ thời gian và chiến lược đánh giá.\n3. **Phát Triển (Develop):** Tạo các tài nguyên đa phương tiện bằng quy trình **Script-First Workflow** (tạo kịch bản lời thoại trước khi thiết kế hình ảnh) để đảm bảo tính nhất quán.\n4. **Triển Khai & Đánh Giá (Implement & Evaluate):** Duy trì các chốt kiểm duyệt **Human-in-the-Loop** để giáo viên xem xét, tinh chỉnh và điều chỉnh.\n\n---\n\n## Quy Trình Xử Lý Đa Tác Nhân Phân Cấp (Hierarchical Agent Pipeline)\nConnectED tránh sử dụng các prompts nguyên khối lớn (monolithic prompts), thay vào đó sử dụng một **hierarchical agent pipeline** chuyên biệt:\n\n```\n[Concept Extraction] -> [Objective Gen] -> [Activity Design] -> [Content Dev] -> [Visuals] -> [Teacher Review]\n```\n\n**Lợi Ích Của Việc Phân Rã (Benefits of Decomposition):**\n* Giảm độ phức tạp của prompt và hạ thấp tỷ lệ ảo tưởng (hallucination).\n* Dễ dàng xác thực các kết quả trung gian.\n* Gỡ lỗi theo từng module và đảm bảo tính nhất quán sư phạm mạnh mẽ.\n\n---\n\n## Phòng Thí Nghiệm Ảo Và Học Tập Tương Tác (Virtual Labs and Interactive Learning)\nConnectED tích hợp các hướng dẫn thí nghiệm ảo và mô phỏng (Vật lý, Hóa học, Sinh học) cho việc học STEM:\n* **Hỗ Trợ Cơ Sở Vật Chất (Infrastructure Support):** Thu hẹp khoảng cách cho các trường học thiếu thiết bị thí nghiệm vật lý thực tế.\n* **Học Tập Khám Phá (Exploratory Learning):** Kết nối các hình ảnh tương tác trực quan với các mục tiêu cụ thể trong sách giáo khoa.\n* **Hỗ Trợ Sư Phạm Từ AI (AI Scaffolding):** Các hướng dẫn có cấu trúc giúp học sinh thực hiện các quan sát và rút ra kết luận.\n\n---\n\n## Bản Địa Hóa Như Một Nguyên Tắc Cốt Lõi (Localization as a Core Principle)\nBản địa hóa được coi là kiến trúc nền tảng, chứ không chỉ là một lớp dịch thuật (translation wrapper) bên ngoài:\n* **Tích Hợp Sâu Sắc (Deep Integration):** Cấu trúc chương trình học tại địa phương, kỳ vọng ngôn ngữ và hệ thống đánh giá điểm số được nhúng trực tiếp vào các prompts và templates.\n* **Bối Cảnh Văn Hóa (Cultural Context):** Sử dụng tên tiếng Việt, lịch sử địa phương và các tình huống thực tế của vùng miền cho các hoạt động lớp học.\n* **Tính Bản Địa (Authenticity):** Mang lại các kết quả đầu ra tạo cảm giác tự nhiên và thân thuộc đối với các nhà giáo dục Việt Nam.\n\n---\n\n## Tác Động (Impact)\nConnectED thay đổi hoàn toàn việc soạn giáo án bài học:\n* **Giảm Thời Gian (Time Reduction):** Thời gian chuẩn bị giảm từ **3-4 giờ** xuống còn **15-20 phút**.\n* **Các Bài Học Cốt Lõi (Core Insights):** AI giáo dục chỉ thực sự hiệu quả khi:\n  1. Sư phạm được nhúng trực tiếp vào kiến trúc hệ thống (pedagogy embedded in architecture).\n  2. Quy trình làm việc được phân rã theo dạng phân cấp (hierarchically decomposed).\n  3. Giáo viên được giữ vai trò kiểm duyệt (teachers remain in the loop).\n  4. Bản địa hóa đóng vai trò như một hạ tầng nền tảng (localization is foundational infrastructure).\n",
+      "detailed_notes": "# Workshop — Tài Liệu Ghi Chú Chi Tiết\n## ConnectED: Một Nền Tảng AI-Native Cho Giáo Dục Việt Nam\n\n> Các ghi chú này cung cấp chiều sâu kỹ thuật, lý do thiết kế và bối cảnh thực tế cho các giảng viên và học viên nâng cao.\n\n---\n\n### Phần 1.1: Tổng Quan — ConnectED là gì?\n* **Khác Biệt Cốt Lõi (Core Distinction):** Coi việc soạn giáo án bài học như một quy trình thiết kế sư phạm có hệ thống thay vì chỉ là truy xuất nội dung đơn thuần.\n* **Ba Sản Phẩm Đầu Ra Chính:** \n  1. Bản thiết kế bài học (lesson blueprints) có cấu trúc và phù hợp với chương trình học.\n  2. Kịch bản slide lời thuyết minh và hoạt cảnh.\n  3. Chuỗi hướng dẫn thí nghiệm ảo STEM (Virtual Lab sequences) mang tính tương tác.\n* **Bối Cảnh Việt Nam:** ConnectED tận dụng chương trình giáo dục phổ thông quốc gia thống nhất của Việt Nam do Bộ Giáo dục và Đào tạo (MOET) quản lý. Điều này cung cấp một ràng buộc chặt chẽ và một đồ thị tri thức (knowledge graph) được xác định rõ ràng để đối chiếu (grounding).\n\n---\n\n### Phần 1.2: Bối Cảnh Vấn Đề — Khối Lượng Công Việc Của Giáo Viên\n* **Thực Tế Của Giáo Viên:** Chuẩn bị bài dạy tiêu tốn từ 3–4 tiếng cho mỗi tiết dạy. Công việc này bao trùm nhiều miền nhận thức: trích xuất khái niệm từ sách giáo khoa, thiết kế hoạt động và lập sơ đồ đánh giá.\n* **Tại Sao Các LLM Chung Chung Thất Bại:** Các mô hình có sẵn (out-of-the-box models) mặc định áp dụng các tiêu chuẩn chương trình giáo dục phương Tây, đề xuất các thiết bị thí nghiệm không có sẵn, sử dụng thuật ngữ không nhất quán và thiếu bối cảnh văn hóa địa phương.\n* **Quyết Định Thiết Kế (Design Decision):** ConnectED giải quyết vấn đề này thông qua việc đối chiếu ngữ cảnh (grounding prompts) và sử dụng templates thay vì các phương án tinh chỉnh mô hình (fine-tuning) đắt đỏ và dễ lỗi.\n\n---\n\n### Phần 1.3: ADDIE — Ánh Xạ Tính Toán (Computational Mapping)\nCác giai đoạn của ADDIE ánh xạ trực tiếp đến các tiểu tác vụ tính toán riêng biệt, mỗi giai đoạn đều có dữ liệu đầu vào (inputs), đầu ra (outputs) và các quy tắc xác thực (validation rules) nghiêm ngặt:\n\n* **Phân Tích (Analyze):** Xử lý tài liệu sách giáo khoa để tạo ra cấu trúc JSON của các khái niệm cốt lõi (core concepts), năng lực cần đạt và kiến thức tiền đề (prerequisites).\n* **Thiết Kế (Design):** Phác thảo bản thiết kế bài học, phân bổ thời gian hoạt động (nhắm mục tiêu tiết học 45 phút tiêu chuẩn) và chiến lược đánh giá.\n* **Phát Triển (Develop):** Xây dựng các tài nguyên học tập. Quyết định cốt lõi: *Script-First Approach* (phương pháp kịch bản trước) — tạo lời thoại thuyết minh và nội dung sư phạm trước khi thiết kế phương tiện hình ảnh để đảm bảo tính liên kết.\n* **Triển Khai & Đánh Giá (Implement & Evaluate):** Hiển thị qua giao diện xem xét (review UI) để giáo viên có thể chỉnh sửa và thu thập phản hồi.\n\n---\n\n### Phần 1.4: Quy Trình Xử Lý Đa Tác Nhân Phân Cấp (Hierarchical Agent Pipeline)\nCách tiếp cận prompt nguyên khối đơn lẻ (monolithic single-prompt) dễ gặp phải tình trạng bão hòa ngữ cảnh (context saturation), thiếu các điểm kiểm tra xác thực trung gian, khó gỡ lỗi và làm phóng đại các lỗi ảo tưởng (hallucination).\n\n| Giai đoạn (Stage) | Đầu Vào (Input) | Đầu Ra (Output) | Xác Thực Quan Trọng (Key Validation) |\n|---|---|---|---|\n| **1. Concept Extraction** | Sách giáo khoa & Chương trình học | Concept Graph | Độ bao phủ so với chuẩn MOET |\n| **2. Objective Gen** | Concept Graph | Mục tiêu gắn nhãn Bloom's | Kiểm tra tính khả thi (Actionability check) |\n| **3. Activity Design** | Các mục tiêu | Tiến trình hoạt động theo thời gian | Tổng thời gian <= 45 phút |\n| **4. Content Dev** | Bản phác thảo hoạt động | Kịch bản & Nội dung Slide | Sự đồng bộ về thuật ngữ |\n| **5. Media Gen** | Kịch bản & Văn bản Slide | Hướng dẫn lab & Prompts hoạt cảnh | Khớp nối kịch bản (Narrative match) |\n| **6. Evaluation Review** | Trọn bộ gói bài giảng | Review trên UI của giáo viên | Chốt kiểm soát Human-in-the-loop |\n\n---\n\n### Phần 1.5: Tích Hợp Phòng Thí Nghiệm Ảo (Virtual Labs Integration)\n* **Cấu Trúc Sư Phạm:** Các phòng thí nghiệm ảo là các chuỗi hoạt động có cấu trúc (thiết lập, quy trình, kết quả mong đợi, phiếu bài tập) chứ không phải các mô phỏng không có cấu trúc.\n* **Tích Hợp Quy Trình (Pipeline Integration):** Được tạo trong giai đoạn *Develop*, liên kết chính xác với kiến thức tiền đề từ Stage 1.\n* **Tác Động Bình Đẳng Giáo Dục (Equity Impact):** Giải quyết tình trạng thiếu thiết bị tại khoảng 30% trường học Việt Nam chưa có hạ tầng phòng thí nghiệm vật lý thực tế.\n\n---\n\n### Phần 1.6: Các Cấp Độ Bản Địa Hóa (Localization Spectrum)\nBản địa hóa được tích hợp như một hạ tầng nền tảng hơn là một lớp dịch thuật đơn giản:\n* **Bề mặt (Surface):** Dịch thuật sang tiếng Việt.\n* **Thuật ngữ (Terminology):** Áp dụng các thuật ngữ MOET tiêu chuẩn.\n* **Sư phạm (Pedagogical):** Điều chỉnh các hoạt động cho phù hợp với các lớp học sĩ số lớn và công nghệ hỗ trợ còn hạn chế tại địa phương.\n* **Văn hóa (Cultural):** Tham chiếu lịch sử Việt Nam, danh lam thắng cảnh và tên gọi vùng miền.\n* **Pháp lý (Regulatory):** Ánh xạ các đánh giá sang khung năng lực của MOET.\n\n---\n\n### Phần 1.7: Các Bài Học Cốt Lõi (Core Takeaways)\nConnectED chứng minh 4 nguyên tắc thiết kế kỹ thuật AI cốt lõi:\n1. **Domain Grounding:** Loại bỏ hiện tượng ảo tưởng (hallucinations).\n2. **Hierarchical Decomposition:** Tăng cường khả năng gỡ lỗi hệ thống.\n3. **Human-in-the-loop:** Duy trì niềm tin và xử lý tốt các tình huống biên (edge cases).\n4. **Localization as Moat:** Tạo ra giá trị vượt trội cho nhóm người dùng mục tiêu.\n",
+      "presentation_script": "# Kịch Bản Thuyết Trình Workshop\n## ConnectED: Một Nền Tảng AI-Native Cho Giáo Dục Việt Nam\n\n> **Format:** Phần I | khoảng 35 phút tổng cộng  \n> **Người nghe:** Nhà phát triển, Quản lý sản phẩm (PMs), Nhà nghiên cứu và Nhà giáo dục  \n\n---\n\n## DANH SÁCH KIỂM TRA TRƯỚC BUỔI NÓI CHUYỆN (PRE-TALK CHECKLIST)\n- [ ] Các slide đã được tải lên giao diện UI và trình chiếu trên màn hình\n- [ ] Môi trường Demo hoạt động bình thường (Giao diện ConnectED UI/Trace viewer)\n- [ ] Đồng hồ đếm giờ của người thuyết trình đã hiển thị\n\n---\n\n## MỞ ĐẦU (OPENING) (3 phút)\n\n### Slide 1: Slide Tiêu Đề (Title Slide)\n**Visual:** Slide tiêu đề sạch sẽ với logo nền tảng: \"ConnectED: AI-Native Lesson Planning\"\n\n**Script:**\n> \"Một giáo viên mất bao nhiêu thời gian để chuẩn bị cho một tiết học? Thông thường là 3 đến 4 tiếng. Cho mỗi một tiết học duy nhất.\"\n> \"Hôm nay, chúng ta sẽ tìm hiểu cách thức hệ thống điều phối AI chuyên biệt theo lĩnh vực (domain-specific AI orchestration) có thể cắt giảm gánh nặng này xuống còn vài phút, và những bài học kiến trúc hệ thống áp dụng cho tất cả các hệ thống doanh nghiệp (enterprise systems).\"\n\n**Transition:** \"Hãy cùng giới thiệu về nền tảng.\"\n\n---\n\n## PHẦN I — ConnectED (30 phút)\n\n### Slide 2: ConnectED là gì?\n**Visual:** Một hàng gồm ba biểu tượng: Giáo án (Lesson Plans) | Slide kèm thuyết minh (Narrated Slides) | Phòng thí nghiệm ảo STEM (STEM Virtual Labs)\n\n* Nền tảng soạn giáo án AI-native cho giáo dục K-12 tại Việt Nam.\n* Tạo ra các tài liệu học tập chuẩn chương trình học và các phòng thí nghiệm ảo.\n* Mục tiêu: Giảm tải khối lượng công việc chuẩn bị trong khi vẫn giữ quyền kiểm soát sư phạm của con người (human pedagogical control).\n\n**Script:**\n> \"ConnectED không phải là một trình tạo nội dung bằng một prompt duy nhất (single prompt generator). Nó là một hệ thống đa tác nhân có cấu trúc (structured agentic system) được thiết kế để tạo ra các bài giảng chuẩn chương trình học, kịch bản slide và hướng dẫn phòng thí nghiệm ảo.\"\n\n---\n\n### Slide 3: Vấn Đề — Khối Lượng Công Việc Của Giáo Viên (Teacher Workload)\n**Visual:** Sơ đồ phân bổ thời gian chuẩn bị bài học:\n* Xác định mục tiêu (Objective formulation): khoảng 30 phút\n* Trích xuất khái niệm (Concept extraction): khoảng 45 phút\n* Thiết kế hoạt động (Activity design): khoảng 40 phút\n* Tạo hình ảnh trực quan (Visual creation): khoảng 45 phút\n* Sơ đồ đánh giá kiểm tra (Assessment mapping): khoảng 30 phút\n* **Tổng cộng: 3-4 Tiếng**\n\n**Script:**\n> \"Khi phân tích quy trình soạn bài, chúng tôi nhận ra đây không phải là một tác vụ đơn lẻ mà là một chuỗi các kỹ năng nhận thức khác nhau. Các LLMs thông dụng (out-of-the-box LLMs) không thể đáp ứng được thực tế phức tạp này.\"\n\n---\n\n### Slide 4: Tại Sao Các LLM Chung Chung Thất Bại (Why Generic LLMs Fall Short)\n**Visual:** Các so sánh có độ tương phản cao:\n* **Thiên lệch phương Tây (Western Bias):** Mặc định theo chương trình nước ngoài (ví dụ: US Common Core).\n* **Không tương thích thiết bị (Equipment Mismatch):** Gợi ý các thiết bị phòng thí nghiệm không có sẵn.\n* **Thiếu bản địa hóa (Lack of Localization):** Bỏ qua các tên gọi, lịch sử địa phương và các tiêu chuẩn của Bộ Giáo dục (MOET).\n* **Ảo tưởng (Hallucinations):** Tự tạo ra các trình tự sư phạm không thực tế.\n\n**Script:**\n> \"Các mô hình chung chung sẽ mặc định hoạt động theo dữ liệu mà chúng được huấn luyện. Để thành công, chúng ta phải đối chiếu và neo chúng vào bối cảnh địa phương ngay từ cấp độ kiến trúc hệ thống.\"\n\n---\n\n### Slide 5: ADDIE — Xương Sống Thiết Kế Hệ Thống\n**Visual:** Vòng lặp thể hiện: Phân tích (Analyze) -> Thiết kế (Design) -> Phát triển (Develop) -> Triển khai (Implement) -> Đánh giá (Evaluate)\n\n**Script:**\n> \"Chúng tôi giải quyết vấn đề này bằng cách nhúng trực tiếp mô hình thiết kế sư phạm ADDIE đã được chứng minh vào kiến trúc AI. Mỗi giai đoạn của ADDIE sẽ tương ứng với một giai đoạn AI riêng biệt.\"\n\n---\n\n### Slide 6: Đi Sâu Vào Các Giai Đoạn ADDIE\n**Visual:** Bảng phân tích hai cột:\n* **Analyze & Design:** Sách giáo khoa được xử lý thành đồ thị khái niệm (concept graphs); bản phác thảo bài giảng được lập bản đồ giới hạn trong 45 phút tiết học tiêu chuẩn.\n* **Develop & Implement:** Các tài nguyên truyền thông được tạo ra. Sử dụng quy trình *Script-First Workflow* (tạo lời thoại thuyết minh trước khi thiết kế hình ảnh). Giáo viên xem xét và tinh chỉnh lại.\n\n**Script:**\n> \"Bằng cách tạo kịch bản lời thoại trước khi thiết kế các hình ảnh trực quan, chúng tôi đã cải thiện đáng kể tính nhất quán và sự liên kết chặt chẽ giữa các slide được tạo ra và tài liệu thực hành thí nghiệm.\"\n\n---\n\n### Slide 7: Quy Trình Xử Lý Đa Tác Nhân Phân Cấp (Hierarchical Agent Pipeline)\n**Visual:** Sơ đồ luồng quy trình:\n`Concept Extraction -> Objective Gen -> Activity Design -> Content Dev -> Media Gen -> Human Review`\n\n* **Tại Sao Cần Phân Rã?**\n  * Giảm bão hòa ngữ cảnh (context saturation) cho mỗi cuộc gọi mô hình.\n  * Có các điểm kiểm tra xác thực trung gian (intermediate validation checkpoints).\n  * Thay thế các prompts mơ hồ bằng khả năng gỡ lỗi theo từng module.\n\n**Script:**\n> \"Chúng tôi chia nhỏ một vấn đề lớn thành sáu bước đã được xác thực. Nếu bước 1 thất bại, chúng tôi sẽ phát hiện và sửa chữa ngay trước khi nó làm ảnh hưởng xấu đến bước 5.\"\n\n---\n\n### Slide 8: Phòng Thí Nghiệm Ảo STEM (STEM Virtual Labs)\n**Visual:** Ảnh chụp màn hình các hướng dẫn phòng thí nghiệm ảo tương tác:\n\n* Phác thảo các bước tiến hành, hiện tượng quan sát mong đợi và các bảng số liệu.\n* Thiết kế đặc biệt dành cho khoảng 30% số trường học đang thiếu thốn thiết bị thí nghiệm vật lý thực tế.\n* Được gắn kết chặt chẽ với các mục tiêu của bài học.\n\n**Script:**\n> \"Phòng thí nghiệm ảo là một công cụ bình đẳng giáo dục rất quan trọng. Chúng tôi tạo ra các tài liệu hướng dẫn có cấu trúc để dẫn dắt học sinh thực hành các thí nghiệm ngay cả khi không có thiết bị vật lý.\"\n\n---\n\n### Slide 9: Bản Địa Hóa Là Cơ Sở Hạ Tầng (Localization is Infrastructure)\n**Visual:** Các lớp cốt lõi của bản địa hóa:\n* System Prompts (các tiêu chuẩn chương trình học)\n* Templates (cấu trúc đánh giá điểm số)\n* Terminologies (thuật ngữ tiêu chuẩn của MOET)\n* Bối cảnh văn hóa (tên gọi vùng miền, lịch sử Việt Nam)\n\n**Script:**\n> \"Bản địa hóa không phải là bước xử lý sau khi dịch (post-processing). Nó là cơ sở hạ tầng. Hãy đối xử với nó như một ràng buộc kiến trúc cốt lõi ngay từ ngày đầu tiên.\"\n\n---\n\n### Slide 10: Tác Động & Góc Nhìn Thực Tế (Impact & Insights)\n**Visual:** Chữ lớn nổi bật: **15 Phút** (so với 3 Tiếng)\n\n* Tiết kiệm thời gian: 85-90% cho mỗi bài học.\n* Giải phóng 75-90 giờ làm việc cho mỗi giáo viên trong mỗi học kỳ.\n* Quy tắc cốt lõi: Chuyển dịch từ các mô hình biệt lập sang các hệ thống được điều phối và bản địa hóa tốt (orchestrated, localized systems).\n\n**Script:**\n> \"ConnectED chứng minh rằng việc chuyển đổi từ các prompts thô sơ sang các hệ thống được điều phối chặt chẽ chính là chìa khóa để tạo ra tác động AI thực tế trong thế giới thực.\"\n"
+    }
+  },
+  "02_agentic_stack": {
+    "title": "Agentic AI Stack",
+    "files": {
+      "reference": "# Sự Trỗi Dậy Của Agentic AI Stack (Hệ Sinh Thái Tác Nhân AI)\n\n## Từ Generative AI Đến Agentic AI\nGenAI truyền thống hoạt động theo dạng phản hồi: **Prompt của người dùng → Phản hồi từ mô hình** (Single-turn - Hội thoại đơn lượt).\n* **Hạn chế:** Không có khả năng tự lên kế hoạch (planning), sử dụng công cụ (tool usage) hoặc tự sửa sai (self-correction).\n\nAgentic AI hoạt động trong các vòng lặp lập luận - thực thi (reasoning-execution loops): **Mục tiêu → Lên kế hoạch → Hành động → Quan sát → Phản tư (Reflect) → Lặp lại → Hoàn thành**.\n* **Khả năng:** Ủy quyền tác vụ, sử dụng cơ sở dữ liệu/APIs, sửa lỗi và điều phối hoạt động với các tác nhân (agents) khác.\n\nLúc này, LLM trở thành nhân tố lập luận (reasoning engine) bên trong một hệ thống lớn hơn.\n\n---\n\n## Agentic Stack Hiện Đại (The Modern Agentic Stack)\nCác tác nhân (agents) hiện đại là hệ thống điều phối đa lớp:\n\n```\n+-----------------------------------+\n|  5. Memory Systems (Short/Long)   |\n+-----------------------------------+\n|  4. Tools & Protocols (MCP, AP2)  |\n+-----------------------------------+\n|  3. Skills (Packaged Expertise)   |\n+-----------------------------------+\n|  2. Reasoning Core (LLMs)         |\n+-----------------------------------+\n|  1. Orchestration Layer (Harness) |\n+-----------------------------------+\n```\n\n---\n\n## Lớp 1: Điều Phối (Orchestration Layer)\nLớp điều phối quản lý toàn bộ chu kỳ thực thi:\n* **Các nhiệm vụ:** Lập kế hoạch, quản lý trạng thái (state management), thực thi chính sách, gọi lại khi lỗi (error retries).\n* **Các frameworks phổ biến:** LangChain, Claude Code, AutoGen, CrewAI.\n* **Ví dụ:** Trong CrewAI, một tác nhân quản lý (manager agent) điều phối một tác nhân nghiên cứu (research agent) và một tác nhân viết lách (writer agent), quản lý việc chuyển giao dữ liệu và xử lý lỗi.\n\n*Lời khuyên sản xuất:* Các công cụ điều phối tự viết (custom orchestration engines) thường có hiệu năng và chi phí tốt hơn các generic frameworks chung chung.\n\n---\n\n## Lớp 2: Nhân Tố Lập Luận (Reasoning Core)\nĐộng cơ nằm ở trung tâm của stack:\n* **Các Frontier Models:** GPT-4o, Claude 3.5 Sonnet (cho lập luận rộng/tổng quát).\n* **Các Reasoning Models:** o1, DeepSeek-R1 (cho lập luận logic sâu, lên kế hoạch phức tạp).\n* **Các Small Models:** Llama 3 (8B) (cho phân loại nhanh, rẻ).\n\n*Mô hình định tuyến (Routing Pattern):* Chuyển các tác vụ phân loại đơn giản đến các mô hình nhỏ (small models), và các lập luận phức tạp đến các frontier models để giảm chi phí từ **60-80%**.\n\n---\n\n## Lớp 3: Kỹ Năng (Skills - Tri Thức Đóng Gói)\nMột **Skill** là một gói tri thức nghiệp vụ chuyên biệt được chia theo phiên bản (versioned) và có tính module:\n* **Thành phần:** System prompts, output schemas (lược đồ đầu ra), templates, bảng tra cứu (lookup tables) và các quy tắc.\n* **Ví dụ:** Thiết kế bài giảng giáo dục, báo cáo tài chính MD&A, kiểm tra bảo mật mã nguồn.\n* **Lợi ích:** Tải ngữ cảnh tăng dần (chỉ tải các skills cần thiết khi dùng), kiểm thử độc lập dễ dàng và cập nhật một nơi cho toàn hệ thống.\n\n---\n\n## Lớp 4: Công Cụ & Giao Thức (Tools & Protocols)\nCác giao diện truyền thông chuẩn hóa giữa các tác nhân (agents), công cụ (tools) và các nền tảng:\n* **MCP (Model Context Protocol):** Được xem như \"USB-C cho AI.\" Kết nối các tác nhân với công cụ (hàm), tài nguyên (dữ liệu) và templates.\n* **A2A / ACP (Agent-to-Agent / Agent Coordination Protocol):** Các giao thức ủy quyền và điều phối thời gian thực giữa các tác nhân.\n* **AP2 (Agent Payments Protocol):** Các ủy quyền thanh toán an toàn (cryptographic Intent và Cart Mandates) cho phép tác nhân giao dịch tự động. Được hỗ trợ bởi Google, Coinbase và hơn 60 tổ chức tài chính hàng đầu.\n* **OpenAI ACP & Google UCP:** Tối ưu hóa cho các cấu trúc thanh toán hội thoại (ACP) và điều phối toàn bộ chu trình xử lý đơn hàng/hoàn trả (UCP).\n\n---\n\n## Lớp 5: Hệ Thống Bộ Nhớ (Memory Systems)\nCho phép tác nhân duy trì ngữ cảnh vượt ra ngoài cửa sổ ngữ cảnh (context window) cố định của mô hình ngôn ngữ:\n* **Ngắn hạn (Short-Term/Episodic):** Bộ đệm trong bộ nhớ (in-memory buffer) theo dõi các bước trong phiên làm việc hiện tại.\n* **Dài hạn (Long-Term/Semantic):** Truy hồi độ tương đồng qua cơ sở dữ liệu vector (như SQLite, Chroma, Weaviate) cho các sở thích của người dùng và lịch sử dự án.\n* **Nghiệp vụ (Procedural/Skills):** Tải động các hướng dẫn chuyên biệt cho từng lĩnh vực.\n\n---\n\n## Vòng Lặp Tác Nhân Cốt Lõi (Core Agentic Loop)\nHầu hết các hệ thống tác nhân chạy một vòng lặp nhận thức có tính cải tiến:\n\n```\n[PLAN] -> [ACT] -> [OBSERVE] -> [REFLECT] -> [ITERATE]\n```\n\n* **Ví dụ:** Một tác nhân nghiên cứu tìm kiếm các bài báo (PLAN/ACT), nhận về quá nhiều kết quả (OBSERVE), quyết định lọc theo số lượt trích dẫn trước (REFLECT), và chạy một tìm kiếm tinh chỉnh mới (ITERATE/COMPLETE).\n* **Kiểm soát (Control):** Hệ thống yêu cầu cấu hình giới hạn thời gian (hard timeouts), hạn mức chi phí (cost caps) và các điểm kích hoạt chuyển giao cho con người (human escalation triggers) để tránh vòng lặp vô hạn.\n",
+      "detailed_notes": "# Workshop — Tài Liệu Ghi Chú Chi Tiết\n## Hệ Sinh Thái Tác Nhân AI Mới Nổi (The Emerging Agentic AI Stack)\n\n> Các ghi chú này cung cấp thông tin chi tiết nâng cao, các bảng so sánh kiến trúc và các phân tích đánh đổi trong thiết kế.\n\n---\n\n### Phần 2.1: Từ Generative AI Đến Agentic AI\n* **Vòng lặp nhận thức (Cognitive loops):** Thay vì các prompts đơn lượt (single-turn prompts), hệ thống tác nhân (agentic systems) chạy các vòng lặp LÊN KẾ HOẠCH (PLANNING), HÀNH ĐỘNG (ACTING), QUAN SÁT (OBSERVING) và PHẢN TƯ (REFLECTING).\n* **Nhiệm vụ mang tính khám phá (Exploratory tasks):** Hệ thống tác nhân tối ưu nhất khi thông tin đầu vào chưa đầy đủ ngay từ đầu, hoặc khi hướng thực thi tiếp theo phụ thuộc vào kết quả của các công cụ trung gian (intermediate tool results).\n\n---\n\n### Phần 2.2: Lớp 1 — Điều Phối (Orchestration Layer)\nLớp điều phối đóng vai trò là cơ quan điều hành của hệ thống, quản lý và duy trì trạng thái cũng như xử lý các lỗi phát sinh.\n\n| Framework | Điểm mạnh (Strengths) | Phù hợp nhất cho (Best For) |\n|---|---|---|\n| **LangChain** | Tích hợp công cụ đa dạng | Các đường ống dẫn dữ liệu chung (General pipelines) |\n| **LangGraph** | Kiểm soát trạng thái dạng đồ thị | Các luồng công việc tuần hoàn phức tạp (Cyclic workflows) |\n| **CrewAI** | Sự cộng tác tác nhân theo vai trò | Nhóm làm việc đa tác nhân (Multi-agent teams) |\n| **AutoGen** | Mô hình tác nhân hội thoại | Các nhiệm vụ mang tính khám phá |\n| **Claude Code** | Tích hợp sâu terminal/công cụ phát triển | Kỹ nghệ phần mềm (Software engineering) |\n| **Tự viết (Custom)** | Kiểm soát trực tiếp trạng thái và ngân sách | Hệ thống chạy thực tế (Production systems) |\n\n---\n\n### Phần 2.3: Lớp 2 — Nhân Tố Lập Luận (Reasoning Core)\nHiệu năng, chi phí và độ trễ của tác nhân phụ thuộc rất nhiều vào các chiến lược định tuyến mô hình (model routing strategies).\n\n| Nhóm Mô Hình | Điểm Mạnh Cốt Lõi | Trường Hợp Sử Dụng Tốt Nhất |\n|---|---|---|\n| **Frontier Large** (e.g., Claude 3.5) | Tổng hợp thông tin cấp cao | Lập kế hoạch phức tạp (Complex planning) |\n| **Reasoning Core** (e.g., o1/R1) | Logic đa bước nâng cao | Tạo mã nguồn, lập kế hoạch sâu |\n| **Small Models** (e.g., Llama 8B) | Thực thi nhanh, chi phí rẻ | Phân loại dữ liệu, định tuyến (Routing) |\n| **Domain Fine-tuned** | Độ chính xác nghiệp vụ cao | Tìm kiếm / Trích xuất thông tin chuyên biệt |\n\n---\n\n### Phần 2.4: Lớp 3 — Kỹ Năng (Skills)\nKỹ năng đại diện cho các gói tài nguyên và hướng dẫn nghiệp vụ có tính module và phiên bản, thay vì các prompts nguyên khối lớn (monolithic prompts).\n\n| Tiêu Chí | Monolithic Prompt | Cấu Trúc Dựa Trên Skills |\n|---|---|---|\n| **Cửa Sổ Ngữ Cảnh** | Luôn tải toàn bộ (phình to) | Tải động theo nhu cầu (hiệu quả) |\n| **Quản Lý Phiên Bản** | Thủ công, dễ lỗi | Sử dụng Git để quản lý, dễ kiểm toán |\n| **Khả Năng Tái Sử Dụng** | Sao chép-dán mã nguồn | Một nguồn sự thật duy nhất (Single source of truth) |\n| **Kiểm Thử** | Khó cô lập lỗi | Có thể kiểm thử độc lập từng module |\n\n---\n\n### Phần 2.5: Lớp 4 — Các Giao Thức Tương Thích (Interoperability Protocols)\nChuẩn hóa giao diện giao tiếp giữa các tác nhân (agents), môi trường bên ngoài và các mạng lưới giao dịch.\n* **MCP (Model Context Protocol):** Khai báo các giao diện Client-Server chuẩn hóa cho Công cụ (Tools), Tài nguyên (Resources) và Prompts.\n* **AP2 (Agent Payments Protocol):** Khởi tạo và ký mã hóa các ủy quyền thanh toán tự động.\n  * **Intent Mandate (Ủy quyền Ý định):** Giới hạn kiểm soát do người dùng xác định (ví dụ: \"chỉ mua vé tối đa $200\").\n  * **Cart Mandate (Ủy quyền Giỏ hàng):** Cơ chế khóa và kiểm tra giỏ hàng cuối cùng để ngăn chặn sự gian lận của người bán.\n* **OpenAI ACP & Google UCP:** Được thiết kế tối ưu cho cấu trúc thanh toán hội thoại (ACP) và điều phối toàn bộ chu trình xử lý đơn hàng/hoàn trả (UCP).\n\n---\n\n### Phần 2.6: Lớp 5 — Hệ Thống Bộ Nhớ (Memory Systems)\nHệ thống bộ nhớ giúp vượt qua các giới hạn về cửa sổ ngữ cảnh cố định của các mô hình ngôn ngữ.\n\n| Loại Bộ Nhớ | Vị Trí Lưu Trữ | Phương Pháp Truy Hồi | Thời Gian Tồn Tại |\n|---|---|---|---|\n| **In-context** | Cửa sổ ngữ cảnh | Cơ chế tự chú ý (Attention) | Một lượt thực thi |\n| **Episodic** | Bộ đệm bộ nhớ trong | Truy xuất tuần tự | Phiên làm việc (Active session) |\n| **Semantic** | Cơ sở dữ liệu Vector | Tìm kiếm tương đồng vector | Lâu dài (Persistent) |\n| **Procedural** | Kho lưu trữ Skill | Tra cứu siêu dữ liệu (Metadata) | Lâu dài (Persistent) |\n| **Structured** | Cơ sở dữ liệu SQL/KV | Truy vấn theo khóa | Lâu dài (Persistent) |\n\n---\n\n### Phần 2.7: Vòng Lặp Tác Nhân Cốt Lõi (Core Agentic Loop)\n```\n[PLAN] -> [ACT] -> [OBSERVE] -> [REFLECT] -> [ITERATE]\n```\n* **Các chế độ lỗi (Failure Modes):** Bị cố định kế hoạch (bỏ qua lỗi phát sinh), vòng lặp vô hạn (không thể hội tụ để hoàn thành) và kết thúc sớm (báo cáo hoàn thành sai thực tế).\n* **Giảm thiểu lỗi (Mitigation):** Áp dụng giới hạn chi phí (cost caps), bộ đếm số lượt lặp tối đa (max iterations) và các điểm kích hoạt Human-in-the-loop để chuyển giao cho con người.\n",
+      "presentation_script": "# Kịch Bản Thuyết Trình Workshop\n## Phần II: Sự Trỗi Dậy Của Agentic AI Stack\n\n> **Format:** Phần II | khoảng 40 phút tổng cộng  \n> **Người nghe:** Nhà phát triển, Quản lý sản phẩm (PMs), Nhà nghiên cứu và Kỹ sư  \n\n---\n\n## CHUYỂN TIẾP (TRANSITION)\n\n**Visual:** Thẻ Tiêu Đề: \"Phần II: Tái Thiết Kế Kiến Trúc AI\"\n\n**Script:**\n> \"Mô hình quy trình công việc mà chúng ta xây dựng trong ConnectED không phải là trường hợp cá biệt. Trong phần này, chúng ta sẽ mở rộng góc nhìn để nghiên cứu về Agentic AI Stack đang hình thành.\"\n\n---\n\n## PHẦN II — Sự Trỗi Dậy Của Agentic AI Stack\n\n### Slide 11: Generative AI vs. Agentic AI\n**Visual:** Bảng So Sánh:\n\n| Generative AI | Agentic AI |\n|---|---|\n| Prompt sang Phản hồi | Mục tiêu sang Vòng lặp (Lập kế hoạch -> Hành động -> Quan sát -> Phản tư) |\n| Đơn lượt (Single-turn) | Đa lượt (Multi-turn), có tính lặp lại |\n| Phản ứng (Reactive) | Tự chủ (Autonomous), mang tính khám phá |\n\n**Ví dụ (Tác nhân du lịch - Travel Agent):**\n1. **Lập kế hoạch (Plan):** Đặt chuyến bay & khách sạn.\n2. **Hành động (Act):** Truy vấn APIs của hãng.\n3. **Quan sát (Observe):** Nhận thấy giá vé máy bay vượt quá ngân sách.\n4. **Phản tư (Reflect):** Đổi sân bay hoặc thay đổi ngày bay.\n5. **Hoàn thành (Complete):** Đặt vé và gửi hành trình cho khách.\n\n**Script:**\n> \"Chúng ta đang chuyển dịch từ thế giới tạo văn bản thụ động sang các hệ thống giải quyết vấn đề chủ động và tự chủ. LLM giờ đây đóng vai trò là một thành phần, chứ không phải toàn bộ hệ sinh thái (stack) nữa.\"\n\n---\n\n### Slide 12: Agentic Stack Hiện Đại (The Modern Agentic Stack)\n**Visual:** Sơ đồ 5 lớp của kiến trúc tác nhân:\n```\n5. Memory Systems (Bộ nhớ Ngắn hạn & Dài hạn)\n4. Tools and Protocols (MCP, AP2, ACP)\n3. Skills (Tri thức nghiệp vụ được đóng gói dưới dạng Rules/Schemas)\n2. Reasoning Core (Định tuyến mô hình - Model Routing)\n1. Orchestration Layer (Trình quản lý vòng đời thực thi - Lifecycle Manager)\n```\n\n**Script:**\n> \"Dưới đây là năm lớp riêng biệt của kiến trúc tác nhân hiện đại. Chúng ta hãy cùng xem xét kỹ từng lớp một.\"\n\n---\n\n### Slide 13: Lớp 1 — Điều Phối (Orchestration)\n**Visual:** Lưới Logo các Framework: LangChain | LangGraph | CrewAI | AutoGen\n\n* Quản lý việc phân rã tác vụ, theo dõi trạng thái và logic xử lý lỗi.\n* Phối hợp các tác nhân theo vai trò (ví dụ: kết nối tác nhân phân tích dữ liệu với tác nhân viết lách).\n* *Lời khuyên sản xuất:* Các orchestration engines tự viết thường vượt trội hơn các generic frameworks về độ tin cậy và kiểm soát chi phí.\n\n**Script:**\n> \"Lớp điều phối đóng vai trò như cơ quan điều hành. Nó xử lý việc lập kế hoạch, quản lý trạng thái hệ thống và kích hoạt các lệnh gọi lại khi APIs gặp lỗi.\"\n\n---\n\n### Slide 14: Lớp 2 — Nhân Tố Lập Luận (Reasoning Core)\n**Visual:** Sơ đồ luồng định tuyến mô hình:\n`Incoming Task -> [Router] -> Small Model (Phân loại) HOẶC Frontier Model (Lập luận phức tạp)`\n\n* **Frontier Models:** Chi phí cao / Năng lực lớn.\n* **Reasoning Models:** OpenAI o1/DeepSeek-R1 (cho lập luận logic sâu và lập kế hoạch).\n* **Small Models:** Chi phí rẻ / Tốc độ nhanh.\n\n**Script:**\n> \"Đừng gửi các tác vụ định tuyến đơn giản đến các mô hình lớn (frontier models). Sử dụng một lớp định tuyến (routing layer) để cắt giảm chi phí token lên tới 80%.\"\n\n---\n\n### Slide 15: Lớp 3 — Kỹ Năng (Skills - Tri Thức Đóng Gói)\n**Visual:** Đồ họa mô tả gói tài nguyên bao gồm: `manifest.json`, `instructions.md`, `templates/`, `policies/`\n\n| Kỹ năng (Skill) | Nội dung bên trong |\n|---|---|\n| **Soạn giáo án** | Các tiêu chuẩn chương trình học, templates giáo án |\n| **Đánh giá mã nguồn** | Các quy tắc linter, kiểm tra bảo mật |\n| **Báo cáo tài chính MD&A** | Logic API kế toán, định dạng báo cáo SEC |\n\n**Script:**\n> \"Một Skill là gói tri thức nghiệp vụ có thể tái sử dụng và được quản lý phiên bản bằng git. Chúng ta chỉ tải skill phù hợp khi cần thiết, giúp cho prompts luôn gọn nhẹ.\"\n\n---\n\n### Slide 16: Lớp 4 — Công Cụ Và Giao Thức (Tools and Protocols)\n**Visual:** Bảng so sánh các giao thức tiêu chuẩn:\n\n| Giao thức | Đơn vị phát triển | Trọng tâm chính |\n|---|---|---|\n| **MCP** | Anthropic | USB-C cho AI: Chuẩn hóa việc khám phá công cụ & tài nguyên |\n| **AP2** | Google | Ý định mã hóa (Intent) & Ủy quyền giỏ hàng (Cart Mandates) để giao dịch an toàn |\n| **A2A / ACP** | Cộng đồng | Ủy quyền tác nhân và điều phối qua WebSocket |\n| **OpenAI ACP** | OpenAI | Thương mại hội thoại không giao diện (headless, dialogue-driven) |\n\n**Script:**\n> \"AP2 là một giao thức rất thú vị: nó giới thiệu các ủy quyền người dùng được ký mã hóa (cryptographic mandates) để giải quyết các vấn đề về niềm tin, xác thực và tuân thủ thanh toán cho các tác nhân tự chủ.\"\n\n---\n\n### Slide 17: Lớp 5 — Hệ Thống Bộ Nhớ (Memory Systems)\n**Visual:** Hai cột so sánh Bộ nhớ Ngắn hạn và Dài hạn:\n* **Ngắn hạn (Episodic):** Bộ đệm phiên làm việc tại địa phương (local session buffers) theo dõi các bước thực thi.\n* **Dài hạn (Semantic):** Cơ sở dữ liệu vector (Chroma, Weaviate) lưu trữ lịch sử người dùng và các thiết lập ưu tiên.\n* **Quy trình (Procedural/Skills):** Tra cứu từ các file skill được quản lý phiên bản.\n\n**Script:**\n> \"Quản lý bộ nhớ vẫn là một nút thắt cổ chai lớn trong kỹ nghệ tác nhân. Cơ sở dữ liệu vector có thể giúp ích, nhưng việc quản lý cửa sổ ngữ cảnh để tránh bị lệch hướng (drift) là tối quan trọng.\"\n\n---\n\n### Slide 18: Vòng Lặp Tác Nhân Cốt Lõi (Core Agentic Loop)\n**Visual:** Hoạt cảnh vòng lặp tuần hoàn:\n`PLAN -> ACT -> OBSERVE -> REFLECT -> ITERATE`\n\n**Ví dụ (Tác nhân nghiên cứu Vật lý Lượng tử):**\n* **Lên kế hoạch & Hành động (Plan & Act):** Tìm kiếm trên arXiv với từ khóa \"quantum correction\".\n* **Quan sát (Observe):** Nhận về hơn 50 bài báo (quá nhiều nhiễu).\n* **Phản tư & Lặp lại (Reflect & Iterate):** Thay đổi kế hoạch để sắp xếp theo số lượt trích dẫn, tải về 3 bài báo hàng đầu.\n\n**Script:**\n> \"Vòng lặp nhận thức là yếu tố giúp các tác nhân tự phục hồi sau lỗi, viết lại kế hoạch và hội tụ về các kết quả hoàn thành thành công.\"\n"
+    }
+  },
+  "03_challenges_ops": {
+    "title": "Challenges & AgentOps",
+    "files": {
+      "reference": "# Các Thách Thức Kéo Dài Trong Agentic AI (Persistent Challenges)\n\n## Độ Tin Cậy (Reliability)\nCác tác nhân (agents) chạy thực tế (production) thường thất bại theo những cách khó dự đoán và có tính dây chuyền.\n* **Các dạng lỗi (Failure Modes):** Ảo tưởng tham số công cụ (hallucinated tool parameters), vòng lặp lập luận vô hạn, trôi dạt hướng dẫn (instruction drift) và sự điều phối mong manh giữa các tác nhân.\n* **Giải pháp:**\n  * **Các lớp xác thực (Verification Layers):** Kiểm tra cấu trúc (schema checks) dữ liệu đầu ra giữa các giai đoạn.\n  * **Rào chắn cứng (Hard Guardrails):** Từ chối các hành động trái phép ngay ở cấp độ hệ thống.\n  * **Chuyển giao cho con người (Human Escalation):** Xác định rõ ràng các điều kiện chuyển giao cho con người kiểm soát.\n\n---\n\n## Đánh Giá (Evaluation)\nĐánh giá các hệ thống tác nhân (agentic systems) khó hơn nhiều so với việc so sánh văn bản đơn thuần:\n* **Bài Toán Quỹ Đạo (The Trajectory Problem):** Bạn phải đánh giá toàn bộ lộ trình thực thi (các bước lập luận, cuộc gọi công cụ) thay vì chỉ đánh giá câu trả lời cuối cùng.\n* **Các Chiều Đo Lường Cốt Lõi:** Hiệu quả quỹ đạo (trajectory efficiency), chất lượng phục hồi sau lỗi (error recovery quality), sự tuân thủ an toàn (safety compliance) và chi phí.\n* **Các phương pháp:** Chấm điểm bằng mô hình (LLM-as-judge scoring), các bộ kiểm thử hồi quy (regression test suites), mô phỏng môi trường cô lập (sandboxed simulations) và các kiểm tra đối nghịch (adversarial checks).\n\n---\n\n## Chi Phí & Độ Trễ (Cost & Latency)\nCác vòng lặp tác nhân tạo ra chi phí vận hành rất lớn:\n* **Các nút thắt cổ chai (Bottlenecks):** Phải thực hiện từ 10–50 cuộc gọi suy luận tuần tự, tích lũy cửa sổ ngữ cảnh lớn và lặp lại việc thực thi công cụ nhiều lần.\n* **Tối ưu hóa:**\n  * Caching các prompts lặp lại (giảm chi phí từ 50-90%).\n  * Định tuyến mô hình theo nhiệm vụ (sử dụng các mô hình 8B giá rẻ để định tuyến/lọc dữ liệu).\n  * Tóm tắt và nén ngữ cảnh (context summarization and compression).\n\n---\n\n## Khả Năng Quan Sát Và AgentOps (Observability and AgentOps)\nCác công cụ DevOps truyền thống thất bại vì trạng thái của tác nhân được thể hiện bằng lập luận ngôn ngữ tự nhiên.\n* **Nhu Cầu Của AgentOps:** \n  * Gỡ lỗi phát lại (Replay debugging) đối với các quỹ đạo thất bại.\n  * Theo dõi chi tiết lượng token và độ trễ từng bước một.\n  * Nhật ký prompt và kiểm toán các lượt gọi công cụ.\n* **Các Nền Tảng Phổ Biến:** LangSmith, Helicone, Langfuse, Phoenix.\n\n---\n\n## Kết Luận (Conclusion)\nSự thành công của AI trong thế giới thực phụ thuộc vào các hệ thống xung quanh nhiều hơn là năng lực thô của bản thân mô hình:\n* Dịch chuyển sự tập trung từ kỹ nghệ prompt (prompt engineering) sang **Kiến Trúc Hệ Thống (System Architecture)**.\n* Neo các ứng dụng vào các lĩnh vực chuyên biệt (như ConnectED).\n* Đầu tư mạnh mẽ vào **Sự Nghiêm Ngặt Trong Đánh Giá (Evaluation Rigor)** và **Khả Năng Quan Sát (Observability)** ngay từ ngày đầu tiên.\n",
+      "detailed_notes": "# Workshop — Tài Liệu Ghi Chú Chi Tiết\n## Các Thách Thức Kéo Dài Trong Agentic AI (Persistent Challenges)\n\n> Các ghi chú này cung cấp thông tin chi tiết nâng cao, các phân tích đánh đổi và các giải pháp thiết kế thực tế.\n\n---\n\n### Phần 3.1: Độ Tin Cậy (Reliability)\n* **Tại sao lại khó:** Các lỗi của tác nhân lan truyền xuống các giai đoạn sau, các hành động (ví dụ: ghi vào cơ sở dữ liệu) thường không thể hoàn tác, và các mô hình có thể tự tin ảo tưởng về sự thành công của chúng.\n* **Các Kỹ Thuật Then Chốt:**\n  1. **Schema Validation (Xác thực Lược đồ):** Bắt buộc các cấu trúc dữ liệu ở các biên của từng giai đoạn.\n  2. **Idempotency (Tính không đổi):** Đảm bảo an toàn khi gọi lại các công cụ bị lỗi.\n  3. **Rollbacks (Hoàn tác):** Cho phép hoàn tác các hành động trung gian khi gặp sự cố.\n  4. **Guardrails (Rào chắn):** Các giới hạn cứng (ví dụ: cấp quyền chỉ đọc đối với cơ sở dữ liệu).\n\n---\n\n### Phần 3.2: Đánh Giá (Evaluation)\nCác bài thử nghiệm LLM truyền thống chỉ đánh giá câu trả lời cuối cùng. Các tác nhân yêu cầu **Đánh Giá Quỹ Đạo (Trajectory Evaluation)** (đánh giá từng bước thực thi trung gian).\n\n| Tiêu Chí (Dimension) | Trọng Tâm (Focus) | Ví Dụ (Example) |\n|---|---|---|\n| **Hiệu quả (Efficiency)** | Độ dài quỹ đạo so với tối ưu | Tác nhân có thực hiện các cuộc gọi công cụ dư thừa không? |\n| **Phục hồi (Recovery)** | Phản hồi lỗi mềm dẻo | Tác nhân có lập lại kế hoạch sau khi công cụ bị lỗi không? |\n| **Tuân thủ (Compliance)** | Sự tuân thủ chính sách | Các ranh giới chỉ đọc (read-only) có được tôn trọng không? |\n| **Chi phí (Cost)** | Token và chi phí vận hành | Chúng ta có cách nào làm tác vụ này rẻ hơn không? |\n\n* **Cách tiếp cận:** Chấm điểm sử dụng LLM làm giám khảo (LLM-as-judge scoring), chạy mô phỏng trong môi trường cô lập, và chạy lại các kiểm thử lịch sử (replay tests).\n\n---\n\n### Phần 3.3: Chi Phí và Độ Trễ (Cost and Latency)\nCác tác nhân rất tốn kém về tài nguyên tính toán, thường yêu cầu hàng chục lệnh gọi mô hình tuần tự.\n\n| Chiến Lược (Strategy) | Cơ Chế (Mechanism) | Mức Tiết Kiệm Thông Thường |\n|---|---|---|\n| **Model Routing** | Chuyển tác vụ đơn giản tới mô hình nhỏ | Giảm 40–70% chi phí |\n| **Prompt Caching** | Cache hệ thống prompts & tiêu chuẩn | Giảm 50–90% lượng input token |\n| **Nén Ngữ Cảnh** | Tóm tắt lịch sử trò chuyện | Giảm 30–60% ngữ cảnh |\n| **Song Song Hóa** | Chạy đồng thời các tác vụ phụ độc lập | Giảm 30–60% độ trễ |\n\n---\n\n### Phần 3.4: Khả Năng Quan Sát & AgentOps (Observability & AgentOps)\nTrạng thái của tác nhân được biểu diễn bằng lập luận ngôn ngữ tự nhiên, khiến các chỉ số truyền thống (CPU, lỗi HTTP) trở nên không đủ đáp ứng.\n\n| Khả Năng | DevOps Truyền Thống | AgentOps |\n|---|---|---|\n| **Tracing (Theo dấu)** | Ngăn xếp lệnh gọi hàm (call stacks) | Theo vết lập luận & dữ liệu vào/ra của công cụ |\n| **Replay (Phát lại)** | Phát lại request | Mô phỏng lại toàn bộ quỹ đạo thực thi |\n| **Costing (Chi phí)** | Chi phí hạ tầng cloud | Lượng token sử dụng cho mỗi tác vụ/bước |\n| **Security (Bảo mật)** | Nhật ký truy cập (Access logs) | Kiểm toán prompt injection & rào chắn bảo vệ |\n\n* **Các Nền Tảng Then Chốt:** LangSmith, Helicone, Langfuse, Arize Phoenix.\n\n---\n\n### Tổng Hợp: ConnectED Như Một Hệ Thống Tác Nhân (Agentic System)\nConnectED đi đến kiến trúc tác nhân thông qua phương pháp kỹ nghệ định hướng lĩnh vực (domain-driven engineering):\n\n| Lớp (Layer) | Triển Khai Thực Tế Trong ConnectED |\n|---|---|\n| **Orchestration** | Bộ quản lý đường ống (pipeline manager) điều phối 6 giai đoạn. |\n| **Reasoning Core** | Các lệnh gọi LLM tại mỗi bước chuyên biệt. |\n| **Skills** | Nhúng các templates chương trình học và các quy tắc chấm điểm. |\n| **Tools** | Trình phân tích sách giáo khoa, các kết nối cơ sở dữ liệu địa phương. |\n| **Memory** | Ánh xạ trạng thái trung gian (khái niệm cốt lõi, bản thiết kế bài học). |\n| **Loop** | Đường ống tuyến tính; vòng lặp tuần hoàn được kích hoạt bởi các chỉnh sửa của giáo viên. |\n",
+      "presentation_script": "# Kịch Bản Thuyết Trình Workshop\n## Phần III: Các Thách Thức & Kết Luận\n\n> **Format:** Phần III & Kết luận | khoảng 15 phút tổng cộng  \n> **Người nghe:** Nhà phát triển, Quản lý sản phẩm (PMs), Nhà nghiên cứu và Kỹ sư  \n\n---\n\n## PHẦN III — Các Thách Thức Kéo Dài (Persistent Challenges)\n\n### Slide 19: Các Bài Toán Khó Của Tác Nhân Chạy Thực Tế (Production Agents)\n**Visual:** Bố cục bốn góc phần tư:\n* **Độ tin cậy (Reliability):** lỗi chuỗi, vòng lặp vô hạn, trôi dạt ngữ cảnh. (Giải pháp: Kiểm tra lược đồ schema, cơ chế dự phòng).\n* **Đánh giá (Evaluation):** kiểm thử quỹ đạo thực thi (trajectory testing) so với kiểm thử đầu ra. (Giải pháp: LLM làm giám khảo, chạy mô phỏng).\n* **Chi phí & Độ trễ (Cost & Latency):** các chuỗi suy luận tuần tự. (Giải pháp: định tuyến, prompt caching).\n* **Khả năng quan sát (Observability):** nhật ký trạng thái bằng ngôn ngữ tự nhiên. (Giải pháp: nền tảng AgentOps).\n\n**Script:**\n> \"Xây dựng một bản demo tác nhân thì dễ; làm cho nó đạt tiêu chuẩn chạy thực tế (production-grade) là vô cùng khó khăn. Các lỗi phát sinh thường âm thầm và cộng dồn lại theo thời gian.\"\n\n---\n\n## KẾT LUẬN (CLOSING)\n\n### Slide 20: Các Bài Học Then Chốt (Key Takeaways)\n**Visual:** Danh sách được đánh số:\n1. **Phân rã các vấn đề theo phân cấp (Decompose problems hierarchically):** Các prompts nguyên khối lớn (monolithic prompts) không thể mở rộng quy mô.\n2. **Bản địa hóa là cơ sở hạ tầng (Localization is infrastructure):** Đây là yêu cầu thiết kế hệ thống cốt lõi, không phải là một bản dịch vá víu bên ngoài.\n3. **Giữ con người trong vòng lặp (Keep humans in the loop):** Tối quan trọng cho sự an toàn, kiểm soát chất lượng và niềm tin của người dùng.\n4. **Thiết kế hệ thống, không phải viết prompts (Design systems, not prompts):** Mô hình ngôn ngữ chỉ là một lớp trong thời gian chạy (runtime).\n5. **Tác nhân được quan sát là tác nhân đáng tin cậy:** Thiết lập hệ thống AgentOps ngay từ ngày đầu tiên.\n\n**Script:**\n> \"Nếu ngày hôm nay các bạn chỉ mang về một bài học duy nhất, thì hãy là điều này: hãy ngừng viết những prompts dài hơn. Hãy bắt đầu xây dựng những kiến trúc hệ thống tốt hơn. Hãy phân rã các đường ống (pipelines) của bạn, cô lập các chuyên môn (skills) và giám sát chặt chẽ các đường dẫn thực thi.\"\n\n---\n\n### Slide 21: Câu Hỏi Thảo Luận (Discussion Prompts)\n**Visual:** Danh sách các đầu dòng:\n* Quy trình công việc nào của bạn có thể hưởng lợi từ mô hình quy trình xử lý đa tác nhân phân cấp (hierarchical agent pipeline)?\n* Đâu là những \"điểm tối\" trong khả năng giám sát (observability) của đường ống dẫn AI hiện tại của bạn?\n* Một gói \"Skill\" có thể tái sử dụng sẽ trông như thế nào trong lĩnh vực nghiệp vụ của tổ chức bạn?\n\n**Script:**\n> \"Cảm ơn các bạn. Chúng ta hãy cùng mở đầu phần Hỏi & Đáp (Q&A) và thảo luận xem các mô hình kiến trúc này ánh xạ vào các dự án của riêng các bạn như thế nào.\"\n"
+    }
+  },
+  "04_deployment_handouts": {
+    "title": "Deployment Handouts",
+    "files": {
+      "handout_checklists": "# Tài Liệu Hướng Dẫn: Danh Sách Kiểm Tra (Checklists)\n## Các Danh Sách Kiểm Tra Thực Tế Cho Hệ Thống Tác Nhân Hoạt Động Thực Tế (Production Agentic Systems)\n\n---\n\n## CHECKLIST 1: Agentic System Deployment\n\nSử dụng danh sách này trước khi đưa bất kỳ hệ thống dựa trên tác nhân (agent-based system) nào vào hoạt động thực tế (production).\n\n### Kiến Trúc và Thiết Kế (Architecture and Design)\n- [ ] [CRITICAL] Tác vụ đã được phân rã thành các tác vụ phụ (subtasks) có ranh giới rõ ràng kèm schemas dữ liệu.\n- [ ] [CRITICAL] Các điểm kiểm duyệt của con người (Human-in-the-loop checkpoints) đã được kích hoạt cho các hành động có rủi ro cao.\n- [ ] [RECOMMENDED] Kiến trúc hệ thống được phân cấp (hierarchical) (không sử dụng prompts nguyên khối monolithic).\n- [ ] [RECOMMENDED] Các kỹ năng (Skills) được đóng gói dưới dạng các tệp riêng độc lập, được kiểm soát phiên bản (version-controlled).\n- [ ] [ADVANCED] Xác định tiêu chí dừng rõ ràng (không chỉ dựa vào giới hạn số lượt lặp tối đa max iterations).\n\n### An Toàn và Rào Chắn (Safety and Guardrails)\n- [ ] [CRITICAL] Các ràng buộc hệ thống ngăn chặn các thay đổi trạng thái (state mutations) trái phép.\n- [ ] [CRITICAL] API keys và các thông tin bí mật (secrets) được lưu trữ trong biến môi trường (env variables) an toàn, không để trong ngữ cảnh prompt.\n- [ ] [RECOMMENDED] Lọc sạch dữ liệu đầu vào/đầu ra (Input/output sanitization) được kích hoạt để ngăn chặn tấn công injection.\n- [ ] [RECOMMENDED] Áp dụng hạn mức cứng (hard cap) cho ngân sách token tối đa trên mỗi lần thực thi tác vụ.\n\n### Hạ Tầng & Vận Hành (Infrastructure & Operations)\n- [ ] [CRITICAL] Các cuộc gọi API sử dụng bộ xử lý thử lại với thời gian trễ tăng dần (exponential backoff retry handlers).\n- [ ] [RECOMMENDED] Nhật ký ghi lại đầy đủ tham số mô hình, dữ liệu vào, dữ liệu ra và chi phí token.\n- [ ] [RECOMMENDED] Các cuộc gọi công cụ (tool calls) được thiết kế có tính không đổi (idempotent) (để an toàn khi gọi lại).\n\n---\n\n## CHECKLIST 2: Pipeline and Prompt Optimization\n\nSử dụng danh sách này khi xem xét hoặc cấu trúc lại các prompts và quy trình của tác nhân.\n\n### Thiết Kế Prompt (Prompt Design)\n- [ ] System prompt tập trung vào một trách nhiệm duy nhất và cô lập.\n- [ ] Các hướng dẫn sử dụng câu mệnh lệnh trực tiếp (ví dụ: \"Trích xuất...\" thay vì \"Vui lòng trích xuất...\").\n- [ ] Định dạng đầu ra được quy định cụ thể theo cấu trúc schema (JSON/YAML) kèm theo các ví dụ few-shot.\n- [ ] Các ràng buộc và quy tắc phủ định được nêu rõ ràng.\n\n### Quản Lý Ngữ Cảnh (Context Management)\n- [ ] Việc sử dụng cửa sổ ngữ cảnh được theo dõi cụ thể cho từng giai đoạn của quy trình.\n- [ ] Lịch sử hội thoại dài được tóm tắt lại trước khi đưa lại vào mô hình.\n- [ ] Kết quả truy hồi RAG được xếp hạng và cắt ngắn chỉ lấy N kết quả hàng đầu.\n\n### Định Tuyến Mô Hình (Model Routing)\n- [ ] Các tác vụ phân loại hoặc định tuyến đơn giản được ủy quyền cho các mô hình nhỏ (1B-8B).\n- [ ] Các tác vụ lập kế hoạch và lập luận phức tạp được định tuyến đến các frontier hoặc reasoning models.\n- [ ] Thực hiện các thử nghiệm A/B kiểm tra tính tương đương về chất lượng khi chuyển xuống mô hình rẻ hơn để giảm chi phí.\n\n---\n\n## CHECKLIST 3: Token and Cost Reduction\n\nSử dụng danh sách này để tối ưu hóa chi phí suy luận một cách có hệ thống.\n\n### Đo Lường & Lưu Trữ Đệm (Measurement & Caching)\n- [ ] Lượng token sử dụng (đầu vào, đầu ra, số lượt hit cache) được theo dõi cho mỗi lần thực hiện tác vụ.\n- [ ] Các system prompts và templates dùng chung sử dụng cơ chế prompt caching.\n- [ ] Các bất thường về chi phí (tăng đột ngột gấp 10 lần) sẽ kích hoạt cảnh báo hệ thống tự động.\n\n### Nén Prompt (Prompt Compression)\n- [ ] Loại bỏ các hướng dẫn thừa và các từ đệm lịch sự không cần thiết.\n- [ ] Độ dài đầu ra được giới hạn rõ ràng trong prompts (ví dụ: \"dưới 3 câu\").\n- [ ] Các ví dụ few-shot không thiết yếu được thay thế bằng phương pháp fine-tuning.\n\n---\n\n## CHECKLIST 4: Reliability and Evaluation\n\nSử dụng danh sách này để đo lường và nâng cao độ bền bỉ của tác nhân.\n\n### Giảm Thiểu Thất Bại (Failure Mitigation)\n- [ ] Hệ thống có khả năng ngăn chặn các vòng lặp lập kế hoạch (planning loops) và việc báo cáo hoàn thành sớm khi chưa xong.\n- [ ] Dữ liệu đầu vào của công cụ (tool inputs) được xác thực trước khi thực thi để ngăn chặn lỗi tham số.\n- [ ] Các lộ trình chuyển giao cho con người (escalation paths) được xác định cụ thể cho các sự kiện có độ không chắc chắn cao.\n\n### Đánh Giá Quỹ Đạo (Trajectory Evaluation)\n- [ ] Bộ thử nghiệm tự động xác minh tính hiệu quả của các bước thực thi trung gian (trajectory efficiency).\n- [ ] Bộ thử nghiệm hồi quy (regression tests) bao phủ các quỹ đạo thất bại trong quá khứ.\n- [ ] Tiến hành đánh giá thủ công hàng tuần trên một mẫu đại diện của các phiên chạy thực tế.\n\n---\n\n## CHECKLIST 5: AgentOps Readiness\n\nSử dụng danh sách này để thiết lập khả năng hiển thị và giám sát vận hành.\n\n### Đo Lường & Theo Dấu (Telemetry & Tracing)\n- [ ] Telemetry theo vết toàn bộ hành trình lập luận song song với đầu vào/đầu ra của công cụ.\n- [ ] Các quỹ đạo thất bại có thể được phát lại (replayed) hoàn toàn trong môi trường thử nghiệm cô lập (sandbox).\n- [ ] Các vết nhật ký (trace logs) được che (mask) các dữ liệu nhạy cảm của người dùng và doanh nghiệp.\n\n### Quản Trị & Cải Tiến (Governance & Improvement)\n- [ ] Các sự kiện phản hồi của người dùng được liên kết trực tiếp với các trace IDs đang hoạt động.\n- [ ] Đặt lịch đánh giá hàng tuần đối với nhật ký các quỹ đạo thất bại.\n- [ ] Các nâng cấp về prompt và mô hình phải vượt qua các bài kiểm tra hồi quy trước khi triển khai rộng rãi.\n"
+    }
+  }
+};
+    </script>
+
+    <!-- UI INTERACTIVE ENGINE -->
+    <script>
+        // Global variables
+        let currentCategory = 'dashboard';
+        let currentTab = 'reference'; // reference, detailed_notes, presentation_script
+        let isDarkMode = false;
+        let slideDeck = [];
+        let currentSlideIndex = 0;
+
+        // Custom Marked Renderer for Checklists to allow interactive rendering in Category 4
+        marked.setOptions({
+            highlight: function(code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return hljs.highlight(code, { language: lang }).value;
+                    } catch (__) {}
+                }
+                return code; // use external default escaping
+            }
+        });
+
+        window.onload = function() {
+            lucide.createIcons();
+            
+            // Check localStorage theme (light is default)
+            if (localStorage.getItem('theme') === 'dark') {
+                toggleTheme();
+            }
+            
+            showDashboard();
+            initChecklistCounter();
+            setupSearch();
+            
+            // Register keypress for slide navigation
+            document.addEventListener('keydown', function(e) {
+                if (document.getElementById('presenterModal').style.display === 'flex') {
+                    if (e.key === 'ArrowRight' || e.key === 'Space') {
+                        nextSlide();
+                    } else if (e.key === 'ArrowLeft') {
+                        prevSlide();
+                    } else if (e.key === 'Escape') {
+                        closePresenter();
+                    }
+                }
+            });
+        };
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                isDarkMode = false;
+                themeIcon.setAttribute('data-lucide', 'moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-mode');
+                isDarkMode = true;
+                themeIcon.setAttribute('data-lucide', 'sun');
+                localStorage.setItem('theme', 'dark');
+            }
+            lucide.createIcons();
+        }
+
+        function showDashboard() {
+            currentCategory = 'dashboard';
+            document.getElementById('dashboardView').style.display = 'block';
+            document.getElementById('contentView').style.display = 'none';
+            document.getElementById('tabsContainer').style.display = 'none';
+            document.getElementById('presentBtn').style.display = 'none';
+            document.getElementById('floatingPresentBtn').style.display = 'none';
+            
+            document.getElementById('currentCategoryTitle').innerText = 'Dashboard';
+            document.getElementById('currentCategoryPath').innerText = 'Home / Dashboard';
+            
+            // Update active state in sidebar nav
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById('nav-dashboard').classList.add('active');
+            
+            updateOverallProgress();
+        }
+
+        function showTopic(catId) {
+            currentCategory = catId;
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(`nav-${catId}`).classList.add('active');
+            
+            const catData = WORKSHOP_CONTENT[catId];
+            document.getElementById('currentCategoryTitle').innerText = catData.title;
+            document.getElementById('currentCategoryPath').innerText = `Home / ${catData.title}`;
+            
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('contentView').style.display = 'block';
+            
+            if (catId === '04_deployment_handouts') {
+                // Category 4: Render Checklists Interactively
+                document.getElementById('tabsContainer').style.display = 'none';
+                document.getElementById('presentBtn').style.display = 'none';
+                document.getElementById('floatingPresentBtn').style.display = 'none';
+                document.getElementById('renderedMarkdown').style.display = 'none';
+                document.getElementById('interactiveChecklist').style.display = 'block';
+                
+                renderInteractiveChecklists(catData.files['handout_checklists']);
+            } else {
+                // Category 1, 2, 3: Tabs & Normal markdown
+                document.getElementById('tabsContainer').style.display = 'flex';
+                document.getElementById('renderedMarkdown').style.display = 'block';
+                document.getElementById('interactiveChecklist').style.display = 'none';
+                
+                // Show present button
+                document.getElementById('presentBtn').style.display = 'inline-flex';
+                document.getElementById('floatingPresentBtn').style.display = 'flex';
+                
+                // Set default tab if not in files
+                if (!catData.files[currentTab]) {
+                    currentTab = 'reference';
+                }
+                
+                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                document.getElementById(`tab-${currentTab}`).classList.add('active');
+                
+                renderMarkdownContent(catData.files[currentTab]);
+            }
+        }
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            
+            const catData = WORKSHOP_CONTENT[currentCategory];
+            renderMarkdownContent(catData.files[tabId]);
+        }
+
+        // Slideshow state
+        let topicSlides = [];
+        let topicSlideIndex = 0;
+
+        function renderMarkdownContent(markdownText) {
+            const container = document.getElementById('renderedMarkdown');
+            container.innerHTML = '';
+            topicSlides = [];
+            topicSlideIndex = 0;
+
+            if (!markdownText) {
+                container.innerHTML = `<p style="color:var(--text-muted);font-style:italic;">No content available.</p>`;
+                return;
+            }
+
+            // Parse ## sections into slides
+            const lines = markdownText.split('\n');
+            let docTitle = '';
+            let currentSection = null;
+            lines.forEach(line => {
+                const h1 = line.match(/^#\s+(.+)/);
+                const h2 = line.match(/^##\s+(.+)/);
+                if (h1 && !docTitle) { docTitle = h1[1]; }
+                else if (h2) {
+                    if (currentSection) topicSlides.push(currentSection);
+                    currentSection = { title: h2[1], lines: [] };
+                } else if (currentSection) {
+                    currentSection.lines.push(line);
+                }
+            });
+            if (currentSection) topicSlides.push(currentSection);
+
+            if (topicSlides.length === 0) {
+                container.innerHTML = marked.parse(markdownText);
+                container.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+                return;
+            }
+
+            // Build slideshow shell
+            const shell = document.createElement('div');
+            shell.className = 'topic-slideshow';
+
+            // Top bar
+            const topbar = document.createElement('div');
+            topbar.className = 'slideshow-topbar';
+            topbar.innerHTML = `
+                <div class="slideshow-doc-title">${docTitle || 'Content'}</div>
+                <div class="slideshow-counter" id="slideshowCounter">1 / ${topicSlides.length}</div>`;
+            shell.appendChild(topbar);
+
+            // Viewport with all slides
+            const viewport = document.createElement('div');
+            viewport.className = 'slideshow-viewport';
+            viewport.style.minHeight = '420px';
+
+            topicSlides.forEach((sec, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'topic-slide' + (idx === 0 ? ' active' : '');
+                slide.id = `topicSlide_${idx}`;
+
+                const body = document.createElement('div');
+                body.className = 'slide-section-body';
+                body.innerHTML = marked.parse(sec.lines.join('\n'));
+                body.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+
+                slide.innerHTML = `
+                    <div class="slide-section-num">Section ${idx + 1} of ${topicSlides.length}</div>
+                    <div class="slide-section-title">${sec.title}</div>`;
+                slide.appendChild(body);
+                viewport.appendChild(slide);
+            });
+            shell.appendChild(viewport);
+
+            // Footer: prev / dots / next
+            const footer = document.createElement('div');
+            footer.className = 'slideshow-footer';
+
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'slide-arrow-btn';
+            prevBtn.id = 'slideshowPrev';
+            prevBtn.innerHTML = '&#8592; Prev';
+            prevBtn.disabled = true;
+            prevBtn.onclick = () => navigateTopicSlide(-1);
+
+            const dots = document.createElement('div');
+            dots.className = 'slide-dots';
+            dots.id = 'slideshowDots';
+            topicSlides.forEach((_, idx) => {
+                const dot = document.createElement('div');
+                dot.className = 'slide-dot' + (idx === 0 ? ' active' : '');
+                dot.onclick = () => goToTopicSlide(idx);
+                dots.appendChild(dot);
+            });
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'slide-arrow-btn';
+            nextBtn.id = 'slideshowNext';
+            nextBtn.innerHTML = 'Next &#8594;';
+            nextBtn.disabled = topicSlides.length <= 1;
+            nextBtn.onclick = () => navigateTopicSlide(1);
+
+            footer.appendChild(prevBtn);
+            footer.appendChild(dots);
+            footer.appendChild(nextBtn);
+            shell.appendChild(footer);
+
+            container.appendChild(shell);
+        }
+
+        function navigateTopicSlide(dir) {
+            const next = topicSlideIndex + dir;
+            if (next < 0 || next >= topicSlides.length) return;
+            goToTopicSlide(next);
+        }
+
+        function goToTopicSlide(idx) {
+            const prev = document.getElementById(`topicSlide_${topicSlideIndex}`);
+            if (prev) {
+                prev.classList.remove('active');
+                prev.classList.add(idx > topicSlideIndex ? 'exit-left' : '');
+                setTimeout(() => prev.classList.remove('exit-left'), 350);
+            }
+            topicSlideIndex = idx;
+            const cur = document.getElementById(`topicSlide_${idx}`);
+            if (cur) {
+                cur.style.transform = idx > (topicSlideIndex - 1) ? 'translateX(40px)' : 'translateX(-40px)';
+                requestAnimationFrame(() => cur.classList.add('active'));
+            }
+            // Update counter
+            const counter = document.getElementById('slideshowCounter');
+            if (counter) counter.textContent = `${idx + 1} / ${topicSlides.length}`;
+            // Update dots
+            document.querySelectorAll('#slideshowDots .slide-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === idx);
+            });
+            // Update buttons
+            const prevBtn = document.getElementById('slideshowPrev');
+            const nextBtn = document.getElementById('slideshowNext');
+            if (prevBtn) prevBtn.disabled = idx === 0;
+            if (nextBtn) nextBtn.disabled = idx === topicSlides.length - 1;
+        }
+
+        // Checklist Parser and Interactive Renderer
+        function renderInteractiveChecklists(rawMarkdown) {
+            const container = document.getElementById('interactiveChecklist');
+            container.innerHTML = '';
+
+            // Ensure drawer exists
+            if (!document.getElementById('checklistDrawer')) {
+                const drawer = document.createElement('div');
+                drawer.id = 'checklistDrawer';
+                drawer.className = 'checklist-drawer';
+                drawer.innerHTML = `
+                    <div class="drawer-header">
+                        <div class="drawer-title" id="drawerTitle">Section</div>
+                        <button class="drawer-close" onclick="closeChecklistDrawer()">✕</button>
+                    </div>
+                    <div class="drawer-body" id="drawerBody"></div>`;
+                document.body.appendChild(drawer);
+            }
+
+            const pageHeader = document.createElement('div');
+            pageHeader.style.cssText = 'margin-bottom:24px;';
+            pageHeader.innerHTML = `
+                <h2 style="font-family:var(--font-title);font-size:1.6rem;font-weight:800;color:var(--text-primary);margin-bottom:6px;">Deployment Checklists</h2>
+                <p style="color:var(--text-secondary);font-size:0.95rem;">Click any card to review and track items. <b>[CRITICAL]</b> items are non-negotiable.</p>`;
+            container.appendChild(pageHeader);
+
+            const lines = rawMarkdown.split('\n');
+            let currentSection = null;
+            let currentSubSection = 'General';
+            let sections = []; // [{title, subSections: [{name, items:[{label,key}]}]}]
+            let itemCounter = 0;
+
+            lines.forEach((line) => {
+                const headerMatch = line.match(/^##\s+(CHECKLIST\s+\d+:\s+.*)$/i);
+                const subHeaderMatch = line.match(/^###\s+(.*)$/);
+                const checkboxMatch = line.match(/^-\s+\[\s*\]\s+(.*)$/);
+
+                if (headerMatch) {
+                    currentSection = { title: headerMatch[1], subSections: [] };
+                    sections.push(currentSection);
+                    currentSubSection = 'General';
+                } else if (subHeaderMatch && currentSection) {
+                    currentSubSection = subHeaderMatch[1];
+                } else if (checkboxMatch && currentSection) {
+                    const label = checkboxMatch[1];
+                    const storageKey = `checklist_item_${currentSection.title.split(':')[0].trim()}_${itemCounter++}`;
+                    let sub = currentSection.subSections.find(s => s.name === currentSubSection);
+                    if (!sub) { sub = { name: currentSubSection, items: [] }; currentSection.subSections.push(sub); }
+                    sub.items.push({ label, key: storageKey });
+                }
+            });
+
+            sections.forEach((section, idx) => {
+                container.appendChild(createGroupUI(section, idx + 1));
+            });
+
+            updateOverallProgress();
+        }
+
+        function createGroupUI(section, num) {
+            const group = document.createElement('div');
+            group.className = 'checklist-group';
+
+            // Count totals
+            let totalItems = 0, totalChecked = 0;
+            section.subSections.forEach(sub => {
+                sub.items.forEach(item => {
+                    totalItems++;
+                    if (localStorage.getItem(item.key) === 'true') totalChecked++;
+                });
+            });
+            const pct = totalItems > 0 ? Math.round((totalChecked / totalItems) * 100) : 0;
+            const cleanTitle = section.title.replace(/^CHECKLIST\s+\d+:\s*/i, '');
+
+            // Group header
+            const gh = document.createElement('div');
+            gh.className = 'checklist-group-header';
+            const fillId = `gfill_${num}`;
+            const pctId = `gpct_${num}`;
+            gh.innerHTML = `
+                <div class="checklist-group-num">${num}</div>
+                <div class="checklist-group-title">${cleanTitle}</div>
+                <span class="checklist-group-pct" id="${pctId}">${pct}%</span>
+                <div class="checklist-group-bar"><div class="checklist-group-fill" id="${fillId}" style="width:${pct}%"></div></div>`;
+            group.appendChild(gh);
+
+            // Mini-card grid
+            const grid = document.createElement('div');
+            grid.className = 'checklist-mini-grid';
+
+            section.subSections.forEach(sub => {
+                let subChecked = sub.items.filter(i => localStorage.getItem(i.key) === 'true').length;
+                const subPct = sub.items.length > 0 ? Math.round((subChecked / sub.items.length) * 100) : 0;
+                const allDone = subChecked === sub.items.length && sub.items.length > 0;
+
+                const mini = document.createElement('div');
+                mini.className = `checklist-mini-card${allDone ? ' all-done' : ''}`;
+                const cardFillId = `mfill_${num}_${sub.name.replace(/\s/g,'_')}`;
+                mini.innerHTML = `
+                    <div class="mini-card-label">${sub.name}</div>
+                    <div class="mini-card-count">${subChecked}<span> / ${sub.items.length}</span></div>
+                    <div class="mini-card-bar"><div class="mini-card-fill" id="${cardFillId}" style="width:${subPct}%"></div></div>`;
+
+                mini.onclick = () => openChecklistDrawer(sub, cleanTitle, fillId, pctId, totalItems, section);
+                grid.appendChild(mini);
+            });
+
+            group.appendChild(grid);
+            return group;
+        }
+
+        function openChecklistDrawer(sub, sectionTitle, groupFillId, groupPctId, totalGroupItems, section) {
+            const drawer = document.getElementById('checklistDrawer');
+            const body = document.getElementById('drawerBody');
+            const titleEl = document.getElementById('drawerTitle');
+            titleEl.textContent = `${sectionTitle} — ${sub.name}`;
+            body.innerHTML = '';
+
+            sub.items.forEach(item => {
+                const checked = localStorage.getItem(item.key) === 'true';
+                const el = document.createElement('div');
+                el.className = `checklist-item${checked ? ' checked' : ''}`;
+                el.innerHTML = `<div class="checklist-checkbox"></div><div class="checklist-label">${item.label}</div>`;
+                el.onclick = function() {
+                    const isChecked = el.classList.contains('checked');
+                    el.classList.toggle('checked', !isChecked);
+                    localStorage.setItem(item.key, String(!isChecked));
+                    // Update mini-card count
+                    const cardFillId = `mfill_${groupFillId.split('_')[1]}_${sub.name.replace(/\s/g,'_')}`;
+                    const subChecked = sub.items.filter(i => localStorage.getItem(i.key) === 'true').length;
+                    const subPct = Math.round((subChecked / sub.items.length) * 100);
+                    const mf = document.getElementById(cardFillId);
+                    if (mf) mf.style.width = subPct + '%';
+                    // Update group totals
+                    let gc = 0, gt = 0;
+                    section.subSections.forEach(s => s.items.forEach(i => { gt++; if (localStorage.getItem(i.key)==='true') gc++; }));
+                    const gPct = gt > 0 ? Math.round((gc/gt)*100) : 0;
+                    const gf = document.getElementById(groupFillId);
+                    const gp = document.getElementById(groupPctId);
+                    if (gf) gf.style.width = gPct + '%';
+                    if (gp) gp.textContent = gPct + '%';
+                    updateOverallProgress();
+                };
+                body.appendChild(el);
+            });
+
+            drawer.classList.add('open');
+        }
+
+        function closeChecklistDrawer() {
+            document.getElementById('checklistDrawer').classList.remove('open');
+        }
+
+        function updateSectionProgress(bodyEl, fillEl, pctEl) {
+            const items = bodyEl.querySelectorAll('.checklist-item');
+            const checked = bodyEl.querySelectorAll('.checklist-item.checked');
+            const pct = items.length > 0 ? Math.round((checked.length / items.length) * 100) : 0;
+            fillEl.style.width = `${pct}%`;
+            if (pctEl) pctEl.textContent = `${pct}%`;
+        }
+
+        function updateOverallProgress() {
+            let totalItems = 0;
+            let totalChecked = 0;
+            
+            // Scan all stored keys matching checklist_item_
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('checklist_item_')) {
+                    totalItems++;
+                    if (localStorage.getItem(key) === 'true') {
+                        totalChecked++;
+                    }
+                }
+            }
+            
+            // We can also calculate total statically if we scan the handout content
+            const pct = totalItems > 0 ? Math.round((totalChecked / totalItems) * 100) : 0;
+            
+            const overallPercentage = document.getElementById('overallPercentage');
+            const overallProgressFill = document.getElementById('overallProgressFill');
+            
+            if (overallPercentage && overallProgressFill) {
+                overallPercentage.innerText = `${pct}%`;
+                overallProgressFill.style.width = `${pct}%`;
+            }
+        }
+
+        function initChecklistCounter() {
+            // Seed localStorage with keys if empty to track progress properly
+            if (localStorage.length === 0 || !Object.keys(localStorage).some(k => k.startsWith('checklist_item_'))) {
+                const catData = WORKSHOP_CONTENT['04_deployment_handouts'];
+                if (catData) {
+                    const rawMarkdown = catData.files['handout_checklists'];
+                    const lines = rawMarkdown.split('\n');
+                    let currentSection = null;
+                    let itemCounter = 0;
+                    
+                    lines.forEach(line => {
+                        const headerMatch = line.match(/^##\s+(CHECKLIST\s+\d+:\s+.*)$/i);
+                        const checkboxMatch = line.match(/^-\s+\[\s*\]\s+(.*)$/);
+                        
+                        if (headerMatch) {
+                            currentSection = headerMatch[1];
+                        } else if (checkboxMatch && currentSection) {
+                            const storageKey = `checklist_item_${currentSection.split(':')[0].trim()}_${itemCounter++}`;
+                            if (!localStorage.getItem(storageKey)) {
+                                localStorage.setItem(storageKey, 'false');
+                            }
+                        }
+                    });
+                }
+            }
+            updateOverallProgress();
+        }
+
+        function resetChecklist() {
+            if (confirm("Are you sure you want to reset all checklist progress?")) {
+                for (let i = localStorage.length - 1; i >= 0; i--) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('checklist_item_')) {
+                        localStorage.setItem(key, 'false');
+                    }
+                }
+                
+                // Rerender if we are currently looking at Category 4
+                if (currentCategory === '04_deployment_handouts') {
+                    showTopic('04_deployment_handouts');
+                } else {
+                    updateOverallProgress();
+                }
+            }
+        }
+
+        // Slide Presenter Engine
+        function presentSlides() {
+            const catData = WORKSHOP_CONTENT[currentCategory];
+            if (!catData) return;
+            
+            const presentationScript = catData.files['presentation_script'];
+            if (!presentationScript) {
+                alert("No presentation script slides available for this section.");
+                return;
+            }
+            
+            parseSlides(presentationScript);
+            
+            if (slideDeck.length === 0) {
+                alert("Could not extract slides from presentation script.");
+                return;
+            }
+            
+            currentSlideIndex = 0;
+            renderSlide(currentSlideIndex);
+            
+            document.getElementById('presenterModal').style.display = 'flex';
+        }
+
+        function parseSlides(scriptText) {
+            slideDeck = [];
+            
+            // 1. Try to parse as JSON first (flexible with object representation)
+            try {
+                const trimmedText = scriptText.trim();
+                if (trimmedText.startsWith('[') || trimmedText.startsWith('{')) {
+                    const parsed = JSON.parse(trimmedText);
+                    const slidesArray = Array.isArray(parsed) ? parsed : [parsed];
+                    
+                    slidesArray.forEach((slide, idx) => {
+                        const slideTitle = slide.title || slide.slide || `Slide ${idx + 1}`;
+                        const slideVisual = slide.visual || slide.content || slide.body || "";
+                        const slideNotes = slide.notes || slide.script || slide.speakerNotes || "No notes available.";
+                        
+                        slideDeck.push({
+                            title: slideTitle,
+                            content: marked.parse(slideVisual),
+                            notes: marked.parse(slideNotes)
+                        });
+                    });
+                    
+                    if (slideDeck.length > 0) return;
+                }
+            } catch (e) {
+                // Not valid JSON, fallback to markdown parsing
+            }
+            
+            // 2. Loose Markdown Parsing
+            // Slides are delimited by '---'
+            const slideBlocks = scriptText.split('---');
+            let slideIndex = 1;
+            
+            slideBlocks.forEach(block => {
+                block = block.trim();
+                if (!block) return;
+                
+                // Identify the title: match any heading from # to ####
+                let titleMatch = block.match(/^#{1,4}\s*(.*)/mi);
+                let slideTitle = "";
+                let slideBody = block;
+                
+                if (titleMatch) {
+                    slideTitle = titleMatch[1].trim();
+                    // Remove title line from slide body
+                    slideBody = block.replace(/^#{1,4}\s*.*/mi, '').trim();
+                } else {
+                    // Default title if no heading is found
+                    slideTitle = `Slide ${slideIndex}`;
+                }
+                
+                // Flexible script/notes extraction: search for Visual and Script/Notes segments
+                // We search for patterns like "**Script:**", "**Speaker Notes:**", "**Notes:**", "Script:", "Speaker Notes:", "Notes:"
+                const scriptRegex = /\*\*(Script|Speaker Notes|Notes):\*\*([\s\S]*)/i;
+                const plainScriptRegex = /(Script|Speaker Notes|Notes):([\s\S]*)/i;
+                
+                let notes = "No notes available.";
+                let scriptMatch = slideBody.match(scriptRegex);
+                if (!scriptMatch) {
+                    scriptMatch = slideBody.match(plainScriptRegex);
+                }
+                
+                if (scriptMatch) {
+                    notes = scriptMatch[2].trim();
+                    // Remove notes section from content body
+                    slideBody = slideBody.replace(scriptMatch[0], '').trim();
+                }
+                
+                // Clean up Visual keyword if present at start of body (e.g. "**Visual:** ..." or "Visual: ...")
+                const visualRegex = /^\*\*(Visual|Visuals):\*\*\s*/i;
+                const plainVisualRegex = /^(Visual|Visuals):\s*/i;
+                if (slideBody.match(visualRegex)) {
+                    slideBody = slideBody.replace(visualRegex, '');
+                } else if (slideBody.match(plainVisualRegex)) {
+                    slideBody = slideBody.replace(plainVisualRegex, '');
+                }
+                
+                slideDeck.push({
+                    title: slideTitle,
+                    content: marked.parse(slideBody),
+                    notes: marked.parse(notes)
+                });
+                
+                slideIndex++;
+            });
+        }
+
+        function renderSlide(index) {
+            const slide = slideDeck[index];
+            const contentEl = document.getElementById('slideContent');
+            const notesEl = document.getElementById('slideNotes');
+            const counterEl = document.getElementById('slideCounter');
+            const presenterSlideTitle = document.getElementById('presenterSlideTitle');
+            
+            presenterSlideTitle.innerText = `${WORKSHOP_CONTENT[currentCategory].title} - Presentation Mode`;
+            contentEl.innerHTML = slide.content;
+            notesEl.innerHTML = slide.notes;
+            counterEl.innerText = `Slide ${index + 1} of ${slideDeck.length}`;
+            
+            document.getElementById('prevSlideBtn').disabled = index === 0;
+            document.getElementById('nextSlideBtn').disabled = index === slideDeck.length - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slideDeck.length - 1) {
+                currentSlideIndex++;
+                renderSlide(currentSlideIndex);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                renderSlide(currentSlideIndex);
+            }
+        }
+
+        function closePresenter() {
+            document.getElementById('presenterModal').style.display = 'none';
+        }
+
+        // About Modal
+        function openAboutModal() {
+            document.getElementById('aboutModal').style.display = 'flex';
+        }
+
+        function closeAboutModal() {
+            document.getElementById('aboutModal').style.display = 'none';
+        }
+
+        // Simple Global Search across all markdown texts
+        function setupSearch() {
+            const searchInput = document.getElementById('globalSearch');
+            const searchResults = document.getElementById('searchResults');
+            
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                
+                if (query.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                searchResults.innerHTML = '';
+                let hits = 0;
+                
+                for (const catId in WORKSHOP_CONTENT) {
+                    const cat = WORKSHOP_CONTENT[catId];
+                    for (const fileId in cat.files) {
+                        const content = cat.files[fileId];
+                        const text = content.toLowerCase();
+                        
+                        let index = text.indexOf(query);
+                        if (index !== -1) {
+                            hits++;
+                            // Extract snippet
+                            const start = Math.max(0, index - 30);
+                            const end = Math.min(text.length, index + query.length + 50);
+                            let snippet = content.substring(start, end).replace(/[\r\n]+/g, ' ');
+                            
+                            // Highlight query in snippet
+                            const regex = new RegExp(`(${query})`, 'gi');
+                            snippet = snippet.replace(regex, '<mark>$1</mark>');
+                            
+                            const el = document.createElement('div');
+                            el.className = 'search-result-item';
+                            el.innerHTML = `
+                                <div class="result-title">${cat.title} - ${fileId.replace('_', ' ')}</div>
+                                <div class="result-snippet">...${snippet}...</div>
+                                <div class="result-badge">${fileId}</div>
+                            `;
+                            
+                            el.onclick = function() {
+                                showTopic(catId);
+                                if (catId !== '04_deployment_handouts') {
+                                    switchTab(fileId);
+                                }
+                                searchInput.value = '';
+                                searchResults.style.display = 'none';
+                            };
+                            
+                            searchResults.appendChild(el);
+                        }
+                    }
+                }
+                
+                if (hits > 0) {
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.innerHTML = '<div style="padding: 14px 18px; color: var(--text-muted); font-size: 0.9rem; font-style: italic;">No matching content found.</div>';
+                    searchResults.style.display = 'block';
+                }
+            });
+            
+            // Close search results on click outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.search-container')) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
