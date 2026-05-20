@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>04. Deployment Readiness Checklists - ConnectED</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#003623",
+                    "surface-variant": "#d3e4fe",
+                    "surface-bright": "#f8f9ff",
+                    "primary-fixed-dim": "#95d3ba",
+                    "secondary-container": "#6cf8bb",
+                    "on-surface-variant": "#404944",
+                    "on-background": "#0b1c30",
+                    "on-tertiary-fixed": "#002114",
+                    "inverse-surface": "#213145",
+                    "on-primary-fixed-variant": "#0b513d",
+                    "primary-fixed": "#b0f0d6",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#68dba9",
+                    "outline": "#707974",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container-high": "#dce9ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-tertiary-container": "#51c695",
+                    "surface-glass": "rgba(255, 255, 255, 0.7)",
+                    "deep-indigo": "#1E1B4B",
+                    "on-surface": "#0b1c30",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#002117",
+                    "mint-highlight": "#F0FDF4",
+                    "inverse-primary": "#95d3ba",
+                    "tertiary-container": "#004f35",
+                    "background": "#f8f9ff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#005137",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-secondary-container": "#00714d",
+                    "outline-variant": "#bfc9c3",
+                    "primary": "#003527",
+                    "on-primary-container": "#80bea6",
+                    "surface-tint": "#2b6954",
+                    "surface-container-low": "#eff4ff",
+                    "surface-container": "#e5eeff",
+                    "surface": "#f8f9ff",
+                    "primary-container": "#064e3b",
+                    "on-secondary-fixed-variant": "#005236",
+                    "secondary": "#006c49",
+                    "on-secondary-fixed": "#002113",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#85f8c4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "section-gap": "80px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .progress-ring {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- SideNavBar Shell -->
+<aside class="bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline shadow-sm h-screen w-64 fixed left-0 top-0 flex flex-col h-full py-base z-50">
+<div class="px-6 py-4 mb-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">ConnectED</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-70">The Agentic Stack</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-dim transition-colors mx-2 px-4 py-3 hover:translate-y-[-2px] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Platform</span>
+</a>
+<a class="flex items-center text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-dim transition-colors mx-2 px-4 py-3 hover:translate-y-[-2px] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="layers">layers</span>
+<span class="font-label-md text-label-md">AI Stack</span>
+</a>
+<a class="flex items-center text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-dim transition-colors mx-2 px-4 py-3 hover:translate-y-[-2px] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="extension">extension</span>
+<span class="font-label-md text-label-md">Challenges</span>
+</a>
+<a class="flex items-center text-on-secondary-container bg-secondary-container dark:bg-primary-container dark:text-on-primary-container font-semibold rounded-lg mx-2 px-4 py-3 hover:translate-y-[-2px] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="fact_check">fact_check</span>
+<span class="font-label-md text-label-md">Checklists</span>
+</a>
+</nav>
+<div class="px-4 mb-6">
+<button class="w-full py-3 bg-primary-container text-on-primary-container rounded-xl font-label-md text-label-md font-bold shadow-md hover:scale-[1.02] transition-transform">
+                Upgrade to Pro
+            </button>
+</div>
+<footer class="border-t border-outline-variant/30 pt-4">
+<a class="flex items-center text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-dim transition-colors mx-2 px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center text-on-surface-variant dark:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-dim transition-colors mx-2 px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</footer>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-surface-glass backdrop-blur-xl border-b border-white/40 h-16 px-gutter flex justify-between items-center shadow-sm">
+<div class="flex items-center gap-6">
+<span class="font-headline-sm text-headline-sm font-black text-primary dark:text-primary-fixed">Workshop Hub</span>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-body-md w-64 focus:ring-2 focus:ring-primary transition-all" placeholder="Tìm kiếm tài liệu..." type="text"/>
+</div>
+</div>
+<nav class="flex items-center space-x-8">
+<a class="text-on-surface-variant font-label-md hover:text-secondary transition-colors" href="#">Curriculum</a>
+<a class="text-on-surface-variant font-label-md hover:text-secondary transition-colors" href="#">Mentors</a>
+<a class="text-on-surface-variant font-label-md hover:text-secondary transition-colors" href="#">Library</a>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="notifications">notifications</button>
+<div class="flex items-center gap-3 bg-secondary-container/20 px-3 py-1.5 rounded-full border border-secondary/10">
+<span class="text-label-md font-bold text-secondary">Resume Lesson</span>
+<img alt="Tutor profile" class="w-8 h-8 rounded-full border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhlCcjkTYrLHxhbT2RX6R2mmSqbQw-bBoL9eFETmaE73RJHrn1D2xPySDev_yxTDwRwRbL0brdGp5dzFClAwAF43qIAovFPqsHJkzOxvSGt3H2xGDhEZXULbK-FCtSBtFFuPDEfAbt0btu900874Cd3EoAbQBAifpcA14-95VGWcoqr01nWeDMFeuir1AcjOwRn5ZuvvNMwEXiVEwZ2HH9c3N9F7Vf1YkzVRBR1PScCnLq992HpAt5jE-LHg336vT83hNC9skGYWVF"/>
+</div>
+</div>
+</nav>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="max-w-container-max mx-auto px-margin-desktop py-12">
+<!-- Hero Header Section -->
+<section class="mb-section-gap animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="flex justify-between items-end mb-8">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-mint-highlight text-primary text-label-sm px-3 py-1 rounded-full border border-primary/10 uppercase tracking-wider">Module 04</span>
+<span class="text-on-surface-variant font-label-sm">• Deployment Phase</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-primary tracking-tight">04. Deployment Readiness Checklists</h2>
+<p class="text-body-lg text-on-surface-variant mt-4 max-w-2xl">
+                            Đảm bảo hệ thống Agentic của bạn sẵn sàng cho môi trường production với bộ kiểm tra toàn diện từ hạ tầng đến vận hành.
+                        </p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-label-md font-bold hover:translate-y-[-2px] transition-all shadow-lg active:scale-95">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                        Tải Tài Liệu Hướng Dẫn
+                    </button>
+</div>
+<!-- Global Progress Dashboard -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-card rounded-2xl p-6 flex items-center gap-6">
+<div class="relative w-20 h-20">
+<svg class="w-20 h-20">
+<circle class="text-surface-container-highest" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary progress-ring" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" stroke-dasharray="201" stroke-dashoffset="120" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-bold text-headline-sm">40%</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant uppercase">Platform Readiness</p>
+<p class="font-bold text-headline-md">2 / 5 Đã hoàn thành</p>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-6 flex items-center gap-6">
+<div class="relative w-20 h-20">
+<svg class="w-20 h-20">
+<circle class="text-surface-container-highest" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary progress-ring" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" stroke-dasharray="201" stroke-dashoffset="60" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-bold text-headline-sm">70%</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant uppercase">Agentic Stack Setup</p>
+<p class="font-bold text-headline-md">7 / 10 Đã hoàn thành</p>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-6 flex items-center gap-6">
+<div class="relative w-20 h-20">
+<svg class="w-20 h-20">
+<circle class="text-surface-container-highest" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary progress-ring" cx="40" cy="40" fill="transparent" r="32" stroke="currentColor" stroke-dasharray="201" stroke-dashoffset="180" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-bold text-headline-sm">10%</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant uppercase">AgentOps &amp; Monitoring</p>
+<p class="font-bold text-headline-md">1 / 8 Đã hoàn thành</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Checklist Sections (Bento-style Grid) -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Section 1: Platform Readiness -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-8">
+<div class="glass-card rounded-3xl p-8 relative overflow-hidden h-full">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-9xl" data-icon="cloud_done">cloud_done</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="precision_manufacturing">precision_manufacturing</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">1. Platform Readiness</h3>
+<p class="text-label-md text-on-surface-variant">Kiểm tra hạ tầng &amp; quy trình</p>
+</div>
+</div>
+<div class="space-y-4">
+<label class="flex items-start gap-4 p-4 rounded-2xl bg-white/50 border border-outline-variant/30 cursor-pointer hover:bg-white transition-all group">
+<input checked="" class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Tương thích Mô hình ADDIE</p>
+<p class="text-label-sm text-on-surface-variant">Đảm bảo nội dung đào tạo đã qua các bước Phân tích, Thiết kế, Phát triển.</p>
+</div>
+</label>
+<label class="flex items-start gap-4 p-4 rounded-2xl bg-white/50 border border-outline-variant/30 cursor-pointer hover:bg-white transition-all group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Cài đặt Bản địa hóa (Localization)</p>
+<p class="text-label-sm text-on-surface-variant">Kiểm tra hỗ trợ đa ngôn ngữ và định dạng vùng miền (Timezone, Currency).</p>
+</div>
+</label>
+<label class="flex items-start gap-4 p-4 rounded-2xl bg-white/50 border border-outline-variant/30 cursor-pointer hover:bg-white transition-all group">
+<input checked="" class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Quyền truy cập Role-based (RBAC)</p>
+<p class="text-label-sm text-on-surface-variant">Phân quyền chi tiết cho Admin, Mentor và Học viên.</p>
+</div>
+</label>
+<label class="flex items-start gap-4 p-4 rounded-2xl bg-white/50 border border-outline-variant/30 cursor-pointer hover:bg-white transition-all group">
+<input class="mt-1 w-5 h-5 rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<div>
+<p class="font-bold text-on-surface group-hover:text-primary transition-colors">Compliance &amp; Bảo mật</p>
+<p class="text-label-sm text-on-surface-variant">Kiểm tra chứng chỉ bảo mật và tuân thủ dữ liệu (GDPR/Hành lang pháp lý).</p>
+</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Agentic Stack Setup -->
+<div class="col-span-12 lg:col-span-7">
+<div class="glass-card rounded-3xl p-8 h-full">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="hub">hub</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">2. Agentic Stack Setup</h3>
+<p class="text-label-md text-on-surface-variant">Kiểm tra cấu hình Technical Stack</p>
+</div>
+</div>
+<span class="text-label-sm font-bold bg-secondary-container/30 text-on-secondary-container px-3 py-1 rounded-full">High Priority</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Category: Orchestration -->
+<div class="p-5 rounded-2xl bg-surface-container-low border border-outline-variant/20">
+<div class="flex items-center gap-2 mb-4 border-b border-outline-variant/10 pb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="schema">schema</span>
+<span class="font-bold text-on-surface">Orchestration</span>
+</div>
+<div class="space-y-3">
+<label class="flex items-center gap-3 text-label-md">
+<input checked="" class="w-4 h-4 rounded text-secondary" type="checkbox"/> Link-chain logic verification
+                                    </label>
+<label class="flex items-center gap-3 text-label-md">
+<input checked="" class="w-4 h-4 rounded text-secondary" type="checkbox"/> Parallel task handling
+                                    </label>
+<label class="flex items-center gap-3 text-label-md">
+<input class="w-4 h-4 rounded text-secondary" type="checkbox"/> Error fallback state
+                                    </label>
+</div>
+</div>
+<!-- Category: Tools/MCP -->
+<div class="p-5 rounded-2xl bg-surface-container-low border border-outline-variant/20">
+<div class="flex items-center gap-2 mb-4 border-b border-outline-variant/10 pb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="build">build</span>
+<span class="font-bold text-on-surface">Tools &amp; MCP</span>
+</div>
+<div class="space-y-3">
+<label class="flex items-center gap-3 text-label-md">
+<input checked="" class="w-4 h-4 rounded text-secondary" type="checkbox"/> API Key rotation policy
+                                    </label>
+<label class="flex items-center gap-3 text-label-md">
+<input checked="" class="w-4 h-4 rounded text-secondary" type="checkbox"/> Tool timeout config
+                                    </label>
+<label class="flex items-center gap-3 text-label-md">
+<input checked="" class="w-4 h-4 rounded text-secondary" type="checkbox"/> Rate limiting verification
+                                    </label>
+</div>
+</div>
+<!-- Category: Memory -->
+<div class="p-5 rounded-2xl bg-surface-container-low border border-outline-variant/20 md:col-span-2">
+<div class="flex items-center gap-2 mb-4 border-b border-outline-variant/10 pb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="memory">memory</span>
+<span class="font-bold text-on-surface">Memory &amp; Context</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<label class="flex items-center gap-3 text-label-md">
+<input class="w-4 h-4 rounded text-secondary" type="checkbox"/> Short-term cache TTL
+                                    </label>
+<label class="flex items-center gap-3 text-label-md">
+<input checked="" class="w-4 h-4 rounded text-secondary" type="checkbox"/> Vector DB latency &lt; 50ms
+                                    </label>
+<label class="flex items-center gap-3 text-label-md">
+<input checked="" class="w-4 h-4 rounded text-secondary" type="checkbox"/> Semantic search accuracy
+                                    </label>
+<label class="flex items-center gap-3 text-label-md">
+<input class="w-4 h-4 rounded text-secondary" type="checkbox"/> User profile persistence
+                                    </label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: AgentOps & Monitoring (Full Width Deep Indigo Block) -->
+<div class="col-span-12">
+<div class="bg-deep-indigo rounded-3xl p-10 text-white relative overflow-hidden shadow-2xl">
+<div class="flex flex-col md:flex-row justify-between gap-8 relative z-10">
+<div class="max-w-md">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="analytics">analytics</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-white">3. AgentOps &amp; Monitoring</h3>
+<p class="text-label-md text-white/60">Vận hành và Tối ưu chi phí</p>
+</div>
+</div>
+<p class="text-body-md text-white/80 mb-8">
+                                    Giai đoạn cuối cùng tập trung vào tính ổn định và khả năng mở rộng. Không chỉ là code chạy, mà là hệ thống hoạt động hiệu quả về kinh tế.
+                                </p>
+<div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+<div class="flex justify-between items-center mb-2">
+<span class="text-label-sm font-bold text-secondary-fixed">Tổng quan tiến độ</span>
+<span class="text-label-sm">1/8 Hoàn thành</span>
+</div>
+<div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[12.5%] transition-all duration-1000"></div>
+</div>
+</div>
+</div>
+<div class="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="space-y-4">
+<label class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+<input class="w-5 h-5 bg-transparent border-white/30 text-secondary-fixed rounded" type="checkbox"/>
+<span class="text-body-md">Reliability checks (99.9% uptime)</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+<input class="w-5 h-5 bg-transparent border-white/30 text-secondary-fixed rounded" type="checkbox"/>
+<span class="text-body-md">Real-time cost tracking dashboard</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+<input class="w-5 h-5 bg-transparent border-white/30 text-secondary-fixed rounded" type="checkbox"/>
+<span class="text-body-md">Token usage optimization alerts</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+<input checked="" class="w-5 h-5 bg-transparent border-white/30 text-secondary-fixed rounded" type="checkbox"/>
+<span class="text-body-md">Distributed tracing (LangSmith/OpenTelemetry)</span>
+</label>
+</div>
+<div class="space-y-4">
+<label class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+<input class="w-5 h-5 bg-transparent border-white/30 text-secondary-fixed rounded" type="checkbox"/>
+<span class="text-body-md">Human-in-the-loop (HITL) triggers</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+<input class="w-5 h-5 bg-transparent border-white/30 text-secondary-fixed rounded" type="checkbox"/>
+<span class="text-body-md">Prompt version control system</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+<input class="w-5 h-5 bg-transparent border-white/30 text-secondary-fixed rounded" type="checkbox"/>
+<span class="text-body-md">A/B testing framework setup</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+<input class="w-5 h-5 bg-transparent border-white/30 text-secondary-fixed rounded" type="checkbox"/>
+<span class="text-body-md">Security audit for code execution tools</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Abstract background visual -->
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-secondary/20 blur-[100px] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Footer Section with Image -->
+<section class="mt-section-gap mb-12 flex flex-col items-center">
+<div class="w-full h-80 rounded-[40px] overflow-hidden relative mb-8 group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sophisticated data visualization dashboard showing multiple interconnected nodes and glowing teal progress lines in a clean, high-end laboratory setting. The lighting is soft and professional with a mix of deep indigo shadows and vibrant emerald green highlights. The atmosphere is focused and futuristic, suggesting advanced technical orchestration and deployment monitoring in a high-velocity AI-native environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzpzaWgdtH3Iw_9_I3S1L7E6d7wSwgOMIMOlvMH47FdSRXaUuad230n989NTO_UWx8_Zf79JwOZsx1qKqwykLMlfqFA1cpd67oUPnboTKpzxtNHPs1dqLy5ZXDWnKXZrttCHAYwl5LlmsMzEzhtiybJFebfL_Vqmj1A--hHzgSm-2kztG-8S3elRRzQ2MYI4Ba_8JZ6aHm0smlhzhk2jX9wyCPZ71dmhSqhVoFtVnASbAY6ZhKpt_i4AMPPlF0PKpINeEPSRFfhYpw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-12">
+<h4 class="text-white font-display-lg text-headline-lg mb-2">Sẵn sàng để Scale?</h4>
+<p class="text-white/80 text-body-lg max-w-xl">
+                            Khi tất cả các tiêu chí đã được đánh dấu, hệ thống của bạn đã đạt chuẩn 'Agentic Enterprise' để sẵn sàng triển khai thực tế.
+                        </p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-high text-on-surface-variant px-8 py-4 rounded-2xl font-bold hover:bg-surface-dim transition-all">
+                        Xem lại Module 03
+                    </button>
+<button class="bg-primary text-on-primary px-8 py-4 rounded-2xl font-bold shadow-xl hover:translate-y-[-4px] transition-all active:scale-95">
+                        Xác nhận Hoàn tất Workshop
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Micro-interaction for checkboxes to update progress rings could be added here
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Logic to update UI stats would go here for a real app
+                if(this.checked) {
+                    this.parentElement.closest('label')?.classList.add('ring-2', 'ring-primary/20');
+                } else {
+                    this.parentElement.closest('label')?.classList.remove('ring-2', 'ring-primary/20');
+                }
+            });
+        });
+    </script>
+</body></html>

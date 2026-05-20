@@ -48,7 +48,7 @@ The repository is organized as follows:
 ```
 
 ### File Breakdown:
-- **`presentation_doc/` & `ref_doc/`**: Contain Markdown files (`reference.md`, `detailed_notes.md`, `presentation_script.md`, and `handout_checklists.md`) representing slide content, transcripts, and speaker notes.
+- **`presentation_doc/` & `ref_doc/`**: Contain Markdown files (`reference.md`, `detailed_notes.md`, and `handout_checklists.md`) representing slide content, transcripts, and speaker notes.
 - **`template.html`**: A highly interactive UI that supports dark mode, slide-by-slide navigation, search, and rendering markdown files dynamically.
 - **`build_ui.py`**: Reads files under `presentation_doc/`, parses them into a JS global object, and embeds them into `template.html` in place of the `/* CONTENT_PLACEHOLDER */` comment.
 
@@ -84,7 +84,7 @@ python3 build_ui.py
 
 Upon execution, it will read all categories from `presentation_doc/`, package them into a JSON representation, insert it into `template.html`, and write the output to `index.html`.
 
-### How to Run and View / Cách xem slide tương tác:
+### How to Run and View / Cách xem hub tương tác:
 Since `index.html` compiles into a standalone static web application, you can view it directly by:
 1. Double-clicking `index.html` to open it in your browser, or
 2. Running a local HTTP server inside the root directory:

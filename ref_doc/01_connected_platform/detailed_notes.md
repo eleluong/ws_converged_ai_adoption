@@ -101,11 +101,8 @@ This makes each phase suitable for a dedicated AI stage with its own prompt, val
 A monolithic prompt attempting to handle all six stages simultaneously faces several fundamental problems:
 
 1. **Context saturation:** Including all instructions, templates, and examples for every stage simultaneously inflates context size, dilutes attention, and degrades output quality
-
 2. **Verification impossibility:** If a single prompt produces a complete lesson, there is no natural point to check intermediate work — errors in concept extraction silently propagate into assessment design
-
 3. **Debugging opacity:** When a monolithic prompt produces a poor lesson, it is nearly impossible to identify which reasoning step failed
-
 4. **Hallucination amplification:** Without intermediate checkpoints, the model can commit to an incorrect assumption early and build an increasingly coherent but incorrect lesson structure on top of it
 
 **The hierarchical solution:**
@@ -126,73 +123,36 @@ Each stage is a focused AI call with:
 | 5. Visual Material Generation | Script, slide content | Animation scripts, diagrams, lab guides | Asset-to-narrative alignment check |
 | 6. Evaluation Review | Full lesson package | Teacher-facing review interface | Human checkpoint |
 
-**Connection to agentic systems:**
-This pipeline is a domain-specific implementation of an agentic workflow. Each stage is functionally equivalent to an agent step: it receives inputs, reasons over them, produces outputs, and validates results before proceeding. The ConnectED team built this pipeline before agentic frameworks matured — they arrived at the same architectural principles through domain-driven engineering.
+---
+
+### Section 1.5: Mapping to the Modern Agentic Stack
+
+ConnectED is an end-to-end production implementation of the **Modern Agentic Stack** detailed in Part II. Here is the architectural mapping:
+
+* **Layer 1: Orchestration:** Managed by a custom, state-machine-based execution harness. This deterministic routing is preferred over generic multi-agent frameworks (e.g. LangChain/CrewAI) to guarantee that the educational pipeline follows a strict, sequential ADDIE progression with zero state leakage.
+* **Layer 2: Reasoning Core:** Utilizes hybrid model routing with dynamic semantic routing. Concept extraction and pedagogical activity design are dynamically routed to Claude 4.6 Sonnet / DeepSeek-R1 (frontier/reasoning models), while low-level formatting, translation, and metadata tagging are handled by Llama 3.3 70B / Gemini 2.5 Flash (utility models) to reduce operational costs by 70%.
+* **Layer 3: Skills:** Each step of the lesson plan pipeline is implemented as an isolated, version-controlled skill. System prompts, standard templates, and Bloom's taxonomy definitions are bundled into modular packages.
+* **Layer 4: Tools & Protocols:** Uses **Model Context Protocol (MCP)** to securely expose regional school schedules and textbook databases as structured tools. For visual asset procurement, the agent uses **Agent Payments Protocol (AP2)** to securely process micro-transactions for premium STEM graphics based on cryptographically-signed Intent Mandates.
+* **Layer 5: Memory Systems:** Employs long-term semantic memory (vector database of teacher teaching preferences and feedback) and short-term episodic memory (retains the active state of the current lesson draft session).
 
 ---
 
-### Section 1.5: Virtual Labs and Interactive Learning
+### Section 1.6: Mapping to the Core Agentic Loop
 
-**Technical context:**
-Virtual lab experiences in ConnectED are generated as structured instructional sequences rather than freeform simulations. Each lab includes:
-- Setup instructions (materials, safety, preparation)
-- Procedural steps with expected observations
-- Data recording templates
-- Analysis questions tied directly to lesson objectives
-- Connection to real-world application
+During execution, each stage of ConnectED's hierarchical pipeline undergoes its own internal cognitive loop:
 
-**Integration with the ADDIE pipeline:**
-Lab experiences are generated in the Develop stage, after the lesson blueprint is established. This ensures:
-- The lab reinforces the specific concepts targeted in the lesson
-- Difficulty level matches the prerequisite knowledge established in Stage 1
-- Assessment questions for the lab align with the overall lesson evaluation strategy
-
-**Why virtual labs matter at scale:**
-Approximately 30% of Vietnamese schools report insufficient physical science lab equipment. Virtual labs are not a compromise — for a significant portion of students, they are the primary means of engaging with experimental science. ConnectED treats this as a first-class design constraint, not an edge case.
+1. **PLAN:** The agent plans the specific lesson section structure (e.g., "Designing a 15-minute concept introduction").
+2. **ACT:** The agent calls the designated reasoning model with the structured schema instructions and textbook context.
+3. **OBSERVE:** The output is passed to the validation gate (e.g., verifying that the total activity time is $\le 45$ minutes).
+4. **REFLECT & ITERATE:** If the time budget is exceeded, the agent reflects on which activity can be shortened, rewrites the step, and re-validates. If validation fails three times, it triggers an escalation (escalates to human teacher or rolls back the state).
 
 ---
 
-### Section 1.6: Localization as Core Principle
+### Section 1.7: Mitigation of Persistent Challenges
 
-**The localization spectrum:**
-Localization in ConnectED operates at multiple levels of depth:
+ConnectED serves as a reference case for overcoming the core production hurdles of agentic systems:
 
-| Level | Example |
-|-------|---------|
-| Surface (translation) | Lesson text in Vietnamese |
-| Terminology | Using MOET-standard subject terms, not translated foreign terms |
-| Structural | Lesson objective format matching national exam style |
-| Pedagogical | Activity types matched to Vietnamese classroom norms (large classes, limited tech) |
-| Cultural | Examples drawn from Vietnamese geography, history, and daily life |
-| Regulatory | Assessment criteria explicitly mapped to MOET competency frameworks |
-
-**Implementation approach:**
-Localization is not a separate post-processing step — it is injected into the system at the prompt level, template level, and validation level:
-- System prompts include explicit Vietnamese curriculum context
-- Templates embed grade-level standards directly
-- Validation layers check outputs against terminology and format standards
-- Human review catches cultural misalignments before deployment
-
-**Lesson for other domains:**
-The same principle applies in healthcare (clinical guidelines vary by country), legal services (jurisdiction-specific law), financial services (regulatory frameworks differ by market), and government services (administrative processes are highly localized). Any AI deployment in a regulated or culturally-specific domain should treat localization as infrastructure, not customization.
-
----
-
-### Section 1.7: Impact
-
-**Quantitative outcomes:**
-- Lesson preparation time reduced from 3-4 hours to 15-20 minutes
-- Time savings of approximately 85-90% per lesson
-- Across a semester (30 lessons): approximately 75-90 hours of teacher time recovered per teacher
-
-**Qualitative outcomes:**
-- Teachers report that generated lessons require less post-editing than expected
-- Pedagogical quality maintained as measured by peer review and student feedback
-- Platform adoption increased when teachers were included in the iterative design process (reinforcing human-in-the-loop value)
-
-**What the results validate:**
-The ConnectED results empirically validate a set of AI system design principles that generalize beyond education:
-1. Domain grounding reduces hallucination and improves relevance
-2. Hierarchical decomposition improves output quality and debuggability
-3. Human-in-the-loop preserves trust and catches edge cases
-4. Localization is a competitive moat, not just a compliance requirement
+* **Reliability:** By enforcing schema gates on each stage boundary, malformed JSON inputs are caught before they propagate. This limits cascade failures.
+* **Evaluation:** An offline evaluation framework runs trajectories against an "LLM-as-judge" to verify MOET alignment prior to production deployment.
+* **Cost & Latency:** Massive curriculum prompts are structured at the front of the context window to maximize prompt caching, yielding an 80% reduction in input token costs.
+* **Observability:** Complete execution trees are exported to AgentOps tools, showing the timing, cost, and exact prompt/response pairs for each stage in the hierarchical pipeline.

@@ -1,81 +1,72 @@
 # Sự Trỗi Dậy Của Agentic AI Stack (Hệ Sinh Thái Tác Nhân AI)
 
 ## Từ Generative AI Đến Agentic AI
+
 GenAI truyền thống hoạt động theo dạng phản hồi: **Prompt của người dùng → Phản hồi từ mô hình** (Single-turn - Hội thoại đơn lượt).
-* **Hạn chế:** Không có khả năng tự lên kế hoạch (planning), sử dụng công cụ (tool usage) hoặc tự sửa sai (self-correction).
+* *Hạn chế:* Không có khả năng tự lên kế hoạch (planning), sử dụng công cụ (tool usage) hoặc tự sửa sai (self-correction).
 
-Agentic AI hoạt động trong các vòng lặp lập luận - thực thi (reasoning-execution loops): **Mục tiêu → Lên kế hoạch → Hành động → Quan sát → Phản tư (Reflect) → Lặp lại → Hoàn thành**.
-* **Khả năng:** Ủy quyền tác vụ, sử dụng cơ sở dữ liệu/APIs, sửa lỗi và điều phối hoạt động với các tác nhân (agents) khác.
+**Agentic AI** giới thiệu một mô hình tương tác hoàn toàn mới. Thay vì chỉ tạo ra văn bản một lượt, hệ thống vận hành theo các vòng lặp nhận thức lập luận - thực thi (reasoning-execution loops):  
+**Mục tiêu (Goal) → Lập kế hoạch (Plan) → Hành động (Act) → Quan sát (Observe) → Phản tư (Reflect) → Lặp lại → Hoàn thành**.
 
-Lúc này, LLM trở thành nhân tố lập luận (reasoning engine) bên trong một hệ thống lớn hơn.
+Trong khung kiến trúc này, mô hình ngôn ngữ lớn đóng vai trò là nhân tố lập luận (reasoning engine) bên trong một hệ sinh thái tính toán lớn hơn. Tác nhân có thể:
+* Lập kế hoạch thực hiện nhiệm vụ phức tạp,
+* Gọi các công cụ và APIs bên ngoài,
+* Thu nhận và phản tư dựa trên dữ liệu quan sát,
+* Tự động điều chỉnh chiến lược và
+* Phối hợp với các tác nhân khác để hoàn thành mục tiêu.
 
 ---
 
-## Agentic Stack Hiện Đại (The Modern Agentic Stack)
-Các tác nhân (agents) hiện đại là hệ thống điều phối đa lớp:
+## Agentic Stack Hiện Đại
+
+Các tác nhân AI hiện đại không phải là các mô hình đơn lẻ mà là các hệ thống điều phối đa lớp. Dưới đây là cấu trúc 5 lớp của Agentic Stack.
 
 ```
-+-----------------------------------+
-|  5. Memory Systems (Short/Long)   |
-+-----------------------------------+
-|  4. Tools & Protocols (MCP, AP2)  |
-+-----------------------------------+
-|  3. Skills (Packaged Expertise)   |
-+-----------------------------------+
-|  2. Reasoning Core (LLMs)         |
-+-----------------------------------+
-|  1. Orchestration Layer (Harness) |
-+-----------------------------------+
++-------------------------------------------------------------+
+|  5. Memory Systems (Bộ nhớ ngắn hạn/dài hạn)                 |
++-------------------------------------------------------------+
+|  4. Tools & Protocols (Giao tiếp công cụ & giao dịch)        |
++-------------------------------------------------------------+
+|  3. Skills (Kỹ năng đóng gói chuyên biệt)                   |
++-------------------------------------------------------------+
+|  2. Reasoning Core (Định tuyến mô hình: Frontier & Small)   |
++-------------------------------------------------------------+
+|  1. Orchestration Layer (Harness/State Machine tùy chỉnh)   |
++-------------------------------------------------------------+
 ```
 
----
+### 1. Lớp Điều Phối (Orchestration Layer)
+Quản lý toàn bộ chu kỳ thực thi, phân rã nhiệm vụ, quản lý trạng thái và xử lý lỗi.
 
-## Lớp 1: Điều Phối (Orchestration Layer)
-Lớp điều phối quản lý toàn bộ chu kỳ thực thi:
-* **Các nhiệm vụ:** Lập kế hoạch, quản lý trạng thái (state management), thực thi chính sách, gọi lại khi lỗi (error retries).
-* **Các frameworks phổ biến:** LangChain, Claude Code, AutoGen, CrewAI.
-* **Ví dụ:** Trong CrewAI, một tác nhân quản lý (manager agent) điều phối một tác nhân nghiên cứu (research agent) và một tác nhân viết lách (writer agent), quản lý việc chuyển giao dữ liệu và xử lý lỗi.
+* **Kiến trúc chung:** Sử dụng các frameworks như LangChain, AutoGen hoặc CrewAI để phối hợp các tác nhân, hoặc phát triển máy trạng thái hữu hạn tùy chỉnh (custom state machine) để kiểm soát luồng chuyển giao dữ liệu với độ tin cậy tuyệt đối.
 
-*Lời khuyên sản xuất:* Các công cụ điều phối tự viết (custom orchestration engines) thường có hiệu năng và chi phí tốt hơn các generic frameworks chung chung.
+### 2. Nhân Tố Lập Luận (Reasoning Core)
+Động cơ trí tuệ nằm ở trung tâm của stack.
 
----
+* **Kiến trúc chung:** Sử dụng các chiến lược định tuyến mô hình (Model Routing) kết hợp định tuyến ngữ nghĩa (Semantic Routing) để phân phối nhiệm vụ đến các mô hình lớn (Frontier Models như **Claude 4.6 Sonnet**, OpenAI o1/o3, DeepSeek-R1) cho các tác vụ phức tạp cần tư duy sâu, hoặc mô hình nhỏ/tiện ích (Utility Models như **Llama 3.3 70B**, **Gemini 2.5 Flash**) cho các tác vụ đơn giản (phân loại, định dạng, dịch thuật) nhằm tối ưu hóa chi phí lên tới 70% và giảm độ trễ 45%.
 
-## Lớp 2: Nhân Tố Lập Luận (Reasoning Core)
-Động cơ nằm ở trung tâm của stack:
-* **Các Frontier Models:** GPT-4o, Claude 3.5 Sonnet (cho lập luận rộng/tổng quát).
-* **Các Reasoning Models:** o1, DeepSeek-R1 (cho lập luận logic sâu, lên kế hoạch phức tạp).
-* **Các Small Models:** Llama 3 (8B) (cho phân loại nhanh, rẻ).
+### 3. Kỹ Năng (Skills - Tri Thức Đóng Gói)
+Một Skill là một gói tri thức nghiệp vụ chuyên biệt, có tính module và được quản lý phiên bản (versioned).
 
-*Mô hình định tuyến (Routing Pattern):* Chuyển các tác vụ phân loại đơn giản đến các mô hình nhỏ (small models), và các lập luận phức tạp đến các frontier models để giảm chi phí từ **60-80%**.
+* **Kiến trúc chung:** Tác nhân tải động các kỹ năng chuyên biệt khi cần (ví dụ: rà soát code, kiểm toán tài chính). Mỗi kỹ năng được đóng gói độc lập với prompts hệ thống chuyên biệt, các schemas dữ liệu cấu trúc định sẵn để dễ dàng kiểm thử, bảo trì và cập nhật phiên bản độc lập.
 
----
+### 4. Công Cụ & Giao Thức (Tools & Protocols)
+Chuẩn hóa giao diện giao tiếp giữa tác nhân, dữ liệu và thế giới bên ngoài.
 
-## Lớp 3: Kỹ Năng (Skills - Tri Thức Đóng Gói)
-Một **Skill** là một gói tri thức nghiệp vụ chuyên biệt được chia theo phiên bản (versioned) và có tính module:
-* **Thành phần:** System prompts, output schemas (lược đồ đầu ra), templates, bảng tra cứu (lookup tables) và các quy tắc.
-* **Ví dụ:** Thiết kế bài giảng giáo dục, báo cáo tài chính MD&A, kiểm tra bảo mật mã nguồn.
-* **Lợi ích:** Tải ngữ cảnh tăng dần (chỉ tải các skills cần thiết khi dùng), kiểm thử độc lập dễ dàng và cập nhật một nơi cho toàn hệ thống.
+* **Model Context Protocol (MCP):** Sử dụng MCP để kết nối các tác nhân với cơ sở dữ liệu và nguồn tài nguyên ngoài qua các MCP servers chuẩn hóa, loại bỏ các kết nối cơ sở dữ liệu tùy biến viết trực tiếp trong prompts.
+* **Agent Payments Protocol (AP2):** Giao thức cho phép các tác nhân tự động thanh toán tài nguyên hoặc dịch vụ có phí một cách an toàn thông qua cơ chế ủy quyền mật mã (Intent Mandate) và khóa giỏ hàng (Cart Mandate).
+* **ACP (Agent Communication Protocol) & UCP (Universal Commerce Protocol):** Được sử dụng để điều phối trạng thái đơn hàng và chuyển giao giấy phép sử dụng tài nguyên số trong thời gian thực.
 
----
+### 5. Hệ Thống Bộ Nhớ (Memory Systems)
+Duy trì ngữ cảnh và trạng thái làm việc vượt ra ngoài giới hạn cửa sổ ngữ cảnh (context window) của mô hình.
 
-## Lớp 4: Công Cụ & Giao Thức (Tools & Protocols)
-Các giao diện truyền thông chuẩn hóa giữa các tác nhân (agents), công cụ (tools) và các nền tảng:
-* **MCP (Model Context Protocol):** Được xem như "USB-C cho AI." Kết nối các tác nhân với công cụ (hàm), tài nguyên (dữ liệu) và templates.
-* **A2A / ACP (Agent-to-Agent / Agent Coordination Protocol):** Các giao thức ủy quyền và điều phối thời gian thực giữa các tác nhân.
-* **AP2 (Agent Payments Protocol):** Các ủy quyền thanh toán an toàn (cryptographic Intent và Cart Mandates) cho phép tác nhân giao dịch tự động. Được hỗ trợ bởi Google, Coinbase và hơn 60 tổ chức tài chính hàng đầu.
-* **OpenAI ACP & Google UCP:** Tối ưu hóa cho các cấu trúc thanh toán hội thoại (ACP) và điều phối toàn bộ chu trình xử lý đơn hàng/hoàn trả (UCP).
-
----
-
-## Lớp 5: Hệ Thống Bộ Nhớ (Memory Systems)
-Cho phép tác nhân duy trì ngữ cảnh vượt ra ngoài cửa sổ ngữ cảnh (context window) cố định của mô hình ngôn ngữ:
-* **Ngắn hạn (Short-Term/Episodic):** Bộ đệm trong bộ nhớ (in-memory buffer) theo dõi các bước trong phiên làm việc hiện tại.
-* **Dài hạn (Long-Term/Semantic):** Truy hồi độ tương đồng qua cơ sở dữ liệu vector (như SQLite, Chroma, Weaviate) cho các sở thích của người dùng và lịch sử dự án.
-* **Nghiệp vụ (Procedural/Skills):** Tải động các hướng dẫn chuyên biệt cho từng lĩnh vực.
+* **Bộ nhớ ngắn hạn (Episodic Memory):** Lưu giữ trạng thái của phiên làm việc hiện tại, giúp khôi phục nhanh nếu xảy ra sự cố hoặc cần người dùng nhập liệu giữa chừng.
+* **Bộ nhớ dài hạn (Semantic Memory):** Sử dụng cơ sở dữ liệu vector hoặc KV để lưu trữ lịch sử, hồ sơ người dùng để cá nhân hóa kết quả đầu ra trong các phiên làm việc tiếp theo.
 
 ---
 
 ## Vòng Lặp Tác Nhân Cốt Lõi (Core Agentic Loop)
+
 Hầu hết các hệ thống tác nhân chạy một vòng lặp nhận thức có tính cải tiến:
 
 ```

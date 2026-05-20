@@ -5,7 +5,7 @@
 
 ---
 
-### Section 3.1: Reliability
+### Section 3.1: Reliability & Hallucinations
 
 **Why reliability is harder for agents than for LLMs:**
 A single LLM response, even if imperfect, typically fails gracefully — the user sees a bad answer and retries. An agent failure is more consequential:
@@ -14,14 +14,14 @@ A single LLM response, even if imperfect, typically fails gracefully — the use
 - The agent may not detect that it has failed (hallucinated success)
 - Failures accumulate: a small error in step 3 may manifest as a catastrophic error in step 12
 
-**Reliability engineering techniques:**
-1. **Schema validation:** Validate every output against an expected schema before passing it to the next stage
-2. **Idempotency:** Design tool calls to be safely retriable (the same call multiple times should be safe)
-3. **Rollback mechanisms:** Enable the system to undo recent actions if a failure is detected
-4. **Explicit uncertainty expression:** Prompt agents to explicitly flag uncertainty rather than confidently hallucinate
-5. **Guardrails:** Hard constraints that cannot be overridden by the agent's reasoning
-6. **Human escalation:** Define conditions under which the agent must pause and request human input
-7. **Audit logging:** Record every action so failures can be traced and replayed
+**How Production Systems Solve Reliability:**
+Production architectures mitigate reliability challenges using a multi-layered verification and recovery strategy:
+1. **Guaranteed JSON Generation (Structured Outputs):** Instead of parsing raw text post-inference, production platforms enforce strict JSON outputs directly at the decoding level. Using schema-constrained decoding (via system-level JSON schemas and APIs supported by Claude 4.6 Sonnet), the reasoning core is structurally prevented from producing invalid JSON keys or syntax errors.
+2. **Two-Tier Validation Gate:**
+   - *Syntactic Validation:* Platforms feed outputs through a rigid Pydantic schema gate to validate types, ranges, and object relationships immediately upon completion.
+   - *Semantic Grounding Gate:* To prevent the agent from hallucinating domain entities, extracted elements are validated against a local domain metadata index (backed by a localized Trie/Bloom filter).
+3. **Contextual Self-Correction (Diff-Based Reflection):** If validation fails, the orchestrator initiates a self-correction loop. Instead of just sending a raw error message, it constructs a structured prompt containing the violating fragment, the specific constraint breached, a semantic diff of what was expected, and corrective guidelines.
+4. **Human-in-the-Loop (HITL) Triaging Interface:** If self-correction fails three times, execution halts, the orchestrator serializes the active state, and a triaging alert is triggered. An operator can review the flagged mismatch via a visual UI, edit the data manually, and hit "Resume" to continue the state machine seamlessly without restarting the pipeline.
 
 ---
 
@@ -32,24 +32,21 @@ Traditional LLM evaluation compares a generated answer to a reference answer. Ag
 
 **Trajectory evaluation dimensions:**
 
-| Dimension | What to Measure | Example |
-|-----------|----------------|---------|
-| Efficiency | Steps taken vs. minimum possible | Did the agent call 12 APIs when 3 would suffice? |
-| Planning quality | Was the initial plan reasonable? | Did the plan anticipate likely obstacles? |
-| Recovery quality | How well did the agent handle failures? | Did it retry intelligently or give up immediately? |
-| Tool selection | Were the right tools used? | Did it use a web search when a database query would be more reliable? |
-| Safety compliance | Were guardrails respected? | Did it ever attempt a forbidden action? |
-| Cost efficiency | Token and API cost for the task | Is there a cheaper approach with equivalent quality? |
+| Dimension | What to Measure | Production Example |
+|---|---|---|
+| **Efficiency** | Steps taken vs. minimum possible | Did the agent extract the invoices in under 5 iterations without redundant tool calls? |
+| **Planning quality** | Was the initial plan reasonable? | Did the audit plan stay under the target budget and allocate resources appropriately? |
+| **Recovery quality** | How well did the agent handle failures? | Did the agent recover from temporary database timeout errors? |
+| **Tool selection** | Were the right tools used? | Did the agent query the correct year's customer transaction database? |
+| **Safety compliance** | Were guardrails respected? | Did the agent correctly redact PII and sensitive data before exporting results? |
+| **Cost efficiency** | Token and API cost for the task | Did the model routing system correctly route low-level steps to cheaper tiers? |
 
-**Evaluation approaches:**
-- **LLM-as-judge:** Use a frontier model to evaluate the quality of the agent's trajectory
-- **Simulation environments:** Run agents in sandboxed environments with known ground truth
-- **Replay testing:** Replay recorded trajectories with modified inputs to test robustness
-- **Adversarial testing:** Intentionally introduce failures or misleading observations to test recovery
-- **Human review:** Domain experts evaluate a sample of trajectories
-
-**Why evaluation maturity matters:**
-Without robust evaluation, teams cannot confidently improve their agents. Intuition-based prompt tuning is insufficient for production systems. Investment in evaluation infrastructure is often the highest-leverage engineering activity for agent teams.
+**How Production Systems Implement Evaluation:**
+Enterprise systems move beyond manual review by establishing a programmatic evaluation harness:
+1. **Multi-Criteria LLM-as-a-Judge (G-Eval Framework):** Production pipelines deploy a panel of independent, specialized evaluator prompts running on Claude 4.6 Sonnet (e.g., Policy Judge, Structural Judge, Factuality Judge). Each evaluator grades specific criteria using step-by-step reasoning on a 1-5 rubric.
+2. **Golden Trajectory Regression Suite:** The development team maintains a regression dataset of 200+ curated enterprise planning scenarios representing diverse customer requests, inputs, and database schemas. Any change to prompts or orchestration triggers an automated CI/CD pipeline run to evaluate agent trajectories against this golden dataset, highlighting drop-offs in quality scores.
+3. **Trajectory Assertion Invariants:** Programmatic rules are asserted at the orchestrator layer (e.g., asserting that every output segment maps to at least one verified source node, or that computed totals strictly match the arithmetic sum of the segments).
+4. **Semantic Distance Measurement:** Platforms compare embeddings of generated content against official policy manuals to compute semantic similarity scores, providing quantitative evidence of compliance.
 
 ---
 
@@ -62,68 +59,43 @@ A single agentic task may involve:
 - 2-5 retrieval operations from vector databases
 - Context windows of 10,000-100,000 tokens per call
 
-**Cost reduction strategies:**
-
-| Strategy | How It Works | Typical Savings |
-|----------|-------------|-----------------|
-| Model routing | Route simple tasks to smaller models | 40-70% cost reduction |
-| Prompt caching | Cache repeated system prompts | 50-90% reduction on cached tokens |
-| Context compression | Summarize long histories before re-injection | 30-60% context size reduction |
-| Parallel execution | Run independent steps simultaneously | 30-60% latency reduction |
-| Skill-based loading | Load only relevant context for each step | 20-50% context size reduction |
-| Early stopping | Stop when goal is achieved, not at max iterations | Variable, significant |
-
-**The capability-cost tradeoff:**
-Building cheap agentic systems requires accepting some capability ceiling. The engineering discipline of agentic systems increasingly involves designing cost-aware architectures that preserve quality on critical steps while using cheaper models for routine operations.
+**How Production Systems Mitigate Cost & Latency:**
+Production systems address the cost-latency-quality trade-off with four core optimizations:
+1. **Tiered & Semantic Model Routing:** Rather than running all steps on a single expensive model, production architectures utilize a semantic router to classify user intents and route tasks across model tiers:
+   - *Frontier / Reasoning Tier (Claude 4.6 Sonnet / DeepSeek-R1):* Reserved for complex, high-reasoning tasks like initial intent planning and structural graph extraction.
+   - *Synthesis Tier (Claude 4.6 Haiku / GPT-4o-mini):* Used for intermediate text generation, code drafting, and narrative synthesis.
+   - *Utility Tier (Llama 3.3 70B / Gemini 2.5 Flash):* Handles lightweight tasks like translating vocabulary, extracting tags, and structural formatting.
+2. **Optimized Prompt Layout for Native Prompt Caching:** Platforms separate static inputs (e.g., static compliance rules, system instructions) from dynamic inputs (e.g., the user's specific request). By placing static blocks at the very beginning of prompt contexts, they maximize native provider prompt caching, achieving up to an **80% reduction** in input token fees and cutting latency in half.
+3. **Semantic Context Pruning (RAG Optimizations):** To prevent stuffing entire database tables into context windows, systems use hybrid dense-sparse search (vector embeddings combined with BM25) to retrieve only the top-$K$ relevant segments (under 10k tokens), preserving reasoning clarity and reducing token overhead.
+4. **Asynchronous Parallel Processing:** Non-dependent steps (such as generating separate report sections or testing independent code modules) are executed in parallel via asynchronous Python code (asyncio), reducing user-perceived latency from minutes down to seconds.
 
 ---
 
 ### Section 3.4: Observability and AgentOps
 
 **Why traditional DevOps tooling fails for agents:**
-
 Traditional observability tools (logs, metrics, traces) were designed for systems whose internal state is expressed in code and data. Agent internal state is expressed in natural language — reasoning that doesn't map cleanly to structured telemetry.
 
-**The AgentOps discipline:**
-AgentOps extends traditional observability to cover the unique characteristics of agent systems:
-
-| Capability | Traditional DevOps | AgentOps |
-|-----------|-------------------|---------|
-| Execution tracing | Function call traces | Full reasoning + tool call traces |
-| Log analysis | Structured log parsing | Natural language log interpretation |
-| Anomaly detection | Metric threshold alerts | Reasoning quality degradation detection |
-| Replay | Request replay | Full agent trajectory replay |
-| Cost monitoring | Compute cost | Token cost per step, per task |
-| Safety auditing | Access logs | Prompt injection detection, guardrail violations |
-
-**Key AgentOps platforms:** LangSmith (LangChain), Weights & Biases Prompts, Helicone, PromptLayer, Arize Phoenix, Langfuse
-
-**Observability as a competitive advantage:**
-Teams with mature AgentOps infrastructure can:
-- Identify and fix failure modes 10x faster
-- Make data-driven decisions about model routing
-- Demonstrate compliance and audit capability for regulated use cases
-- Continuously improve agent quality based on real trajectory data
-
-As agentic systems move into enterprise environments, regulatory and governance requirements will mandate robust observability. Teams that invest in AgentOps infrastructure now will be significantly better positioned for production deployment.
+**How Production Systems Implement Observability:**
+Production systems treat observability as a first-class production requirement through a specialized AgentOps infrastructure:
+1. **Semantic Tracing with OpenInference Specification:** Using OpenTelemetry-compatible tracing (integrated with tools like Arize Phoenix or Langfuse), every action is captured as a "Span." Spans record inputs, outputs, token usage, latency, prompt template versions, and model parameters for every LLM and tool call.
+2. **Visual Execution Tree Dashboard:** Developers can view trace spans as a nested hierarchy, showing exactly how the orchestrator routed intent, retrieved memories, parsed tools, and transitioned state. This makes it trivial to locate the exact node responsible for failures or latency spikes.
+3. **Offline Trajectory Replay Sandbox:** If a user reports a failed execution or provides negative feedback, developers can extract the execution log, load it into a local sandbox, freeze the exact input state, tweak the system prompts or agent skills, and replay the step to confirm regression fixes.
+4. **Safety & Policy Guardrails:** At both the input and output boundaries of all tools, real-time safety guardrails (such as Llama Guard or NeMo Guardrails) monitor and filter queries and generations to audit policies, preventing prompt injection or policy violations.
 
 ---
 
-## Synthesis: ConnectED as an Agentic System
+## Synthesis: Production Agentic System Architecture
 
-Looking back at ConnectED through the lens of the agentic stack:
+Looking back at a production agentic system through the lens of the modern agentic stack:
 
-| Agentic Stack Layer | ConnectED Implementation |
-|--------------------|-----------------------|
-| Orchestration | The ADDIE-structured pipeline manager |
-| Reasoning Core | LLM calls at each stage (concept extraction, activity design, etc.) |
-| Skills | Instructional templates, curriculum standards, assessment formats |
-| Tools | Textbook ingestion, curriculum document APIs, animation asset generators |
-| Memory | Lesson context passed between stages; curriculum knowledge base |
-| Loop | Linear for most tasks; reflective for teacher review and iteration |
+| Agentic Stack Layer | Production Implementation |
+|---|---|
+| **Orchestration** | Custom deterministic state machine managing the processing pipeline |
+| **Reasoning Core** | Hybrid routing to Claude 4.6 Sonnet / DeepSeek-R1 and Llama 3.3 70B / Gemini 2.5 Flash |
+| **Skills** | Modular packages for Data Extraction, Compliance Auditing, and Report Generation |
+| **Tools & Protocols** | MCP database/file servers and AP2 payment mandates |
+| **Memory** | Vector DB for user profile semantic memory; short-term session state episodic memory |
+| **Cognitive Loop** | PLAN → ACT → OBSERVE → REFLECT validation loops at each stage boundary |
 
-ConnectED arrived at agentic architecture through domain-driven engineering, not by applying an existing framework. This is a valuable insight: the architectural patterns of agentic AI are not arbitrary — they emerge naturally from the requirements of complex, multi-step, domain-grounded tasks.
-
----
-
-*Notes v1.0 | Based on WS-Converged.md*
+Production architectures arrive at this layout through domain-driven engineering, not by applying an existing generic framework. The architectural patterns of agentic AI are not arbitrary — they emerge naturally from the requirements of complex, multi-step, domain-grounded tasks.

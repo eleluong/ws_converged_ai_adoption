@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ConnectED | The Agentic Stack Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-active {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-color: #f8f9ff;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#6ffbbe",
+                        "primary-container": "#064e3b",
+                        "on-surface": "#0b1c30",
+                        "tertiary-fixed": "#85f8c4",
+                        "primary-fixed": "#b0f0d6",
+                        "tertiary-fixed-dim": "#68dba9",
+                        "tertiary-container": "#004f35",
+                        "surface-glass": "rgba(255, 255, 255, 0.7)",
+                        "outline-variant": "#bfc9c3",
+                        "on-tertiary-fixed": "#002114",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#003527",
+                        "on-background": "#0b1c30",
+                        "surface-tint": "#2b6954",
+                        "surface-container": "#e5eeff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6cf8bb",
+                        "deep-indigo": "#1E1B4B",
+                        "on-tertiary-fixed-variant": "#005137",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed-dim": "#4edea3",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-fixed": "#002117",
+                        "on-tertiary-container": "#51c695",
+                        "primary-fixed-dim": "#95d3ba",
+                        "on-primary-container": "#80bea6",
+                        "on-secondary-fixed-variant": "#005236",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "outline": "#707974",
+                        "inverse-surface": "#213145",
+                        "mint-highlight": "#F0FDF4",
+                        "on-secondary-container": "#00714d",
+                        "inverse-primary": "#95d3ba",
+                        "surface-variant": "#d3e4fe",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary": "#003623",
+                        "on-primary-fixed-variant": "#0b513d",
+                        "on-surface-variant": "#404944",
+                        "secondary": "#006c49"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "80px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-surface font-body-md">
+    <!-- SideNavBar (Shared Component) -->
+    <aside
+        class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant shadow-sm z-50 flex flex-col py-base">
+        <div class="px-6 mb-8 mt-4">
+            <h1 class="font-headline-md text-headline-md font-bold text-primary">ConnectED</h1>
+            <p class="font-label-md text-label-md text-on-surface-variant">The Agentic Stack</p>
+        </div>
+        <nav class="flex-1 flex flex-col gap-1">
+            <div class="px-6 py-2">
+                <span class="text-[10px] uppercase tracking-widest font-bold text-outline">Dashboard</span>
+            </div>
+            <!-- Active State Navigation -->
+            <a class="text-on-secondary-container bg-secondary-container font-semibold rounded-lg mx-2 px-4 py-3 flex items-center gap-3"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-label-md text-label-md">Platform</span>
+            </a>
+            <a class="text-on-surface-variant hover:bg-surface-container-high transition-colors mx-2 px-4 py-3 flex items-center gap-3 hover:translate-y-[-2px] duration-200"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="layers">layers</span>
+                <span class="font-label-md text-label-md">AI Stack</span>
+            </a>
+            <a class="text-on-surface-variant hover:bg-surface-container-high transition-colors mx-2 px-4 py-3 flex items-center gap-3 hover:translate-y-[-2px] duration-200"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="extension">extension</span>
+                <span class="font-label-md text-label-md">Challenges</span>
+            </a>
+            <a class="text-on-surface-variant hover:bg-surface-container-high transition-colors mx-2 px-4 py-3 flex items-center gap-3 hover:translate-y-[-2px] duration-200"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                <span class="font-label-md text-label-md">Checklists</span>
+            </a>
+        </nav>
+        <div class="px-4 py-4 mt-auto">
+            <button
+                class="w-full py-3 px-4 bg-primary text-white font-label-md text-label-md rounded-xl hover:translate-y-[-2px] transition-transform shadow-md">
+                Upgrade to Pro
+            </button>
+        </div>
+        <div class="border-t border-outline-variant pt-4 flex flex-col gap-1">
+            <a class="text-on-surface-variant hover:bg-surface-container-high transition-colors mx-2 px-4 py-2 flex items-center gap-3"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <span class="font-label-md text-label-md">Settings</span>
+            </a>
+            <a class="text-on-surface-variant hover:bg-surface-container-high transition-colors mx-2 px-4 py-2 flex items-center gap-3"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="help">help</span>
+                <span class="font-label-md text-label-md">Support</span>
+            </a>
+        </div>
+    </aside>
+    <!-- TopNavBar (Shared Component) -->
+    <header
+        class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-surface-glass backdrop-blur-xl border-b border-white/40 shadow-sm flex justify-between items-center h-16 px-gutter">
+        <div class="flex items-center gap-8">
+            <span class="font-headline-sm text-headline-sm font-black text-primary">Workshop Hub</span>
+            <nav class="hidden md:flex gap-6">
+                <a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">Curriculum</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors"
+                    href="#">Mentors</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors"
+                    href="#">Library</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="relative group hidden lg:block">
+                <span
+                    class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+                <input
+                    class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-body-md focus:ring-2 focus:ring-secondary/20 w-64 transition-all"
+                    placeholder="Tìm kiếm tài liệu..." type="text" />
+            </div>
+            <button
+                class="bg-primary text-white px-6 py-2 rounded-full font-label-md text-label-md hover:translate-y-[-2px] transition-transform">
+                Resume Lesson
+            </button>
+            <div class="flex items-center gap-2 ml-2">
+                <button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <button class="p-1 rounded-full border-2 border-primary/10 overflow-hidden">
+                    <img alt="Tutor profile" class="w-8 h-8 object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ52PhC7RZ_5UpsmIAkhx5-srbKS30n80ifhuxAXDWtfF-FGUQmFsoTL2tDfvs_l96EUWKEy3aFDY3KqfHFzWVcKj3T_XvBxdZw-omxtrT55FKcb1Ns-kVWkzyMOhJHsy_zeEi2WGLGuONhAzbykbCmOQKDzRnJz8NsmAjW336OhnZmrY5L0eoEZKG12aBGf5kK_u29fZIsPIhMi5ihmyB8zj2qYKPG-rRV6In43WFf-KnI4ufeBDDwRlfq7RADR899Fq0m-gFIz-J" />
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="ml-64 pt-24 pb-20 px-margin-desktop max-w-container-max mx-auto">
+        <!-- Hero Section -->
+        <section class="relative mb-section-gap">
+            <div class="glass-card rounded-[32px] p-12 overflow-hidden relative">
+                <!-- Background Decoration -->
+                <div
+                    class="absolute -top-24 -right-24 w-96 h-96 bg-secondary-fixed/30 rounded-full blur-[100px] pointer-events-none">
+                </div>
+                <div
+                    class="absolute -bottom-24 -left-24 w-96 h-96 bg-primary-fixed/20 rounded-full blur-[100px] pointer-events-none">
+                </div>
+                <div class="max-w-3xl relative z-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-secondary-container rounded-2xl">
+                            <span class="material-symbols-outlined text-on-secondary-container"
+                                data-icon="school">school</span>
+                        </div>
+                        <span
+                            class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold">Workshop
+                            Hub</span>
+                    </div>
+                    <h2 class="font-display-lg text-display-lg text-primary mb-6 leading-tight">ConnectED &amp; The
+                        Agentic Stack</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        Khám phá nền tảng thiết kế bài giảng của ConnectED và đi sâu vào các lớp của Agentic AI Stack
+                        đang phát triển — từ điều phối và lập luận đến AgentOps, giao thức thương mại và quy trình kiểm
+                        thử sản xuất.
+                    </p>
+                </div>
+            </div>
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-4 gap-6 -mt-8 px-12 relative z-20">
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-xl shadow-black/5 flex items-center gap-4 border border-outline-variant/30">
+                    <div class="bg-surface-container p-3 rounded-xl">
+                        <span class="material-symbols-outlined text-primary" data-icon="book">book</span>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-primary">3</div>
+                        <div class="text-label-sm text-outline">Chủ đề bài học</div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-xl shadow-black/5 flex items-center gap-4 border border-outline-variant/30">
+                    <div class="bg-surface-container p-3 rounded-xl">
+                        <span class="material-symbols-outlined text-primary" data-icon="fact_check">fact_check</span>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-primary">5</div>
+                        <div class="text-label-sm text-outline">Danh mục triển khai</div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-xl shadow-black/5 flex items-center gap-4 border border-outline-variant/30">
+                    <div class="bg-surface-container p-3 rounded-xl">
+                        <span class="material-symbols-outlined text-primary" data-icon="layers">layers</span>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-primary">5</div>
+                        <div class="text-label-sm text-outline">Lớp Agentic Stack</div>
+                    </div>
+                </div>
+                <div
+                    class="bg-white rounded-2xl p-6 shadow-xl shadow-black/5 flex items-center gap-4 border border-outline-variant/30">
+                    <div class="bg-surface-container p-3 rounded-xl">
+                        <span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-primary">0%</div>
+                        <div class="text-label-sm text-outline">Tiến độ hoàn thành</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Curriculum Topics Section -->
+        <section class="mb-section-gap">
+            <div class="flex items-end justify-between mb-12">
+                <div>
+                    <h3 class="font-headline-lg text-headline-lg text-primary mb-2">Chủ Đề Đào Tạo</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Hành trình làm chủ công nghệ AI Agent
+                        cho giáo dục.</p>
+                </div>
+                <button class="flex items-center gap-2 text-secondary font-semibold hover:gap-3 transition-all">
+                    Xem tất cả tài liệu <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </div>
+            <div class="grid grid-cols-12 gap-gutter">
+                <!-- 01. Platform -->
+                <div class="col-span-12 lg:col-span-7">
+                    <div
+                        class="glass-card rounded-[24px] p-10 h-full flex flex-col hover:shadow-2xl transition-shadow group">
+                        <div class="flex justify-between items-start mb-8">
+                            <div
+                                class="p-4 bg-mint-highlight rounded-2xl border border-secondary/10 group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-secondary text-3xl"
+                                    data-icon="domain">domain</span>
+                            </div>
+                            <span class="text-outline font-black text-4xl opacity-10">01</span>
+                        </div>
+                        <h4 class="font-headline-md text-headline-md text-primary mb-4">Nền tảng ConnectED</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
+                            Tìm hiểu về nền tảng lập kế hoạch bài giảng ưu tiên AI (AI-native) dành riêng cho giáo viên
+                            Việt Nam, mô hình thiết kế dạy học ADDIE và hạ tầng bản địa hóa.
+                        </p>
+                        <div class="mt-auto grid grid-cols-2 gap-6 items-center">
+                            <div class="relative rounded-2xl overflow-hidden shadow-lg border border-white/50">
+                                <img alt="ADDIE Model" class="w-full aspect-video object-cover"
+                                    data-alt="A clean, professional diagram of the ADDIE instructional design model featuring five circular nodes connected in a continuous loop. The aesthetic matches a modern corporate light-mode dashboard with soft teal and indigo highlights. The environment is minimalist and high-tech, using smooth gradients and sharp, legible typography for the labels Analysis, Design, Development, Implementation, and Evaluation."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFeVhIbEFOQijjQM5GJQi2tIIehRWKSkNOBP-aDQyOZiHGI0G-0zIbGll_Hitcg7RNRJF4uNvkxSGVZGE8ZfE_GqklEYph0eBdf2SD5WZ8By9udsnVkq1SiHSYhY6ZPePvlQGQdOTLNKvoavcByvYABRKzuCByOgM6NbKzNbFriHFLJpMFn2mflYbK2-TcsBJH_E9fOoP-iC8SRaj1QqigTqNSTEU7aI53TMxZRWJr4W1etEbl-bpgvT3yrSGXBP5dP05SL-WR2v3v" />
+                            </div>
+                            <div class="flex flex-col gap-4">
+                                <div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/30">
+                                    <div class="font-bold text-primary mb-1">Mô hình ADDIE</div>
+                                    <div class="text-label-md text-on-surface-variant">Phân tích, Thiết kế, Phát triển,
+                                        Triển khai, Đánh giá.</div>
+                                </div>
+                                <a class="inline-flex items-center gap-2 text-secondary font-bold group-hover:translate-x-2 transition-transform"
+                                    href="#">
+                                    Khám phá chủ đề <span class="material-symbols-outlined">arrow_forward</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 02. Agentic AI Stack - Prominent Card -->
+                <div class="col-span-12 lg:col-span-5">
+                    <div class="bg-deep-indigo rounded-[24px] p-10 h-full text-white relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-8 opacity-20">
+                            <span class="material-symbols-outlined text-8xl" data-icon="hub">hub</span>
+                        </div>
+                        <div class="relative z-10">
+                            <span class="text-tertiary-fixed font-black text-4xl opacity-20 block mb-6">02</span>
+                            <h4 class="font-headline-md text-headline-md mb-4 text-primary-fixed">Agentic AI Stack</h4>
+                            <p class="font-body-md text-body-md text-primary-fixed/70 mb-8">
+                                Khám phá 5 lớp của agent hiện đại: Orchestration, Reasoning, Skills, Giao thức MCP,
+                                Thương mại và Memory loops.
+                            </p>
+                            <div class="mb-10 transform group-hover:scale-105 transition-transform duration-500">
+                                <img alt="Agentic Stack Layers" class="w-full rounded-xl shadow-2xl"
+                                    data-alt="A sophisticated 3D isometric stack illustration representing 5 layers of AI technology. Each layer is a semi-transparent glowing glass slab in varying shades of teal and indigo. The layers are labeled Orchestration, Reasoning, Skills, Tools, and Memory. Arrows point upward through the stack, symbolizing data flow. The style is ultra-modern, high-velocity innovation, matching an AI-native educational platform."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDvs4IxJYq69qoUvppuBtaeKZh26G5M6YhruIgw5aeGXUxnnWluSNZAwBUrKqsQBh4oF75QZetJEk9_ezfeDlJ6v5GEiloxV1BX4qDKchKONR2l1ORo_Lj4YU8tYkmDOLznRLZ6W4bNUyf2kdM6Wvz8E7EayhCmAMIscZJHTV28vAuLuxdsKLuq7vOYGjrul0wOYItG5BL9oyldknBkks7lzVQX5-_HzwHxbnP1JuFk8kzGtRcZtPSJOe5jITnXMIYkHUs_SYugl5h" />
+                            </div>
+                            <a class="inline-flex items-center gap-3 bg-secondary-fixed text-primary px-8 py-3 rounded-full font-bold hover:bg-white transition-colors"
+                                href="#">
+                                Xem chi tiết Stack <span class="material-symbols-outlined">rocket_launch</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 03. Challenges -->
+                <div class="col-span-12 lg:col-span-12">
+                    <div class="glass-card rounded-[24px] p-10 flex flex-col md:flex-row gap-10 items-center">
+                        <div class="md:w-1/3">
+                            <div class="inline-block p-4 bg-error-container rounded-2xl mb-6">
+                                <span class="material-symbols-outlined text-error text-3xl"
+                                    data-icon="warning">warning</span>
+                            </div>
+                            <span class="text-outline font-black text-4xl opacity-10 block mb-2">03</span>
+                            <h4 class="font-headline-md text-headline-md text-primary mb-4">Thử thách &amp; AgentOps
+                            </h4>
+                            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                Đi sâu vào các nút thắt cổ chai quan trọng: độ tin cậy, khung đánh giá, chi phí tính
+                                toán và nền tảng AgentOps.
+                            </p>
+                        </div>
+                        <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div
+                                class="bg-white/50 border border-outline-variant p-6 rounded-2xl hover:bg-white transition-all shadow-sm">
+                                <div class="font-bold text-primary mb-2 flex items-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-secondary text-sm">precision_manufacturing</span>
+                                    Độ tin cậy (Reliability)
+                                </div>
+                                <p class="text-label-md text-on-surface-variant">Vấn đề hallucination và kiểm soát chất
+                                    lượng đầu ra của agent.</p>
+                            </div>
+                            <div
+                                class="bg-white/50 border border-outline-variant p-6 rounded-2xl hover:bg-white transition-all shadow-sm">
+                                <div class="font-bold text-primary mb-2 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-secondary text-sm">monitoring</span>
+                                    Đánh giá Trajectory
+                                </div>
+                                <p class="text-label-md text-on-surface-variant">Cách thức theo dõi và tối ưu hóa các
+                                    bước thực hiện của agent.</p>
+                            </div>
+                            <div
+                                class="bg-white/50 border border-outline-variant p-6 rounded-2xl hover:bg-white transition-all shadow-sm">
+                                <div class="font-bold text-primary mb-2 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-secondary text-sm">payments</span> Chi
+                                    phí vận hành
+                                </div>
+                                <p class="text-label-md text-on-surface-variant">Tối ưu hóa token và tài nguyên tính
+                                    toán cho hệ thống lớn.</p>
+                            </div>
+                            <div
+                                class="bg-white/50 border border-outline-variant p-6 rounded-2xl hover:bg-white transition-all shadow-sm">
+                                <div class="font-bold text-primary mb-2 flex items-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-secondary text-sm">settings_input_component</span>
+                                    Nền tảng AgentOps
+                                </div>
+                                <p class="text-label-md text-on-surface-variant">Các công cụ quản lý vòng đời và triển
+                                    khai agent thực tế.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Handouts & Checklists Section -->
+        <section class="mb-section-gap">
+            <div
+                class="bg-gradient-to-br from-primary to-deep-indigo rounded-[32px] p-12 text-white relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-secondary/30 rounded-full blur-[100px]"></div>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+                    <div class="md:w-3/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span
+                                class="px-4 py-1 bg-secondary-fixed text-primary rounded-full font-label-sm text-label-sm uppercase tracking-widest font-bold">New
+                                Resource</span>
+                            <h3 class="font-headline-lg text-headline-lg">Tài Liệu &amp; Danh Mục Kiểm Tra</h3>
+                        </div>
+                        <p class="font-body-lg text-body-lg text-primary-fixed/80 mb-8 leading-relaxed">
+                            Sẵn sàng cho việc triển khai? Sử dụng **04. Checklists** để theo dõi quá trình tối ưu hóa,
+                            sử dụng token, đánh giá và mức độ sẵn sàng của AgentOps.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div
+                                class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg border border-white/10">
+                                <span class="material-symbols-outlined text-secondary-fixed">done_all</span>
+                                <span class="text-label-md">Deployment Ready</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg border border-white/10">
+                                <span class="material-symbols-outlined text-secondary-fixed">security</span>
+                                <span class="text-label-md">Commerce Trust</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg border border-white/10">
+                                <span class="material-symbols-outlined text-secondary-fixed">analytics</span>
+                                <span class="text-label-md">Evaluation Framework</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/3 text-center">
+                        <div
+                            class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/20 shadow-2xl inline-block w-full">
+                            <div class="text-5xl font-black mb-2">04</div>
+                            <div class="text-xl font-bold mb-6">Mở Danh Mục Kiểm Tra</div>
+                            <button
+                                class="w-full bg-secondary-fixed text-primary font-bold py-4 rounded-2xl hover:scale-105 transition-transform active:scale-95 shadow-lg shadow-secondary/20">
+                                Bắt đầu ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer Info -->
+        <footer class="pt-12 border-t border-outline-variant/30 text-on-surface-variant">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h5 class="font-bold text-primary mb-4">Về ConnectED &amp; Agentic AI Stack</h5>
+                    <p class="text-label-md leading-relaxed opacity-70">
+                        Đại diện cho lộ trình nghiên cứu và workshop ánh xạ chuyên môn tên miền địa phương (chương trình
+                        giáo dục Việt Nam) vào các khung framework agent tiên tiến nhất hiện nay.
+                    </p>
+                </div>
+                <div class="flex justify-end gap-12">
+                    <div class="text-right">
+                        <div class="font-bold text-primary mb-4">Liên kết nhanh</div>
+                        <ul class="text-label-md space-y-2 opacity-70">
+                            <li><a class="hover:text-secondary" href="#">Tài liệu tham khảo</a></li>
+                            <li><a class="hover:text-secondary" href="#">Ghi chú chi tiết</a></li>
+                            <li><a class="hover:text-secondary" href="#">Cộng đồng Mentor</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center text-label-sm opacity-40">
+                © 2024 Workshop Hub - ConnectED Project. Designed for Educational Innovation.
+            </div>
+        </footer>
+    </main>
+    <!-- FAB for quick actions (Contextual) -->
+    <button
+        class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all group z-50">
+        <span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+        <span
+            class="absolute right-full mr-4 bg-primary text-white px-3 py-1 rounded-lg text-label-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">AI
+            Assistant</span>
+    </button>
+    <script>
+        // Micro-interactions and subtle effects
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('click', (e) => {
+                // Add a small ripple or click effect logic here if needed
+                console.log('Interaction:', el.innerText || 'Action');
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        if (searchInput) {
+            searchInput.addEventListener('focus', () => {
+                searchInput.parentElement.classList.add('ring-2', 'ring-secondary/20');
+            });
+            searchInput.addEventListener('blur', () => {
+                searchInput.parentElement.classList.remove('ring-2', 'ring-secondary/20');
+            });
+        }
+    </script>
+</body>
+
+</html>

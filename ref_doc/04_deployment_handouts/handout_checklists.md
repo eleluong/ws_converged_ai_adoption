@@ -21,17 +21,17 @@ PLAN → ACT → OBSERVE → REFLECT → ITERATE → COMPLETE
 
 ### The Agentic Stack (bottom to top)
 ```
-1. Orchestration Layer    (LangChain, CrewAI, AutoGen, custom)
-2. Reasoning Core         (LLMs, reasoning models, multimodal)
-3. Skills                 (packaged expertise, versioned modules)
-4. Tools & Protocols      (MCP, A2A, ACP, APIs, databases)
-5. Memory Systems         (short-term context, long-term vector DB)
+1. Orchestration Layer    (Custom state machines, LangChain, CrewAI, AutoGen)
+2. Reasoning Core         (Model Routing: Frontier models, Reasoning models, Small models)
+3. Skills                 (packaged expertise, versioned modules like Concept Extraction)
+4. Tools & Protocols      (MCP textbook querying, AP2 payment mandates, APIs)
+5. Memory Systems         (episodic short-term state, semantic long-term Vector DB)
 ```
 
 ### ConnectED Pipeline
 ```
 Concept Extraction → Objective Generation → Activity Design
-→ Content Development → Visual Materials → Evaluation Review
+→ Content Development → Visual Materials (via AP2) → Evaluation Review
 ```
 
 ### ADDIE Model
@@ -47,57 +47,57 @@ Use this before taking any agent-based system into production.
 
 ### Architecture and Design
 
-- [ ] [CRITICAL] Task has been decomposed into clearly bounded subtasks with defined inputs and outputs
-- [ ] [CRITICAL] Each subtask has a specified failure mode and fallback strategy
-- [ ] [CRITICAL] Human-in-the-loop checkpoints are defined for high-stakes decision points
-- [ ] [RECOMMENDED] Pipeline uses hierarchical decomposition (no monolithic single-prompt architecture)
-- [ ] [RECOMMENDED] Each stage produces structured, schema-validated output
-- [ ] [RECOMMENDED] Skills are modular and version-controlled (not embedded in monolithic prompts)
-- [ ] [RECOMMENDED] Domain localization requirements are documented and embedded in prompts/templates
-- [ ] [ADVANCED] Agent has explicit stopping criteria (not just max iteration limits)
-- [ ] [ADVANCED] Budget and cost ceiling are enforced at the orchestration layer
+- [ ] **[CRITICAL]** Task has been decomposed into clearly bounded subtasks with defined inputs and outputs.
+- [ ] **[CRITICAL]** Each subtask has a specified failure mode and fallback strategy.
+- [ ] **[CRITICAL]** Human-in-the-loop checkpoints are defined for high-stakes decision points (e.g., teacher sign-off before media asset generation in ConnectED).
+- [ ] **[RECOMMENDED]** Pipeline uses hierarchical decomposition (e.g., separating Concept Extraction from Activity Design instead of a single monolithic prompt).
+- [ ] **[RECOMMENDED]** Each stage produces structured, schema-validated output (e.g., verifying Concept Graph schema before starting Objective Generation).
+- [ ] **[RECOMMENDED]** Skills are modular and version-controlled via Git (not embedded directly in the main orchestrator code).
+- [ ] **[RECOMMENDED]** Domain localization requirements are documented and embedded in templates (e.g., MOET terminology alignment).
+- [ ] **[ADVANCED]** Agent has explicit stopping criteria and self-correction loop limits (e.g., max 3 self-correction attempts before escalating to a human).
+- [ ] **[ADVANCED]** Budget and cost ceiling are enforced at the orchestration layer.
 
 ### Safety and Guardrails
 
-- [ ] [CRITICAL] Forbidden action types are explicitly defined and enforced (not just mentioned in prompts)
-- [ ] [CRITICAL] Agent cannot irreversibly modify production data without human confirmation
-- [ ] [CRITICAL] API keys and secrets are never passed into LLM context
-- [ ] [CRITICAL] Output sanitization is in place before any agent output is surfaced to users
-- [ ] [RECOMMENDED] Prompt injection attack vectors have been assessed and mitigated
-- [ ] [RECOMMENDED] Maximum cost per task is hard-capped at the orchestration layer
-- [ ] [RECOMMENDED] Agent escalation path is defined (what happens when agent is uncertain?)
-- [ ] [ADVANCED] Red-team adversarial testing has been performed
-- [ ] [ADVANCED] Compliance and regulatory requirements have been mapped to agent constraints
+- [ ] **[CRITICAL]** Forbidden action types are explicitly defined and enforced at the code layer, not just mentioned in prompts.
+- [ ] **[CRITICAL]** Agent cannot irreversibly modify production databases without human confirmation.
+- [ ] **[CRITICAL]** API keys and credentials are never passed into the LLM context window.
+- [ ] **[CRITICAL]** Output sanitization is in place before any agent output is surfaced to users.
+- [ ] **[RECOMMENDED]** Prompt injection attack vectors have been assessed and mitigated.
+- [ ] **[RECOMMENDED]** Maximum cost per task is hard-capped (e.g., using AP2 Intent Mandates to cryptographically authorize and limit graphic asset purchase budgets).
+- [ ] **[RECOMMENDED]** Agent escalation path is defined (what happens when confidence scores fall below threshold).
+- [ ] **[ADVANCED]** Red-team adversarial testing has been performed on the prompts and tools.
+- [ ] **[ADVANCED]** Compliance and regulatory requirements are mapped to agent system constraints.
 
 ### Observability (AgentOps)
 
-- [ ] [CRITICAL] Every LLM call is logged with: timestamp, model, prompt, response, latency, tokens
-- [ ] [CRITICAL] Every tool call is logged with: tool name, inputs, outputs, success/failure
-- [ ] [RECOMMENDED] Full agent trajectories are stored and replayable
-- [ ] [RECOMMENDED] Cost per task is tracked and reportable
-- [ ] [RECOMMENDED] Failure rates by stage are monitored with alerting thresholds
-- [ ] [RECOMMENDED] Reasoning quality metrics are defined (even if manual at first)
-- [ ] [ADVANCED] LLM-as-judge evaluation is automated on a sample of trajectories
-- [ ] [ADVANCED] Anomaly detection is configured for unusual token usage or error rates
+- [ ] **[CRITICAL]** Every LLM call is logged with: timestamp, model, prompt, response, latency, and tokens.
+- [ ] **[CRITICAL]** Every tool call is logged with: tool name, inputs, outputs, and success/failure.
+- [ ] **[RECOMMENDED]** Full agent trajectories (Plan -> Act -> Observe -> Reflect) are stored and replayable offline for debugging.
+- [ ] **[RECOMMENDED]** Cost per task is tracked and reportable in real-time.
+- [ ] **[RECOMMENDED]** Failure rates by stage are monitored with alerting thresholds.
+- [ ] **[RECOMMENDED]** Reasoning quality metrics are defined (even if manual at first).
+- [ ] **[ADVANCED]** LLM-as-judge evaluation is automated on a sample of trajectories (e.g., scoring pedagogical soundness).
+- [ ] **[ADVANCED]** Anomaly detection is configured for unusual token usage or error rates.
 
 ### Infrastructure and Reliability
 
-- [ ] [CRITICAL] All external API calls have retry logic with exponential backoff
-- [ ] [CRITICAL] Agent is tested against API unavailability (graceful degradation)
-- [ ] [RECOMMENDED] Tool calls are idempotent where possible (safe to retry)
-- [ ] [RECOMMENDED] Agent state is persisted so tasks can resume after failure
-- [ ] [RECOMMENDED] Timeout limits are configured per stage and per task
-- [ ] [RECOMMENDED] Load testing has been performed at expected peak volume
-- [ ] [ADVANCED] Circuit breakers are in place for frequently failing tools
-- [ ] [ADVANCED] Multi-region or multi-model fallback is configured
+- [ ] **[CRITICAL]** All external API calls have retry logic with exponential backoff.
+- [ ] **[CRITICAL]** Agent is tested against API unavailability and degrades gracefully.
+- [ ] **[RECOMMENDED]** Tool calls are idempotent where possible (safe to retry without double transactions).
+- [ ] **[RECOMMENDED]** Agent state is persisted so tasks can resume after failure (e.g., using episodic memory to save draft state so teachers can resume editing).
+- [ ] **[RECOMMENDED]** Timeout limits are configured per stage and per task.
+- [ ] **[RECOMMENDED]** Load testing has been performed at expected peak volume.
+- [ ] **[ADVANCED]** Circuit breakers are in place for frequently failing tools.
+- [ ] **[ADVANCED]** Multi-region or multi-model fallback is configured.
 
 ### Launch Readiness
 
-- [ ] [CRITICAL] End-to-end test suite passes with greater than 90% success rate on representative tasks
-- [ ] [CRITICAL] Incident response plan is documented (who to contact, how to roll back)
-- [ ] [RECOMMENDED] Rollout is staged (canary deployment before full production)
-- [ ] [RECOMMENDED] User feedback mechanism is in place from day one
-- [ ] [RECOMMENDED] Documentation of agent capabilities AND limitations is published
+- [ ] **[CRITICAL]** End-to-end test suite passes with greater than 90% success rate on representative tasks.
+- [ ] **[CRITICAL]** Incident response plan is documented (who to contact, how to roll back).
+- [ ] **[RECOMMENDED]** Rollout is staged (canary deployment before full production).
+- [ ] **[RECOMMENDED]** User feedback mechanism is in place from day one.
+- [ ] **[RECOMMENDED]** Documentation of agent capabilities AND limitations is published.
 
 ---
 
@@ -107,43 +107,47 @@ Use this when reviewing or refactoring agent prompts and pipeline structure.
 
 ### Prompt Design
 
-- [ ] System prompt is focused on a single, well-defined task
-- [ ] Instructions are in imperative form ("Extract the following..." not "You should extract...")
-- [ ] Output format is specified explicitly (JSON schema, markdown template, etc.)
-- [ ] Examples (few-shot) are included for complex or ambiguous output formats
-- [ ] Constraints are stated as explicit rules, not implicit expectations
-- [ ] Prompt has been tested on edge cases and adversarial inputs
-- [ ] System prompt and user prompt are clearly separated
-- [ ] Irrelevant context has been removed to reduce noise and token cost
-- [ ] Domain terminology is consistently used (no synonym variation within a prompt)
-- [ ] Prompt version is tracked in version control
+- [ ] System prompt is focused on a single, well-defined task (e.g., *only* extract concepts, do not attempt to write lessons yet).
+- [ ] Instructions are in imperative form ("Extract the following..." not "You should extract...").
+- [ ] Output format is specified explicitly (JSON schema, markdown template, etc.).
+- [ ] Examples (few-shot) are included for complex or ambiguous output formats.
+- [ ] Constraints are stated as explicit rules, not implicit expectations.
+- [ ] Prompt has been tested on edge cases and adversarial inputs.
+- [ ] System prompt and user prompt are clearly separated.
+- [ ] Irrelevant context has been removed to reduce noise and token cost.
+- [ ] Domain terminology is consistently used (no synonym variation within a prompt).
+- [ ] Prompt version is tracked in version control.
 
 ### Context Management
 
-- [ ] Context window usage is measured per stage (do not assume it is fine)
-- [ ] Only the information needed for the current stage is included in context
-- [ ] Long-running conversations or sessions use summarization before re-injection
-- [ ] Retrieved documents are chunked and filtered before inclusion
-- [ ] System prompt is not duplicated across stages (use caching or shared reference)
-- [ ] Intermediate outputs are compressed before passing to downstream stages
+- [ ] Context window usage is measured per stage (do not assume it is fine).
+- [ ] Only the information needed for the current stage is included in context.
+- [ ] Long-running conversations or sessions use summarization before re-injection.
+- [ ] Retrieved documents are chunked and filtered before inclusion.
+- [ ] System prompt is not duplicated across stages (use caching or shared reference).
+- [ ] Intermediate outputs are compressed before passing to downstream stages.
 
 ### Pipeline Structure
 
-- [ ] Each stage has a single, verifiable responsibility (no "and also" stages)
-- [ ] Stage boundaries are defined by data contracts (input/output schemas)
-- [ ] Stages that can run in parallel are identified and parallelized
-- [ ] Validation occurs at every stage boundary, not just at final output
-- [ ] Error handling strategy is explicit per stage (retry, skip, fallback, escalate)
-- [ ] Stage ordering is optimized (expensive stages run only after cheap validation stages pass)
-- [ ] Dead-end stages (stages that never pass validation) are detected and flagged
+- [ ] Each stage has a single, verifiable responsibility (no "and also" stages).
+- [ ] Stage boundaries are defined by data contracts (input/output schemas).
+- [ ] **[RECOMMENDED]** Task Decomposition is systematically applied to break complex cognitive tasks into linear or hierarchical subtasks, isolating reasoning scope and reducing hallucination rates.
+- [ ] **[RECOMMENDED]** State Isolation is maintained between decomposed stages (stages only receive specific inputs they require, preventing unnecessary context propagation and token bloat).
+- [ ] Stages that can run in parallel are identified and parallelized to minimize user latency.
+- [ ] Validation occurs at every stage boundary, not just at final output.
+- [ ] Error handling strategy is explicit per stage (retry, skip, fallback, escalate).
+- [ ] Stage ordering is optimized (expensive stages run only after cheap validation stages pass).
+- [ ] Dead-end stages (stages that never pass validation) are detected and flagged.
 
 ### Model Routing
 
-- [ ] Classification and routing tasks use the cheapest capable model
-- [ ] Complex reasoning tasks use an appropriately powerful model
-- [ ] Model selection for each stage is documented with justification
-- [ ] Model substitution has been tested (can you swap models without breaking the pipeline?)
-- [ ] Latency requirements have been matched to model response time characteristics
+- [ ] Classification and routing tasks use the cheapest capable model.
+- [ ] Complex reasoning tasks use an appropriately powerful model.
+- [ ] **[RECOMMENDED]** Semantic Routing is implemented (using vector embedding similarity, keyword heuristics, or lightweight classifiers) to triage queries and direct them to specialized sub-pipelines, models, or cached prompts.
+- [ ] **[RECOMMENDED]** Routing logic maximizes prompt caching efficiency by aligning routed user intents to stable, pre-cached prompt blocks.
+- [ ] Model selection for each stage is documented with justification.
+- [ ] Model substitution has been tested (can you swap models without breaking the pipeline?).
+- [ ] Latency requirements have been matched to model response time characteristics.
 
 ---
 
@@ -153,63 +157,64 @@ Use this to systematically reduce inference cost without sacrificing quality.
 
 ### Measurement (Do This First)
 
-- [ ] Current token usage per task is measured and logged (input tokens, output tokens, cache hits)
-- [ ] Cost per task is calculated and tracked over time
-- [ ] Token distribution by stage is known (which stages are most expensive?)
-- [ ] Baseline quality metric exists to validate that optimizations do not degrade performance
+- [ ] Current token usage per task is measured and logged (input tokens, output tokens, cache hits).
+- [ ] Cost per task is calculated and tracked over time.
+- [ ] Token distribution by stage is known (which stages are most expensive?).
+- [ ] Baseline quality metric exists to validate that optimizations do not degrade performance.
 
 ### Prompt Compression
 
-- [ ] Remove redundant instructions that repeat information already established
-- [ ] Replace verbose descriptions with concise directives
-- [ ] Use references to shared context rather than repeating context in each prompt
-- [ ] Remove examples that are no longer necessary (few-shot can be replaced with fine-tuning for high-volume tasks)
-- [ ] Convert tabular or list data to more compact representations when possible
-- [ ] Eliminate hedge language ("please", "if possible", "try to") that adds tokens without adding information
+- [ ] Remove redundant instructions that repeat information already established.
+- [ ] Replace verbose descriptions with concise directives.
+- [ ] Use references to shared context rather than repeating context in each prompt.
+- [ ] Remove examples that are no longer necessary (few-shot can be replaced with fine-tuning for high-volume tasks).
+- [ ] Convert tabular or list data to more compact representations when possible.
+- [ ] Eliminate hedge language ("please", "if possible", "try to") that adds tokens without adding information.
 
 ### Context Caching
 
-- [ ] System prompts that are reused across tasks are cached (Anthropic, OpenAI both support prompt caching)
-- [ ] Shared context (curriculum standards, company policies, terminology glossaries) is cached
-- [ ] Cache hit rates are monitored
-- [ ] Cache invalidation strategy is defined (when does the cache need to be refreshed?)
+- [ ] System prompts that are reused across tasks are cached (Anthropic, OpenAI both support prompt caching).
+- [ ] Shared context (curriculum standards, company policies, terminology glossaries) is placed at the beginning of the context block to maximize caching hits.
+- [ ] Cache hit rates are monitored.
+- [ ] Cache invalidation strategy is defined (when does the cache need to be refreshed?).
 
 ### Model Selection for Cost
 
-| Task Type | Recommended Model Size |
-|-----------|----------------------|
-| Binary classification | Tiny model (1B-3B) or rule-based |
-| Entity extraction | Small model (7B-13B) or fine-tuned |
-| Summarization | Small to medium model (13B-70B) |
-| Complex reasoning | Large frontier model |
-| Code generation | Specialized code model or frontier |
-| Creative generation | Medium to large model |
+| Task Type | Recommended Model Size | ConnectED Routing Reference |
+|---|---|---|
+| Binary classification | Tiny model (1B-3B) or rule-based | Routing tags and categories |
+| Entity extraction | Small model (7B-13B) or fine-tuned | Metadata extraction and vocabulary |
+| Summarization | Small to medium model (13B-70B) | Activity summaries and reviews |
+| Complex reasoning | Large frontier model | Concept graph extraction, pedagogy design |
+| Code generation | Specialized code model or frontier | Virtual lab sequence building |
+| Creative generation | Medium to large model | Slide kịch bản script writing |
 
-- [ ] Each stage has been assigned the minimum capable model (not the maximum available)
-- [ ] Routing logic is implemented so task type determines model selection
-- [ ] A/B tests have validated quality equivalence when using smaller models
+- [ ] Each stage has been assigned the minimum capable model (not the maximum available).
+- [ ] Routing logic is implemented so task type determines model selection (e.g., routing textbook parsing to Claude 4.6 Sonnet / DeepSeek-R1 and metadata extraction to Llama 3.3 70B / Gemini 2.5 Flash, achieving up to 70% cost reduction).
+- [ ] **[RECOMMENDED]** Semantic Routing is used to dynamically route simple user intents to cheaper, low-latency models and reserve frontier reasoning models for complex pedagogy.
+- [ ] A/B tests have validated quality equivalence when using smaller models.
 
 ### Context Window Management
 
-- [ ] Maximum context per stage is defined and enforced
-- [ ] Documents exceeding context limits are chunked and processed iteratively
-- [ ] Conversation history is summarized before re-injection (do not pass full history)
-- [ ] Retrieval results are ranked and trimmed to the most relevant N documents
-- [ ] Output length constraints are specified in prompts ("in 3 sentences or fewer")
+- [ ] Maximum context per stage is defined and enforced.
+- [ ] Documents exceeding context limits are chunked and processed iteratively.
+- [ ] Conversation history is summarized before re-injection (do not pass full history).
+- [ ] Retrieval results are ranked and trimmed to the most relevant N documents.
+- [ ] Output length constraints are specified in prompts ("in 3 sentences or fewer").
 
 ### Output Length Control
 
-- [ ] Output format is specified to avoid verbose preambles ("Sure! Here is..." wastes tokens)
-- [ ] Structured output (JSON) is used instead of narrative when downstream parsing is needed
-- [ ] Maximum output length is set where appropriate
-- [ ] Post-processing extracts only the needed fields from verbose outputs
+- [ ] Output format is specified to avoid verbose preambles ("Sure! Here is..." wastes tokens).
+- [ ] Structured output (JSON) is used instead of narrative when downstream parsing is needed.
+- [ ] Maximum output length is set where appropriate.
+- [ ] Post-processing extracts only the needed fields from verbose outputs.
 
 ### Cost Monitoring
 
-- [ ] Cost alerts are configured for: per-task cost threshold, daily/monthly budget
-- [ ] Cost anomalies (tasks suddenly costing 10x normal) trigger investigation
-- [ ] Cost trends are reviewed weekly during active development
-- [ ] Cost per quality unit (cost per successfully completed task) is tracked, not just absolute cost
+- [ ] Cost alerts are configured for: per-task cost threshold, daily/monthly budget.
+- [ ] Cost anomalies (tasks suddenly costing 10x normal) trigger investigation.
+- [ ] Cost trends are reviewed weekly during active development.
+- [ ] Cost per quality unit (cost per successfully completed task) is tracked, not just absolute cost.
 
 ---
 
@@ -221,22 +226,22 @@ Use this to assess and improve agent reliability in production.
 
 Document and test for each of the following:
 
-- [ ] **Hallucinated tool usage:** agent calls a tool that does not exist or with invalid parameters
-- [ ] **Infinite reasoning loops:** agent repeats the same step without progress
-- [ ] **Context corruption:** earlier errors silently propagate into later stages
-- [ ] **Planning instability:** agent changes plan erratically without evidence justifying the change
-- [ ] **Instruction drift:** agent gradually deviates from its original instructions over long tasks
-- [ ] **Over-delegation:** agent delegates tasks it should handle itself, losing context
-- [ ] **Premature termination:** agent declares success before completing the goal
-- [ ] **Scope creep:** agent expands the task beyond its authorized boundaries
-- [ ] **Brittle coordination:** multi-agent handoffs fail when one agent deviates from expected format
+- [ ] **Hallucinated tool usage:** agent calls a tool that does not exist or with invalid parameters.
+- [ ] **Infinite reasoning loops:** agent repeats the same step without progress.
+- [ ] **Context corruption:** earlier errors silently propagate into later stages.
+- [ ] **Planning instability:** agent changes plan erratically without evidence justifying the change.
+- [ ] **Instruction drift:** agent gradually deviates from its original instructions over long tasks.
+- [ ] **Over-delegation:** agent delegates tasks it should handle itself, losing context.
+- [ ] **Premature termination:** agent declares success before completing the goal.
+- [ ] **Scope creep:** agent expands the task beyond its authorized boundaries.
+- [ ] **Brittle coordination:** multi-agent handoffs fail when one agent deviates from expected format.
 
 ### Evaluation Dimensions
 
 For each agent task, define measurement criteria across:
 
 | Dimension | Measurement Approach | Passing Threshold |
-|-----------|---------------------|------------------|
+|---|---|---|
 | Task completion rate | % of tasks reaching successful completion | Set per domain (e.g., >85%) |
 | Step efficiency | Steps taken / minimum steps possible | < 2x minimum |
 | Error recovery rate | % of encountered errors successfully recovered | > 70% |
@@ -248,28 +253,28 @@ For each agent task, define measurement criteria across:
 
 ### Testing Framework
 
-- [ ] Unit tests exist for each stage in isolation (mock inputs and outputs)
-- [ ] Integration tests exist for full pipeline end-to-end on representative tasks
-- [ ] Regression test suite covers all known past failure modes
-- [ ] Adversarial test suite attempts to trigger common failure modes
-- [ ] Tests run automatically on every pipeline change (CI/CD integration)
-- [ ] Test coverage is reported by stage
+- [ ] Unit tests exist for each stage in isolation (mock inputs and outputs).
+- [ ] Integration tests exist for full pipeline end-to-end on representative tasks.
+- [ ] Regression test suite covers all known past failure modes.
+- [ ] Adversarial test suite attempts to trigger common failure modes.
+- [ ] Tests run automatically on every pipeline change (CI/CD integration).
+- [ ] Test coverage is reported by stage.
 
 ### Trajectory Evaluation
 
-- [ ] Sample of production trajectories is reviewed weekly by a domain expert
-- [ ] LLM-as-judge evaluation is run on a random sample of trajectories
-- [ ] Failed trajectories are tagged and analyzed for root cause
-- [ ] Root causes are categorized (prompt issue, model issue, tool issue, orchestration issue)
-- [ ] Fixes are tracked back to the trajectory that exposed the failure
+- [ ] Sample of production trajectories is reviewed weekly by a domain expert.
+- [ ] LLM-as-judge evaluation is run on a random sample of trajectories.
+- [ ] Failed trajectories are tagged and analyzed for root cause.
+- [ ] Root causes are categorized (prompt issue, model issue, tool issue, orchestration issue).
+- [ ] Fixes are tracked back to the trajectory that exposed the failure.
 
 ### Human-in-the-Loop Integration
 
-- [ ] Escalation triggers are defined (uncertainty threshold, high-stakes action, novel situation)
-- [ ] Escalation workflow is implemented (notify human, pause task, await decision)
-- [ ] Human decisions are logged and fed back into agent improvement
-- [ ] Agent behavior after human decision is tracked (did the agent follow the human's guidance?)
-- [ ] Escalation rate is monitored (high rate = agent is not confident enough; near-zero = agent may be overconfident)
+- [ ] Escalation triggers are defined (uncertainty threshold, high-stakes action, novel situation).
+- [ ] Escalation workflow is implemented (notify human, pause task, await decision).
+- [ ] Human decisions are logged and fed back into agent improvement.
+- [ ] Agent behavior after human decision is tracked (did the agent follow the human's guidance?).
+- [ ] Escalation rate is monitored (high rate = agent is not confident enough; near-zero = agent may be overconfident).
 
 ---
 
@@ -279,53 +284,53 @@ Use this to build and maintain visibility into agent behavior in production.
 
 ### Logging and Tracing
 
-- [ ] Every LLM call logged: model, timestamp, prompt hash, token counts, latency, response
-- [ ] Every tool call logged: tool name, input parameters, output, success/failure, latency
-- [ ] Every agent decision point logged: what options were considered, what was chosen and why
-- [ ] Log storage is configured with appropriate retention (minimum 30 days for debugging)
-- [ ] Logs are structured (JSON) and queryable
-- [ ] Trace IDs link all log entries for a single task together
+- [ ] Every LLM call logged: model, timestamp, prompt hash, token counts, latency, response.
+- [ ] Every tool call logged: tool name, input parameters, output, success/failure, latency.
+- [ ] Every agent decision point logged: what options were considered, what was chosen and why.
+- [ ] Log storage is configured with appropriate retention (minimum 30 days for debugging).
+- [ ] Logs are structured (JSON) and queryable.
+- [ ] Trace IDs link all log entries for a single task together.
 
 ### Monitoring and Alerting
 
-- [ ] Success rate monitored per task type with alerting on degradation
-- [ ] Average tokens per task monitored with alerting on cost spikes
-- [ ] Latency monitored with P50, P90, P99 percentiles tracked
-- [ ] Error rate monitored by error type (tool failure, model failure, validation failure)
-- [ ] Guardrail violation rate monitored (any violations are high priority)
-- [ ] Alerts are configured with clear runbooks for each alert type
+- [ ] Success rate monitored per task type with alerting on degradation.
+- [ ] Average tokens per task monitored with alerting on cost spikes.
+- [ ] Latency monitored with P50, P90, P99 percentiles tracked.
+- [ ] Error rate monitored by error type (tool failure, model failure, validation failure).
+- [ ] Guardrail violation rate monitored (any violations are high priority).
+- [ ] Alerts are configured with clear runbooks for each alert type.
 
 ### Replay and Debugging
 
-- [ ] Failed trajectories can be fully replayed (inputs, intermediate states, tool responses)
-- [ ] Replay environment is isolated from production (no real side effects)
-- [ ] Debugging workflow is documented (how to go from alert → log → trajectory → root cause)
-- [ ] At least one person on the team has performed a full trajectory debugging session
+- [ ] Failed trajectories can be fully replayed (inputs, intermediate states, tool responses).
+- [ ] Replay environment is isolated from production (no real side effects).
+- [ ] Debugging workflow is documented (how to go from alert → log → trajectory → root cause).
+- [ ] At least one person on the team has performed a full trajectory debugging session.
 
 ### Cost Visibility
 
-- [ ] Cost per task is tracked in real time
-- [ ] Cost breakdown by stage is available (which stage is most expensive?)
-- [ ] Cost breakdown by model is available
-- [ ] Daily and monthly cost summaries are reviewed by the team
-- [ ] Cost efficiency trend is tracked (cost per successful task should decrease over time as system matures)
+- [ ] Cost per task is tracked in real time.
+- [ ] Cost breakdown by stage is available (which stage is most expensive?).
+- [ ] Cost breakdown by model is available.
+- [ ] Daily and monthly cost summaries are reviewed by the team.
+- [ ] Cost efficiency trend is tracked (cost per successful task should decrease over time as system matures).
 
 ### Governance and Compliance
 
-- [ ] All agent actions that could affect external systems are logged with user attribution
-- [ ] Log access is restricted to authorized personnel
-- [ ] Sensitive data in prompts and responses is masked in logs
-- [ ] Data retention policies comply with applicable regulations
-- [ ] Agent audit logs can be exported for compliance review
-- [ ] Incident response procedure includes log preservation steps
+- [ ] All agent actions that could affect external systems are logged with user attribution.
+- [ ] Log access is restricted to authorized personnel.
+- [ ] Sensitive data in prompts and responses is masked in logs.
+- [ ] Data retention policies comply with applicable regulations.
+- [ ] Agent audit logs can be exported for compliance review.
+- [ ] Incident response procedure includes log preservation steps.
 
 ### Continuous Improvement Loop
 
-- [ ] Weekly review of failed trajectories is scheduled
-- [ ] Improvement backlog is maintained with priority and expected impact
-- [ ] Prompt changes are A/B tested before full deployment
-- [ ] Model upgrades are validated against the full regression test suite before adoption
-- [ ] Quality metrics trend is reviewed monthly to assess overall system health
+- [ ] Weekly review of failed trajectories is scheduled.
+- [ ] Improvement backlog is maintained with priority and expected impact.
+- [ ] Prompt changes are A/B tested before full deployment.
+- [ ] Model upgrades are validated against the full regression test suite before adoption.
+- [ ] Quality metrics trend is reviewed monthly to assess overall system health.
 
 ---
 
@@ -334,7 +339,7 @@ Use this to build and maintain visibility into agent behavior in production.
 ### From ConnectED
 
 | Principle | Application |
-|-----------|------------|
+|---|---|
 | Decompose hierarchically | Break complex tasks into verifiable subtasks |
 | Embed domain knowledge | Put curriculum/domain expertise in templates, not just prompts |
 | Script-first | Generate narrative before assets |
@@ -344,12 +349,12 @@ Use this to build and maintain visibility into agent behavior in production.
 ### From the Agentic Stack
 
 | Layer | Key Design Question |
-|-------|-------------------|
-| Orchestration | What is the execution lifecycle and error recovery strategy? |
-| Reasoning | Which model is actually needed for each step? |
-| Skills | What expertise can be packaged for reuse across agents? |
-| Tools/Protocols | Is MCP used to standardize tool integration? |
-| Memory | What must be remembered, and for how long? |
+|---|---|
+| Orchestration | What is the execution lifecycle and error recovery strategy? (Custom state machines vs. generic engines) |
+| Reasoning | Which model is actually needed for each step? (Reasoning models vs. small models) |
+| Skills | What expertise can be packaged for reuse across agents? (Modular skill files) |
+| Tools/Protocols | Is MCP used to standardize tool integration? Is AP2 integrated for secure payment mandates? |
+| Memory | What must be remembered, and for how long? (Episodic short-term vs. semantic long-term) |
 
 ### Cost-Quality-Latency Triangle
 
@@ -364,20 +369,31 @@ Use this to build and maintain visibility into agent behavior in production.
 
 **Rule:** Optimizing any one dimension typically increases pressure on the others. Make explicit tradeoffs — do not assume you can optimize all three simultaneously.
 
+### Optimization & Efficiency Techniques
+
+| Technique | Core Objective | Key Optimization Benefits | ConnectED Example |
+|---|---|---|---|
+| **Task Decomposition** | Break monolithic tasks into smaller, bounded sub-steps. | - Limits reasoning load per model call.<br>- Keeps context windows small (saves tokens).<br>- Enables parallel execution of sub-stages.<br>- Simplifies evaluation and debugging. | Separating *Concept Extraction* (Analyze) from *Activity Design* (Design), ensuring each prompt is highly focused. |
+| **Semantic Routing** | Dynamically route intents/tasks using vector search or fast classifiers. | - Avoids using expensive models for simple requests.<br>- Improves context caching hits by matching stable prompts.<br>- Restricts inputs to relevant tools or agents. | Classifying queries to route textbook lookup to Claude 4.6 Sonnet and simple vocabulary translations to Gemini 2.5 Flash. |
+| **Prompt Caching** | Pin static instructional prompts and database context at the front of the call. | - Saves up to 80% on prompt input token costs.<br>- Reduces time-to-first-token latency significantly. | Positioning the MOET curriculum guidelines and stable textbook lists at the beginning of system prompts. |
+| **Context Compression** | Selectively prune, summarize, or rank context before feeding it to the LLM. | - Prevents context window saturation.<br>- Minimizes noise and instruction drift.<br>- Lowers cost per generation. | Compressing episodic memory of slide drafts and ranking search database results using RAG before planning. |
+
 ---
 
 ## COMMON ANTI-PATTERNS TO AVOID
 
 | Anti-Pattern | Description | Better Approach |
-|-------------|-------------|-----------------|
-| Monolithic prompt | One giant prompt tries to do everything | Hierarchical staged pipeline |
-| Model maximalism | Using the most powerful model for every step | Route tasks to minimum capable model |
-| Prompt-only localization | Adding "please respond in Vietnamese" at the end | Embed localization in every template and schema |
-| Optimism about success | Assuming steps will succeed | Explicit failure handling at every stage |
-| Launch and ignore | No observability after deployment | AgentOps from day one |
-| Fixed plan execution | Agent never reconsiders its plan | Build reflection into the loop |
-| Context dumping | Passing all previous context at every step | Selective, compressed context injection |
-| Manual evaluation only | Relying on developers to spot quality issues | Automated trajectory evaluation |
+|---|---|---|
+| Monolithic prompt | One giant prompt tries to do everything. | Hierarchical staged pipeline using **Task Decomposition**. |
+| Model maximalism | Using the most powerful model for every step. | Route tasks to minimum capable model using **Model Routing** and **Semantic Routing**. |
+| Prompt-only localization | Adding "please respond in Vietnamese" at the end. | Embed localization in every template and schema. |
+| Optimism about success | Assuming steps will succeed. | Explicit failure handling and verification gates at every stage. |
+| Launch and ignore | No observability after deployment. | AgentOps from day one. |
+| Fixed plan execution | Agent never reconsiders its plan. | Build reflection and self-correction loops into the loop. |
+| Context dumping | Passing all previous context at every step. | Selective, compressed context injection or **Context Compression**. |
+| Manual evaluation only | Relying on developers to spot quality issues. | Automated trajectory evaluation and LLM-as-judge scoring. |
+| Monolithic execution | Running a complex, multi-step flow in a single LLM turn. | Apply **Task Decomposition** to separate planning, execution, and validation stages. |
+| Static pipeline routing | Running all queries through the same complex, expensive workflow. | Use **Semantic Routing** to filter simple intents to faster, cheaper pathways. |
 
 ---
 
