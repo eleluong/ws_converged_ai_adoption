@@ -566,9 +566,9 @@
                             <!-- Left context card -->
                             <div class="lg:col-span-5 bg-deep-indigo text-white p-8 rounded-3xl flex flex-col justify-between shadow-lg">
                                 <div>
-                                    <h4 class="text-xl font-bold text-emerald-400 mb-4">Grounding vs Fine-tuning</h4>
+                                    <h4 class="text-xl font-bold text-emerald-400 mb-4">Grounding &amp; Fine-tuning Lai</h4>
                                     <p class="text-sm text-slate-300 leading-relaxed">
-                                        Thay vì fine-tuning tốn kém dễ gây suy giảm năng lực lập luận chung, ConnectED áp dụng cơ chế grounding prompt. Chúng tôi nạp siêu dữ liệu (metadata) của Bộ giáo dục MOET làm neo tham chiếu, giúp LLM hiểu chính xác thuật ngữ Việt Nam và quy định thiết bị lab STEM có sẵn ở các trường học địa phương.
+                                        Mặc dù ConnectED chủ yếu dựa vào kỹ thuật prompt và grounding chương trình MOET để dễ bảo trì, hệ thống còn kết hợp một <strong>mô hình tùy chỉnh Qwen 3 8B</strong> được tinh chỉnh qua RL và DPO. Mô hình này làm engine lập luận chuyên sâu giúp giải quyết các tác vụ phức tạp nhất như trích xuất khái niệm và sơ đồ tiền đề.
                                     </p>
                                 </div>
                                 <div class="mt-8 flex items-center gap-2 text-emerald-400 text-xs font-bold">
@@ -652,6 +652,96 @@
                                 <div class="text-xs font-bold text-secondary dark:text-emerald-300 uppercase tracking-wider">Bước 6</div>
                                 <h5 class="font-bold text-sm text-slate-800 dark:text-slate-200">Evaluation Review</h5>
                                 <p class="text-[10px] text-slate-400">Giáo viên phê duyệt trên UI (Human-in-the-loop)</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Custom Vietnamese LLM Section -->
+                    <section class="space-y-6 scroll-mt-20" id="topic-1-customllm">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Mô Hình LLM Tùy Chỉnh Cho Giáo Dục Việt Nam</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Tối ưu hóa lập luận sư phạm tiếng Việt thông qua Học Tăng Cường (RL) và Direct Preference Optimization (DPO).</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- Training Strategy Card -->
+                            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between border-t-4 border-t-primary">
+                                <div>
+                                    <div class="flex items-center gap-2 text-primary dark:text-emerald-400 mb-4">
+                                        <span class="material-symbols-outlined">psychology</span>
+                                        <h4 class="font-bold text-base text-slate-800 dark:text-slate-200">Huấn luyện RL &amp; DPO</h4>
+                                    </div>
+                                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        Sử dụng <strong>Qwen 3 8B</strong> làm mô hình nền. Áp dụng <strong>Học Tăng Cường (RL)</strong> để điều chỉnh hành vi và chuỗi suy luận (chain-of-thought), kết hợp <strong>Direct Preference Optimization (DPO)</strong> để tối ưu hóa phản hồi, giúp mô hình tuân thủ quy trình ADDIE đáng tin cậy.
+                                    </p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                    <span>Base: Qwen 3 8B</span>
+                                    <span class="font-semibold text-primary dark:text-emerald-300">RL + DPO</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Grounded Datasets Card -->
+                            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between border-t-4 border-t-secondary">
+                                <div>
+                                    <div class="flex items-center gap-2 text-secondary dark:text-emerald-400 mb-4">
+                                        <span class="material-symbols-outlined">database</span>
+                                        <h4 class="font-bold text-base text-slate-800 dark:text-slate-200">Tập Dữ Liệu Vàng</h4>
+                                    </div>
+                                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        Huấn luyện trên <strong>tập dữ liệu đối chiếu</strong>: Wikipedia tiếng Việt (lọc nội dung giáo dục), Viet Math (bài toán &amp; suy luận từng bước), cùng sách giáo khoa và đề thi chuẩn MOET. Giúp giảm thiểu tối đa hiện tượng ảo tưởng kiến thức địa phương.
+                                    </p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                    <span>Grounded Data</span>
+                                    <span class="font-semibold text-secondary dark:text-emerald-300">Viet Math &amp; Wiki</span>
+                                </div>
+                            </div>
+                            
+                            <!-- AIThucchien Results Card -->
+                            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between border-t-4 border-t-emerald-500">
+                                <div>
+                                    <div class="flex items-center gap-2 text-emerald-500 mb-4">
+                                        <span class="material-symbols-outlined">emoji_events</span>
+                                        <h4 class="font-bold text-base text-slate-800 dark:text-slate-200">Thành Tích SOTA</h4>
+                                    </div>
+                                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        Đạt <strong>điểm số cao nhất</strong> trong cuộc thi AIThucchien (Vietnam's education AI benchmark) trên private test set. Vượt trội về suy luận tiên quyết khái niệm, lập luận khoa học đa bước và ánh xạ mục tiêu MOET khi bật "thinking mode".
+                                    </p>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                                    <span>Benchmark</span>
+                                    <span class="font-semibold text-emerald-500">Top 1 Private Test</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Integration Pipeline Details -->
+                        <div class="glass-card p-6 rounded-3xl bg-secondary/5 dark:bg-emerald-500/5 border border-secondary/20 dark:border-emerald-500/20">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                                <div class="space-y-2 max-w-xl">
+                                    <div class="flex items-center gap-2 text-secondary dark:text-emerald-400">
+                                        <span class="material-symbols-outlined">settings_input_component</span>
+                                        <h4 class="font-bold text-sm">Cơ chế Tích hợp Pipeline &amp; Định tuyến động</h4>
+                                    </div>
+                                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        Qwen 3 8B tùy chỉnh đóng vai trò là <strong>engine lập luận chuyên dụng</strong> cho các bước nặng về suy luận như trích xuất khái niệm (Concept Extraction) và sinh mục tiêu (Objective Gen). Orchestrator tự động định tuyến các task này sang Qwen 3 8B, và fallback về Claude/DeepSeek cho các tác vụ sáng tạo hoặc cần ngữ cảnh rộng.
+                                    </p>
+                                </div>
+                                <div class="flex gap-4 shrink-0">
+                                    <div class="text-center px-4 py-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                                        <div class="text-lg font-extrabold text-primary dark:text-emerald-300">8B</div>
+                                        <div class="text-[10px] text-slate-400 uppercase font-bold mt-1">Parameters</div>
+                                    </div>
+                                    <div class="text-center px-4 py-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                                        <div class="text-lg font-extrabold text-secondary dark:text-emerald-300">RL+DPO</div>
+                                        <div class="text-[10px] text-slate-400 uppercase font-bold mt-1">Alignment</div>
+                                    </div>
+                                    <div class="text-center px-4 py-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                                        <div class="text-lg font-extrabold text-emerald-500">Hybrid</div>
+                                        <div class="text-[10px] text-slate-400 uppercase font-bold mt-1">Routing</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -832,74 +922,119 @@
                 </div>
                 
                 <!-- Detailed Notes Tab (Populated dynamically) -->
-                <div id="topic-2-notes" class="hidden glass-card p-8 r                            <!-- Challenge 1 -->
-                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-red-500">
-                                <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-950/30 flex items-center justify-center text-red-600 dark:text-red-400 mb-4">
-                                    <span class="material-symbols-outlined text-[28px]">report_problem</span>
+                <div id="topic-2-notes" class="hidden glass-card p-8 rounded-3xl markdown-body">
+                </div>
+            </div>
+            
+            <!-- VIEW: TOPIC 3 (Challenges & Ops) -->
+            <div id="view-topic-3" class="hidden space-y-12 animate-in fade-in duration-300">
+                <!-- Interactive Lesson Tab -->
+                <div id="topic-3-lesson" class="space-y-12">
+                    <!-- Hero Section -->
+                    <section class="relative overflow-hidden rounded-[2.5rem] p-12 bg-primary-container text-on-primary-container shadow-2xl stack-glow">
+                        <div class="max-w-2xl relative z-10">
+                            <span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4">Module 03</span>
+                            <h2 class="font-display-lg text-3xl font-extrabold mb-4 leading-tight">Challenges &amp; AgentOps: Vận Hành Hệ Tác Nhân</h2>
+                            <p class="font-body-lg text-sm text-white/80 leading-relaxed">
+                                Vượt qua các thách thức về độ tin cậy, chi phí, độ trễ và khả năng giám sát trong các hệ thống AI tác nhân chạy trên môi trường thực tế.
+                            </p>
+                        </div>
+                        <div class="absolute right-[-5%] top-[-5%] w-80 h-80 bg-secondary opacity-25 rounded-full blur-[80px]"></div>
+                    </section>
+                    
+                    <!-- Challenges Section -->
+                    <section class="space-y-6">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Thách Thức &amp; Giải Pháp Vận Hành</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Các vấn đề thực tế khi triển khai hệ thống tác nhân AI ở quy mô sản xuất và giải pháp tương ứng. Nhấp vào các thẻ để xem chi tiết.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Challenge 1 -->
+                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-red-500 transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start">
+                                        <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-950/30 flex items-center justify-center text-red-600 dark:text-red-400 mb-4">
+                                            <span class="material-symbols-outlined text-[28px]">report_problem</span>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">01. Độ tin cậy (Reliability)</h4>
+                                    <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-1">Ảo tưởng (hallucination) trong Agent dẫn đến hành động sai nghiêm trọng như gọi nhầm API, lặp suy nghĩ vô hạn. Lỗi lan truyền tích lũy qua nhiều bước phức tạp.</p>
                                 </div>
-                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">01. Độ tin cậy (Reliability)</h4>
-                                <p class="text-xs text-slate-700 dark:text-slate-200 mt-1">Ảo tưởng (hallucination) trong Agent dẫn đến hành động sai nghiêm trọng như gọi nhầm API, lặp suy nghĩ vô hạn.</p>
-                                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 space-y-2">
+                                <div id="details-challenge-1" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-3">
                                     <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>Ép buộc định dạng JSON cấp suy luận:</strong> Dùng JSON Mode hoặc Outlines để bảo đảm cấu trúc cú pháp 100% hợp lệ.</p>
-                                    <p>• <strong>Xác thực 2 tầng:</strong> Tầng 1 kiểm tra kiểu (Pydantic), Tầng 2 kiểm tra nội dung sư phạm thực tế (Bloom filter / Domain Index).</p>
+                                    <p>• <strong>Ép buộc đầu ra JSON:</strong> Ngăn ngừa lỗi cấu trúc ngay tại cấp độ giải mã (decoding level) bằng Structured Outputs.</p>
+                                    <p>• <strong>Xác thực 2 tầng:</strong> Tầng 1 kiểm tra cú pháp (Pydantic), Tầng 2 kiểm tra đối chiếu ngữ nghĩa (Semantic Grounding Gate) với siêu dữ liệu miền qua Trie/Bloom filter.</p>
+                                    <p>• <strong>Vòng lặp tự sửa sai (Max 3 retries):</strong> Tự động sửa lỗi dựa trên so sánh khác biệt ngữ nghĩa (semantic diff) trước khi kích hoạt hàng đợi HITL.</p>
+                                    <p>• <strong>Human-in-the-Loop (HITL):</strong> Tạm dừng và phục hồi trạng thái lỗi một cách mượt mà qua giao diện quản trị thay vì chạy lại toàn bộ quy trình.</p>
+                                    
+                                    <div class="mt-3 p-3 bg-slate-900 rounded-xl font-mono text-[10px] text-emerald-400 leading-normal overflow-x-auto shadow-inner">
+                                        <div class="text-slate-500 mb-1">// Minh họa trace nhật ký lỗi thực tế</div>
+                                        <div>Bước 1: LLM output → {"vendor": "Amaz0n", "amount": "four thousand"}</div>
+                                        <div class="text-red-400">Bước 2: Parser → crash do định dạng amount (float) không hợp lệ</div>
+                                        <div>Bước 3: Agent retries → {"vendor": "Amazon", "amount": 4000, "date": "2025-02-30"}</div>
+                                        <div class="text-red-400">Bước 4: Writes to CSV → thất bại (ngày 30/02 không tồn tại)</div>
+                                        <div class="text-amber-400">Bước 5: Agent reports "Successfully wrote" → ảo tưởng thành công!</div>
+                                    </div>
                                 </div>
                             </div>
+                            
                             <!-- Challenge 2 -->
-                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-emerald-600">
-                                <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
-                                    <span class="material-symbols-outlined text-[28px]">analytics</span>
+                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-emerald-600 transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start">
+                                        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
+                                            <span class="material-symbols-outlined text-[28px]">analytics</span>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">02. Đánh giá Quỹ đạo (Trajectory Eval)</h4>
+                                    <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-1">Đánh giá tác nhân yêu cầu kiểm duyệt toàn bộ hành trình suy nghĩ, lập kế hoạch, gọi công cụ (quỹ đạo thực thi) thay vì chỉ xem kết quả đầu ra cuối cùng.</p>
                                 </div>
-                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">02. Đánh giá Quỹ đạo (Trajectory Eval)</h4>
-                                <p class="text-xs text-slate-700 dark:text-slate-200 mt-1">Đánh giá tác nhân yêu cầu kiểm duyệt cả hành trình suy nghĩ, lập kế hoạch, gọi công cụ thay vì chỉ xem kết quả đầu ra.</p>
-                                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 space-y-2">
+                                <div id="details-challenge-2" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-2">
                                     <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>LLM-as-a-Judge:</strong> Hội đồng mô hình (sử dụng Claude 4.6 Sonnet làm giám khảo) đánh giá quỹ đạo dựa trên các rubrics điểm số định lượng.</p>
-                                    <p>• <strong>Golden Trajectory Suite:</strong> Lưu trữ &gt;200 kịch bản thành công mẫu chạy hồi quy CI/CD tự động khi sửa prompts.</p>
+                                    <p>• <strong>LLM-as-a-Judge (Khung G-Eval):</strong> Triển khai hội đồng giám khảo độc lập chấm điểm định lượng (1-5) với lập luận từng bước rõ ràng trên Claude 4.6 Sonnet.</p>
+                                    <p>• <strong>Golden Trajectory Suite:</strong> Lưu trữ và chạy hồi quy CI/CD tự động trên &gt;200 kịch bản thành công mẫu khi sửa đổi prompt hoặc lớp điều phối.</p>
+                                    <p>• <strong>Ràng buộc bất biến (Assertion Invariants):</strong> Quy tắc cứng được kiểm tra bằng lập trình (ví dụ: total_amount = sum(line_item.amount)).</p>
+                                    <p>• <strong>Khoảng cách ngữ nghĩa:</strong> So sánh embeddings của kết quả đầu ra với tài liệu chính sách để bảo đảm tính tuân thủ.</p>
                                 </div>
                             </div>
+                            
                             <!-- Challenge 3 -->
-                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-primary">
-                                <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-primary dark:text-emerald-300 mb-4">
-                                    <span class="material-symbols-outlined text-[28px]">payments</span>
+                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-amber-500 transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start">
+                                        <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/30 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-4">
+                                            <span class="material-symbols-outlined text-[28px]">payments</span>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">03. Chi phí &amp; Độ trễ (Cost &amp; Latency)</h4>
+                                    <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-1">Nhiều vòng lặp LLM tuần tự, gọi nhiều công cụ, cửa sổ ngữ cảnh lớn làm tăng chi phí token cấp số nhân và làm tăng thời gian phản hồi người dùng.</p>
                                 </div>
-                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">03. Chi phí &amp; Độ trễ (Cost &amp; Latency)</h4>
-                                <p class="text-xs text-slate-700 dark:text-slate-200 mt-1">Nhiều vòng lặp LLM tuần tự gây tăng chi phí token cấp số nhân và làm tăng thời gian phản hồi người dùng.</p>
-                                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 space-y-2">
+                                <div id="details-challenge-3" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-2">
                                     <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>Tối ưu cache:</strong> Sắp xếp system prompts MOET nặng lên đầu ngữ cảnh để tối đa hóa Prompt Caching, tiết kiệm đến 80% chi phí token.</p>
-                                    <p>• <strong>Lọc ngữ cảnh (Pruning):</strong> Thu hẹp ngữ cảnh RAG dưới 10k token, chạy song song các luồng độc lập giảm độ trễ 45%.</p>
+                                    <p>• <strong>Định tuyến mô hình lai (Tiered Routing):</strong> Định tuyến nhiệm vụ linh hoạt (Reasoning Tier: Sonnet/R1; Synthesis Tier: Haiku/GPT-4o-mini; Utility Tier: Llama 3.3/Gemini Flash).</p>
+                                    <p>• <strong>Tối ưu Prompt Caching:</strong> Tách biệt dữ liệu tĩnh cố định lên đầu prompt giúp tiết kiệm đến <strong>80%</strong> chi phí token đầu vào.</p>
+                                    <p>• <strong>Thu gọn ngữ cảnh (RAG):</strong> Giới hạn cửa sổ ngữ cảnh dưới 10k tokens thông qua tìm kiếm lai dense-sparse.</p>
+                                    <p>• <strong>Xử lý song song bất đồng bộ:</strong> Sử dụng Python async (`asyncio.gather()`) giảm độ trễ phản hồi đến <strong>45%</strong> (từ 45 giây xuống 12 giây).</p>
                                 </div>
                             </div>
+                            
                             <!-- Challenge 4 -->
-                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500">
-                                <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
-                                    <span class="material-symbols-outlined text-[28px]">hub</span>
+                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500 transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start">
+                                        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6">
+                                            <span class="material-symbols-outlined text-[28px]">hub</span>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">04. Khả năng giám sát (AgentOps)</h4>
+                                    <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-2">Trạng thái tác nhân biểu diễn bằng ngôn ngữ tự nhiên làm các chỉ số giám sát CPU/RAM truyền thống trở nên vô hại.</p>
                                 </div>
-                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">04. Khả năng giám sát (AgentOps)</h4>
-                                <p class="text-xs text-slate-700 dark:text-slate-200 mt-1">Trạng thái tác nhân biểu diễn bằng ngôn ngữ tự nhiên làm các chỉ số giám sát CPU/RAM truyền thống trở nên vô hại.</p>
-                                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 space-y-2">
+                                <div id="details-challenge-4" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-2">
                                     <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>OpenInference Tracing:</strong> Ghi nhận chi tiết từng bước LLM (Plan -> Act -> Observe) dưới dạng các Spans có cấu trúc.</p>
+                                    <p>• <strong>MLflow Tracing:</strong> Tự động ghi nhận chi tiết từng bước LLM (Plan -> Act -> Observe) dưới dạng "Span" (token, latency, prompts).</p>
                                     <p>• <strong>Cây thực thi (Execution Tree):</strong> Biểu diễn trực quan dòng chảy cuộc gọi phân cấp để gỡ lỗi và phát hiện thắt nút cổ chai (latency bottleneck).</p>
-                                </div>
-                            </div>�y song song các luồng độc lập giảm độ trễ 45%.</p>
-                                </div>
-                            </div>
-                            <!-- Challenge 4 -->
-                            <div onclick="toggleChallengeDetails('challenge-4')" class="glass-card p-8 rounded-3xl border-l-4 border-l-blue-500 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                                <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6">
-                                    <span class="material-symbols-outlined text-[28px]">hub</span>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">04. Khả năng giám sát (AgentOps)</h4>
-                                    <span class="material-symbols-outlined text-slate-400 text-sm" id="icon-challenge-4">expand_more</span>
-                                </div>
-                                <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-2">Trạng thái tác nhân biểu diễn bằng ngôn ngữ tự nhiên làm các chỉ số giám sát CPU/RAM truyền thống trở nên vô hại.</p>
-                                <div id="details-challenge-4" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 space-y-2">
-                                    <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>OpenInference Tracing:</strong> Ghi nhận chi tiết từng bước LLM (Plan -> Act -> Observe) dưới dạng các Spans có cấu trúc.</p>
-                                    <p>• <strong>Cây thực thi (Execution Tree):</strong> Biểu diễn trực quan dòng chảy cuộc gọi phân cấp để gỡ lỗi và phát hiện thắt nút cổ chai (latency bottleneck).</p>
+                                    <p>• <strong>Hộp cát phát lại (Replay Sandbox):</strong> Trích xuất nhật ký chạy lỗi, đóng băng trạng thái và phát lại ngoại tuyến để gỡ lỗi và kiểm thử hồi quy.</p>
+                                    <p>• <strong>Rào chắn bảo mật (Guardrails):</strong> Triển khai Llama Guard hoặc NeMo Guardrails tại biên công cụ để lọc prompt injection.</p>
                                 </div>
                             </div>
                         </div>
@@ -907,28 +1042,168 @@
                     
                     <!-- Code block implementation illustration -->
                     <section class="space-y-6">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-primary dark:text-slate-200">Ví dụ code: Theo vết OpenInference trong Sản xuất</h3>
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                            <h3 class="text-xl font-bold text-primary dark:text-slate-200">Ví dụ Code: Hiện Thực Hóa Giải Pháp Vận Hành</h3>
+                            <!-- Tabs selector -->
+                            <div class="flex flex-wrap gap-2 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-2xl border border-slate-200/50 dark:border-slate-700/50">
+                                <button onclick="switchCodeTab('code-pydantic')" id="tab-btn-code-pydantic" class="code-tab-btn bg-white dark:bg-slate-700 text-primary dark:text-emerald-300 shadow-sm px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all">Structured Output (Pydantic)</button>
+                                <button onclick="switchCodeTab('code-selfcorrect')" id="tab-btn-code-selfcorrect" class="code-tab-btn text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-slate-200 px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all">Tự sửa lỗi (Self-Correction)</button>
+                                <button onclick="switchCodeTab('code-routing')" id="tab-btn-code-routing" class="code-tab-btn text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-slate-200 px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all">Định tuyến (Routing)</button>
+                                <button onclick="switchCodeTab('code-tracing')" id="tab-btn-code-tracing" class="code-tab-btn text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-slate-200 px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all">Theo vết (MLflow Tracing)</button>
+                            </div>
                         </div>
-                        <div class="glass-card p-6 rounded-2xl">
-                            <pre><code class="language-python">from openinference.instrumentation.llama_index import LlamaIndexInstrumentor
-from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import SimpleSpanProcessor
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+                        
+                        <div class="glass-card p-6 rounded-2xl relative overflow-hidden">
+                            <!-- Tab Content: Pydantic -->
+                            <div id="code-pydantic" class="code-tab-content space-y-4">
+                                <p class="text-xs text-on-surface-variant dark:text-slate-400">
+                                    Sử dụng Pydantic cùng OpenAI Structured Outputs để ép buộc định dạng đầu ra ngay tại cấp độ giải mã (decoding level).
+                                </p>
+                                <pre><code class="language-python">from pydantic import BaseModel, Field, ValidationError
+from openai import OpenAI
 
-# 1. Khởi tạo Tracer Provider
-provider = TracerProvider()
-trace.set_tracer_provider(provider)
+class Invoice(BaseModel):
+    vendor: str = Field(min_length=1)
+    amount: float = Field(gt=0)
+    date: str = Field(pattern=r"\d{4}-\d{2}-\d{2}")
 
-# 2. Định cấu hình Export kết quả theo dõi sang Langfuse / Arize
-otlp_exporter = OTLPSpanExporter(endpoint="https://api.langfuse.com/v1/traces")
-provider.add_span_processor(SimpleSpanProcessor(otlp_exporter))
+client = OpenAI()
+completion = client.beta.chat.completions.parse(
+    model="gpt-4o-2024-08-06",
+    messages=[
+        {"role": "system", "content": "Trích xuất thông tin hóa đơn."},
+        {"role": "user", "content": "Hóa đơn mua hàng từ Amazon ngày 2025-02-28 trị giá 4000 USD."}
+    ],
+    response_format=Invoice
+)
+invoice = completion.choices[0].message.parsed
+print(invoice.vendor) # Output: Amazon
+print(invoice.amount) # Output: 4000.0
+print(invoice.date)   # Output: 2025-02-28</code></pre>
+                            </div>
+                            
+                            <!-- Tab Content: Self-Correction -->
+                            <div id="code-selfcorrect" class="code-tab-content hidden space-y-4">
+                                <p class="text-xs text-on-surface-variant dark:text-slate-400">
+                                    Vòng lặp tự sửa lỗi ngữ cảnh (Contextual Self-Correction) tối đa 3 lần. Nếu lỗi vượt quá giới hạn, hệ thống chuyển giao sang hàng đợi kiểm duyệt HITL (Human-in-the-Loop).
+                                </p>
+                                <pre><code class="language-python"># Vòng lặp tự sửa sai với số lần thử tối đa
+for attempt in range(3):
+    try:
+        # Gọi LLM sinh kết quả với gợi ý sửa lỗi (correction_hint) nếu có
+        result = structured_llm.invoke(prompt + correction_hint)
+        validate_syntactic(result) # Xác thực cú pháp (Pydantic schema)
+        validate_semantic(result)  # Xác thực ngữ nghĩa (Domain Metadata Trie)
+        break
+    except ValidationError as e:
+        correction_hint = f"\nPrevious error: {e}. Provide only valid JSON matching the schema."
+else:
+    # Sau 3 lần thử thất bại, chuyển giao sang hàng đợi HITL
+    save_to_human_review_queue(context)
+    pause_execution_flow()</code></pre>
+                            </div>
+                            
+                            <!-- Tab Content: Routing -->
+                            <div id="code-routing" class="code-tab-content hidden space-y-4">
+                                <p class="text-xs text-on-surface-variant dark:text-slate-400">
+                                    Bộ định tuyến ngữ nghĩa (Semantic & Tiered Router) giúp tối ưu hóa chi phí và độ trễ bằng cách định tuyến các nhiệm vụ đến các tầng mô hình phù hợp.
+                                </p>
+                                <pre><code class="language-python">class TieredRouter:
+    def route(self, task: str) -> str:
+        task_lower = task.lower()
+        # Định tuyến ngữ nghĩa phân tầng
+        if any(kw in task_lower for kw in ["plan", "strategy", "reason", "audit"]):
+            # Tầng Lập luận Chuyên sâu (Frontier / Reasoning Tier)
+            return "claude-4.6-sonnet"
+        elif any(kw in task_lower for kw in ["extract", "parse", "format"]):
+            # Tầng Tổng hợp (Synthesis Tier)
+            return "gpt-4o-mini"
+        else:
+            # Tầng Tiện ích (Utility Tier)
+            return "llama-3.3-70b"
 
-# 3. Kích hoạt tự động theo dõi (Auto-instrumentation)
-LlamaIndexInstrumentor().instrument()
+# Ví dụ sử dụng
+router = TieredRouter()
+model_choice = router.route("Create a step-by-step audit plan for Q3 sales invoices")
+print(model_choice) # Output: claude-4.6-sonnet</code></pre>
+                            </div>
+                            
+                            <!-- Tab Content: Tracing -->
+                            <div id="code-tracing" class="code-tab-content hidden space-y-4">
+                                <p class="text-xs text-on-surface-variant dark:text-slate-400">
+                                    Tích hợp MLflow autologging trong LangChain/LangGraph để tự động thu thập Spans, Execution Trees, độ trễ và mức tiêu thụ token.
+                                </p>
+                                <pre><code class="language-python">import mlflow
 
-print("Agent telemetry active: Tracing Plan-Act-Observe spans.")</code></pre>
+# Kích hoạt tự động ghi nhận vết (tracing/logging) cho LangChain
+mlflow.langchain.autolog()
+
+# Thực thi tác nhân trong một lượt chạy (run) của MLflow
+with mlflow.start_run(run_name="agent_invoice_audit"):
+    # Bất kỳ hoạt động invoke nào dưới ngữ cảnh này sẽ được theo dõi tự động
+    result = agent.invoke("Analyze contract and count words")
+    
+# Mở giao diện MLflow UI để quan sát Cây thực thi (Execution Tree) và các cuộc gọi API lồng nhau</code></pre>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Production Agentic System Architecture Section -->
+                    <section class="space-y-6">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-xl font-bold text-primary dark:text-slate-200">Kiến Trúc Hệ Thống Tác Nhân Thực Tế</h3>
+                            <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-2">Tổng hợp thiết kế sản xuất (production) qua lăng kính của ngăn xếp tác nhân AI hiện đại.</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Layer 1 -->
+                            <div class="glass-card p-6 rounded-3xl border border-slate-200/40 dark:border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-emerald-500/10 flex items-center justify-center text-primary dark:text-emerald-300 mb-4 font-bold text-xs">01</div>
+                                    <h4 class="font-extrabold text-sm text-slate-800 dark:text-slate-200 mb-1">Orchestration (Điều phối)</h4>
+                                    <p class="text-[11px] text-on-surface-variant dark:text-slate-400">Máy trạng thái hữu hạn tùy chỉnh điều phối đường ống xử lý, đảm bảo luồng chạy dữ liệu ổn định 100%.</p>
+                                </div>
+                            </div>
+                            <!-- Layer 2 -->
+                            <div class="glass-card p-6 rounded-3xl border border-slate-200/40 dark:border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-emerald-500/10 flex items-center justify-center text-primary dark:text-emerald-300 mb-4 font-bold text-xs">02</div>
+                                    <h4 class="font-extrabold text-sm text-slate-800 dark:text-slate-200 mb-1">Reasoning Core (Lõi lập luận)</h4>
+                                    <p class="text-[11px] text-on-surface-variant dark:text-slate-400">Cơ chế định tuyến ngữ nghĩa lai tới Claude 4.6 Sonnet / DeepSeek-R1 (Lập luận sâu) và Llama 3.3 70B / Gemini 2.5 Flash (Tiện ích).</p>
+                                </div>
+                            </div>
+                            <!-- Layer 3 -->
+                            <div class="glass-card p-6 rounded-3xl border border-slate-200/40 dark:border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-emerald-500/10 flex items-center justify-center text-primary dark:text-emerald-300 mb-4 font-bold text-xs">03</div>
+                                    <h4 class="font-extrabold text-sm text-slate-800 dark:text-slate-200 mb-1">Skills (Kỹ năng)</h4>
+                                    <p class="text-[11px] text-on-surface-variant dark:text-slate-400">Đóng gói mô-đun chức năng độc lập cho Trích xuất dữ liệu, Kiểm toán tuân thủ chính sách và Sinh báo cáo tự động.</p>
+                                </div>
+                            </div>
+                            <!-- Layer 4 -->
+                            <div class="glass-card p-6 rounded-3xl border border-slate-200/40 dark:border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-emerald-500/10 flex items-center justify-center text-primary dark:text-emerald-300 mb-4 font-bold text-xs">04</div>
+                                    <h4 class="font-extrabold text-sm text-slate-800 dark:text-slate-200 mb-1">Tools &amp; Protocols (Công cụ)</h4>
+                                    <p class="text-[11px] text-on-surface-variant dark:text-slate-400">Giao tiếp hệ thống file, cơ sở dữ liệu qua giao thức chuẩn hóa MCP (Model Context Protocol) và ủy nhiệm thanh toán tự động qua AP2.</p>
+                                </div>
+                            </div>
+                            <!-- Layer 5 -->
+                            <div class="glass-card p-6 rounded-3xl border border-slate-200/40 dark:border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-emerald-500/10 flex items-center justify-center text-primary dark:text-emerald-300 mb-4 font-bold text-xs">05</div>
+                                    <h4 class="font-extrabold text-sm text-slate-800 dark:text-slate-200 mb-1">Memory (Bộ nhớ)</h4>
+                                    <p class="text-[11px] text-on-surface-variant dark:text-slate-400">Cơ sở dữ liệu Vector cho bộ nhớ ngữ nghĩa người dùng; bộ nhớ episodic lưu trữ trạng thái phiên hoạt động ngắn hạn.</p>
+                                </div>
+                            </div>
+                            <!-- Layer 6 -->
+                            <div class="glass-card p-6 rounded-3xl border border-slate-200/40 dark:border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-emerald-500/10 flex items-center justify-center text-primary dark:text-emerald-300 mb-4 font-bold text-xs">06</div>
+                                    <h4 class="font-extrabold text-sm text-slate-800 dark:text-slate-200 mb-1">Cognitive Loop (Vòng lặp)</h4>
+                                    <p class="text-[11px] text-on-surface-variant dark:text-slate-400">Vòng lặp nhận thức &amp; xác thực chặt chẽ: PLAN → ACT → OBSERVE → REFLECT → ITERATE tại mỗi biên giai đoạn.</p>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 </div>
@@ -1209,7 +1484,12 @@ print("Agent telemetry active: Tracing Plan-Act-Observe spans.")</code></pre>
                     if (notesView) {
                         notesView.classList.remove('hidden');
                         // Render detailed notes dynamic markdown
-                        const contentData = WORKSHOP_CONTENT[currentTopic.replace('-', '_')];
+                        const topicKeyMap = {
+                            'topic-1': '01_connected_platform',
+                            'topic-2': '02_agentic_stack',
+                            'topic-3': '03_challenges_ops'
+                        };
+                        const contentData = WORKSHOP_CONTENT[topicKeyMap[currentTopic] || currentTopic.replace('-', '_')];
                         if (contentData && contentData.files && contentData.files.detailed_notes) {
                             notesView.innerHTML = marked.parse(contentData.files.detailed_notes);
                             notesView.querySelectorAll('pre code').forEach(block => {
@@ -1703,6 +1983,7 @@ print("Agent telemetry active: Tracing Plan-Act-Observe spans.")</code></pre>
             appState.searchIndex.push({ title: "Mô hình thiết kế ADDIE", snippet: "Quy trình thiết kế sư phạm có hệ thống: Analyze, Design, Develop, Implement, Evaluate.", viewId: "topic-1", tabId: "reference", anchor: "topic-1-addie" });
             appState.searchIndex.push({ title: "Hạ tầng Bản địa hóa & GDPT 2018", snippet: "Grounding siêu dữ liệu MOET đảm bảo quy định thiết bị lab STEM.", viewId: "topic-1", tabId: "reference", anchor: "topic-1-localization" });
             appState.searchIndex.push({ title: "Quy trình Đa tác nhân phân cấp", snippet: "Sử dụng Task Decomposition chia nhỏ tác vụ để tránh context saturation.", viewId: "topic-1", tabId: "reference", anchor: "topic-1-multiagent" });
+            appState.searchIndex.push({ title: "Mô hình LLM Việt Nam tùy chỉnh (Qwen 3 8B)", snippet: "Tối ưu lập luận sư phạm qua RL và DPO trên tập dữ liệu vàng (Viet Math, Wiki).", viewId: "topic-1", tabId: "reference", anchor: "topic-1-customllm" });
             
             // Index Checklists & subcategories
             appState.checklists.forEach(group => {
@@ -1841,6 +2122,27 @@ print("Agent telemetry active: Tracing Plan-Act-Observe spans.")</code></pre>
                     details.classList.add('hidden');
                     if (icon) icon.innerText = 'expand_more';
                 }
+            }
+        }
+
+        function switchCodeTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.code-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            // Show current tab content
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+            }
+            
+            // Update button styles
+            document.querySelectorAll('.code-tab-btn').forEach(btn => {
+                btn.className = "code-tab-btn text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-slate-200 px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all";
+            });
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.className = "code-tab-btn bg-white dark:bg-slate-700 text-primary dark:text-emerald-300 shadow-sm px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all";
             }
         }
 

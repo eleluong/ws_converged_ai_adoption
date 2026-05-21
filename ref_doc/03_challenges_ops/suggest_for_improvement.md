@@ -1,10 +1,3 @@
-# Workshop — Extended Section Notes
-## Persistent Challenges in Agentic AI
-
-> These notes extend each section of the presentation with additional depth, design rationale, and practical context for instructors, advanced learners, or post-workshop reference.
-
----
-
 ### Section 3.1: Reliability & Hallucinations
 
 **Why reliability is harder for agents than for LLMs:**  
