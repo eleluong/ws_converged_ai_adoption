@@ -44,7 +44,8 @@ When the ConnectED team ran controlled experiments using off-the-shelf LLMs (GPT
 
 The root cause: large language models are trained predominantly on English-language, Western-education-centric data. Without deliberate grounding, they reproduce the biases of their training distribution.
 
-**Design implication:** Rather than fine-tuning the model (expensive, fragile), ConnectED addresses this through prompt engineering, structured templates, and curriculum-grounding — all of which are more maintainable and updatable as curriculum standards evolve.
+**Design implication (updated):**  
+While the hierarchical agent pipeline primarily relies on prompt engineering, structured templates, and curriculum‑grounding (which remain the most maintainable and updatable approach as curriculum standards evolve), the team also recognized that certain core reasoning tasks — such as concept extraction and multi‑step pedagogical reasoning — benefit from a dedicated, fine‑tuned model. Rather than training from scratch, the team developed a **custom Vietnamese educational LLM** using reinforcement learning (RL) for behavior adjustment and Direct Preference Optimization (DPO) on grounded datasets. This model achieves state‑of‑the‑art performance on Vietnamese educational reasoning tasks (see Section 1.8).
 
 ---
 
@@ -130,7 +131,7 @@ Each stage is a focused AI call with:
 ConnectED is an end-to-end production implementation of the **Modern Agentic Stack** detailed in Part II. Here is the architectural mapping:
 
 * **Layer 1: Orchestration:** Managed by a custom, state-machine-based execution harness. This deterministic routing is preferred over generic multi-agent frameworks (e.g. LangChain/CrewAI) to guarantee that the educational pipeline follows a strict, sequential ADDIE progression with zero state leakage.
-* **Layer 2: Reasoning Core:** Utilizes hybrid model routing with dynamic semantic routing. Concept extraction and pedagogical activity design are dynamically routed to Claude 4.6 Sonnet / DeepSeek-R1 (frontier/reasoning models), while low-level formatting, translation, and metadata tagging are handled by Llama 3.3 70B / Gemini 2.5 Flash (utility models) to reduce operational costs by 70%.
+* **Layer 2: Reasoning Core:** Utilizes hybrid model routing with dynamic semantic routing. Concept extraction and pedagogical activity design are dynamically routed to Claude 4.6 Sonnet / DeepSeek-R1 (frontier/reasoning models), while low-level formatting, translation, and metadata tagging are handled by Llama 3.3 70B / Gemini 2.5 Flash (utility models) to reduce operational costs by 70%. For core Vietnamese educational reasoning, the system can also switch to the custom-trained **Qwen 3 8B** model described in Section 1.8.
 * **Layer 3: Skills:** Each step of the lesson plan pipeline is implemented as an isolated, version-controlled skill. System prompts, standard templates, and Bloom's taxonomy definitions are bundled into modular packages.
 * **Layer 4: Tools & Protocols:** Uses **Model Context Protocol (MCP)** to securely expose regional school schedules and textbook databases as structured tools. For visual asset procurement, the agent uses **Agent Payments Protocol (AP2)** to securely process micro-transactions for premium STEM graphics based on cryptographically-signed Intent Mandates.
 * **Layer 5: Memory Systems:** Employs long-term semantic memory (vector database of teacher teaching preferences and feedback) and short-term episodic memory (retains the active state of the current lesson draft session).
@@ -156,3 +157,39 @@ ConnectED serves as a reference case for overcoming the core production hurdles 
 * **Evaluation:** An offline evaluation framework runs trajectories against an "LLM-as-judge" to verify MOET alignment prior to production deployment.
 * **Cost & Latency:** Massive curriculum prompts are structured at the front of the context window to maximize prompt caching, yielding an 80% reduction in input token costs.
 * **Observability:** Complete execution trees are exported to AgentOps tools, showing the timing, cost, and exact prompt/response pairs for each stage in the hierarchical pipeline.
+
+---
+
+### Section 1.8: Custom-Trained Vietnamese Educational LLM — Qwen 3 8B
+
+While the hierarchical agent pipeline with frontier models and prompt engineering is effective, the ConnectED team went further by developing a **dedicated LLM specifically for Vietnamese K‑12 education**. This model is not a general‑purpose chat engine; it is optimized for reasoning tasks such as concept extraction, prerequisite mapping, and multi‑step pedagogical inference.
+
+#### 1.8.1 Base Model and Training Strategy: RL for Behavior Adjustment
+
+The team selected **Qwen 3 8B** as the base model — a compact, efficient architecture that balances performance and inference cost. Instead of training a 100‑billion‑parameter model from scratch (prohibitively expensive and data‑intensive), they applied **Reinforcement Learning (RL) for behavior adjustment**. RL fine‑tunes the model’s *decision‑making* and *chain‑of‑thought* patterns on educational tasks, teaching it to follow the ADDIE‑style pipeline more reliably than supervised fine‑tuning alone.
+
+#### 1.8.2 Grounded Datasets: Vietnamese Wiki, Viet Math, and More
+
+To overcome the lack of high‑quality Vietnamese educational data in generic LLMs, the team constructed a **golden dataset** comprising:
+- **Vietnamese Wikipedia** (curated and cleaned for educational topics)
+- **Viet Math** (a collection of Vietnamese math problems, solutions, and step‑by‑step reasoning)
+- MOET‑aligned textbook excerpts and national exam questions
+
+These datasets serve two purposes:
+1. **Knowledge grounding** – The model learns correct Vietnamese terminology, cultural references, and curriculum‑specific facts.
+2. **Hallucination reduction** – Using **Direct Preference Optimization (DPO)**, the team trained the model to prefer responses that stay faithful to the golden dataset and reject plausible‑sounding but incorrect outputs. DPO is a preference‑based alignment method that directly optimises the model’s policy without requiring a separate reward model, making it more stable and efficient than traditional RLHF.
+
+#### 1.8.3 Results: State‑of‑the‑Art on AIThucchien Competition
+
+The custom Qwen 3 8B model was evaluated on the **AIThucchien competition**, Vietnam’s premier benchmark for educational AI reasoning. On the **private test set** — which includes unseen curriculum‑aligned questions and multi‑step reasoning tasks — ConnectED’s model achieved the **highest scores** among all submitted systems.
+
+Key achievements:
+- **Most accurate LLM for reasoning tasks** when the “thinking mode” (explicit chain‑of‑thought) is enabled.
+- Superior performance on concept prerequisite inference, multi‑hop science reasoning, and MOET objective mapping.
+- Near‑elimination of hallucinated facts in generated lesson plans compared to off‑the‑shelf models.
+
+#### 1.8.4 Integration into the ConnectED Pipeline
+
+The custom Qwen 3 8B model is not used for every stage; rather, it acts as a **specialised reasoning engine** for the most cognitively demanding steps (e.g., concept extraction and objective generation). The orchestrator dynamically routes these stages to the custom model when high precision is required, falling back to frontier models (Claude, DeepSeek) for broader knowledge or creative tasks. This hybrid approach balances accuracy, cost, and latency.
+
+**Takeaway:** Training a domain‑specific LLM using RL + DPO on grounded datasets — starting from a compact base like Qwen 3 8B — is a cost‑effective alternative to training from scratch. It delivers state‑of‑the‑art results on local benchmarks while remaining maintainable and scalable as curriculum standards evolve.
