@@ -469,10 +469,96 @@
                             <span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-6">Introduction</span>
                             <h2 class="font-display-lg text-3xl font-extrabold mb-4 leading-tight">Nền tảng ConnectED: Kỷ nguyên mới của Soạn giáo án AI</h2>
                             <p class="font-body-lg text-sm text-white/80 leading-relaxed">
-                                ConnectED là hệ sinh thái AI-native đầu tiên tại Việt Nam thiết kế chuyên biệt cho K-12. Chúng tôi ánh xạ các phương pháp sư phạm kinh điển thành hệ thống đa tác nhân giải quyết khối lượng công việc giáo viên.
+                                ConnectED là hệ sinh thái AI-native đầu tiên tại Việt Nam thiết kế chuyên biệt cho K-12. Thay vì coi AI là công cụ tạo nội dung một lượt, ConnectED tiếp cận việc soạn bài giảng như một <strong>quy trình thiết kế sư phạm đa giai đoạn</strong>, kết hợp khung ADDIE, điều phối tác nhân phân cấp và đồ thị tri thức chương trình học để hỗ trợ giáo viên trong suốt chu kỳ thiết kế bài giảng.
                             </p>
+                            <div class="flex flex-wrap gap-4 mt-6">
+                                <div class="bg-white/10 rounded-xl px-4 py-2 text-sm font-bold">📚 K-12 AI-Native</div>
+                                <div class="bg-white/10 rounded-xl px-4 py-2 text-sm font-bold">🎯 Chuẩn MOET 100%</div>
+                                <div class="bg-white/10 rounded-xl px-4 py-2 text-sm font-bold">⏱ 3-4h → 15-20 phút</div>
+                            </div>
                         </div>
                         <div class="absolute right-[-5%] top-[-5%] w-80 h-80 bg-secondary opacity-25 rounded-full blur-[80px]"></div>
+                    </section>
+
+                    <!-- Problem Context Section -->
+                    <section class="space-y-6 scroll-mt-20" id="topic-1-problem">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Bối Cảnh Vấn Đề: Tại Sao LLM Chung Chung Thất Bại?</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Giáo viên mất 3–4 tiếng chuẩn bị mỗi tiết dạy. Các LLM off-the-shelf không giải quyết được vấn đề này vì thiếu bối cảnh địa phương.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Left: Teacher Workload -->
+                            <div class="bg-deep-indigo text-white p-8 rounded-3xl">
+                                <h4 class="text-lg font-bold text-emerald-400 mb-4">Khối Lượng Công Việc Giáo Viên</h4>
+                                <p class="text-sm text-slate-300 mb-4">Để chuẩn bị một bài giảng hoàn chỉnh, giáo viên phải thực hiện đồng thời nhiều miền nhận thức phức tạp:</p>
+                                <ul class="space-y-2 text-sm text-slate-200">
+                                    <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">→</span> Xác định mục tiêu học tập (learning objectives)</li>
+                                    <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">→</span> Trích xuất khái niệm cốt lõi từ sách giáo khoa</li>
+                                    <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">→</span> Thiết kế chuỗi hoạt động lớp học 45 phút</li>
+                                    <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">→</span> Tạo kịch bản và tài liệu hình ảnh minh họa</li>
+                                    <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">→</span> Chuẩn bị bài kiểm tra và đánh giá năng lực</li>
+                                    <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">→</span> Cá nhân hóa nội dung cho từng nhóm học sinh</li>
+                                </ul>
+                            </div>
+                            <!-- Right: Why LLMs Fail -->
+                            <div class="glass-card p-8 rounded-3xl">
+                                <h4 class="text-lg font-bold text-red-600 dark:text-red-400 mb-4">6 Lý Do LLM Chung Chung Thất Bại</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-950/20 rounded-xl">
+                                        <span class="text-red-500 font-black shrink-0">✗</span>
+                                        <div>
+                                            <p class="font-bold text-xs text-red-700 dark:text-red-400">Sự Phù Hợp Chương Trình Kém</p>
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Đưa ra nội dung ngoài sách giáo khoa hoặc lệch chuẩn MOET</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-950/20 rounded-xl">
+                                        <span class="text-red-500 font-black shrink-0">✗</span>
+                                        <div>
+                                            <p class="font-bold text-xs text-red-700 dark:text-red-400">Trình Tự Sư Phạm Không Chính Xác</p>
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Luồng bài giảng không tôn trọng khung 45 phút tiêu chuẩn</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-950/20 rounded-xl">
+                                        <span class="text-red-500 font-black shrink-0">✗</span>
+                                        <div>
+                                            <p class="font-bold text-xs text-red-700 dark:text-red-400">Thuật Ngữ Không Nhất Quán</p>
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Dịch sai thuật ngữ khoa học chuẩn theo danh mục MOET</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-950/20 rounded-xl">
+                                        <span class="text-red-500 font-black shrink-0">✗</span>
+                                        <div>
+                                            <p class="font-bold text-xs text-red-700 dark:text-red-400">Thiếu Bản Địa Hóa Văn Hóa</p>
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Đưa ra ví dụ xa lạ, không phù hợp với học sinh Việt Nam</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-950/20 rounded-xl">
+                                        <span class="text-red-500 font-black shrink-0">✗</span>
+                                        <div>
+                                            <p class="font-bold text-xs text-red-700 dark:text-red-400">Thiết Kế Hoạt Động Mơ Hồ</p>
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Hoạt động không khả thi về hậu cần, ngân sách trường học</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-950/20 rounded-xl">
+                                        <span class="text-red-500 font-black shrink-0">✗</span>
+                                        <div>
+                                            <p class="font-bold text-xs text-red-700 dark:text-red-400">Nội Dung Bị Ảo Tưởng</p>
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Tham chiếu sai công thức khoa học, dữ kiện lịch sử</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Design Decision Banner -->
+                        <div class="glass-card p-6 rounded-2xl border border-secondary/30 bg-secondary/5 flex items-start gap-4">
+                            <span class="material-symbols-outlined text-secondary text-3xl shrink-0 mt-1">lightbulb</span>
+                            <div>
+                                <p class="font-bold text-secondary dark:text-emerald-400 mb-1">Quyết Định Thiết Kế Cốt Lõi</p>
+                                <p class="text-sm text-on-surface-variant dark:text-slate-300">ConnectED giải quyết vấn đề thông qua <strong>grounding prompts</strong> và sử dụng templates thay vì fine-tuning đắt đỏ. Hệ thống nhúng trực tiếp siêu dữ liệu chương trình MOET và thuật ngữ chuẩn hóa vào kiến trúc prompts, đảm bảo AI "nói chuyện" bằng ngôn ngữ sư phạm Việt Nam một cách tự nhiên.</p>
+                            </div>
+                        </div>
                     </section>
                     
                     <!-- ADDIE Section -->
@@ -618,40 +704,169 @@
                     <section class="space-y-6 scroll-mt-20" id="topic-1-multiagent">
                         <div class="text-center max-w-2xl mx-auto mb-8">
                             <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Quy Trình Xử Lý Đa Tác Nhân Phân Cấp</h3>
-                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Phân rã tác vụ (Task Decomposition) giúp triệt tiêu hiện tượng context saturation ở prompts nguyên khối.</p>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Phân rã tác vụ (Task Decomposition) giúp triệt tiêu hiện tượng context saturation ở prompts nguyên khối. Mỗi giai đoạn truyền dữ liệu JSON có cấu trúc cho giai đoạn tiếp theo.</p>
+                        </div>
+
+                        <!-- Why Not Monolithic? -->
+                        <div class="glass-card p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 mb-2">
+                            <p class="font-bold text-sm mb-3 text-slate-700 dark:text-slate-200">⚠️ Tại Sao Prompt Nguyên Khối (Monolithic) Thất Bại?</p>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="text-center p-3 bg-red-50 dark:bg-red-950/30 rounded-xl">
+                                    <p class="text-[10px] font-bold text-red-600 dark:text-red-400">Context Saturation</p>
+                                    <p class="text-[10px] text-slate-500 mt-1">Prompt quá dài làm LLM bỏ sót yêu cầu</p>
+                                </div>
+                                <div class="text-center p-3 bg-red-50 dark:bg-red-950/30 rounded-xl">
+                                    <p class="text-[10px] font-bold text-red-600 dark:text-red-400">Thiếu Validation</p>
+                                    <p class="text-[10px] text-slate-500 mt-1">Không có điểm kiểm tra trung gian</p>
+                                </div>
+                                <div class="text-center p-3 bg-red-50 dark:bg-red-950/30 rounded-xl">
+                                    <p class="text-[10px] font-bold text-red-600 dark:text-red-400">Khó Gỡ Lỗi</p>
+                                    <p class="text-[10px] text-slate-500 mt-1">Không biết bước nào gây ra lỗi đầu ra</p>
+                                </div>
+                                <div class="text-center p-3 bg-red-50 dark:bg-red-950/30 rounded-xl">
+                                    <p class="text-[10px] font-bold text-red-600 dark:text-red-400">Hallucination Lan Rộng</p>
+                                    <p class="text-[10px] text-slate-500 mt-1">Lỗi nhỏ khuếch đại thành thảm họa đầu ra</p>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Flow Steps Grid -->
-                        <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
-                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-40">
+                        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-44">
                                 <div class="text-xs font-bold text-secondary uppercase tracking-wider">Bước 1</div>
                                 <h5 class="font-bold text-sm text-slate-800 dark:text-slate-200">Concept Extraction</h5>
                                 <p class="text-[10px] text-slate-400">Trích xuất khái niệm từ SGK ra Concept Graph</p>
+                                <div class="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold">✓ Kiểm tra độ bao phủ MOET</div>
                             </div>
-                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-40">
+                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-44">
                                 <div class="text-xs font-bold text-secondary uppercase tracking-wider">Bước 2</div>
                                 <h5 class="font-bold text-sm text-slate-800 dark:text-slate-200">Objective Gen</h5>
                                 <p class="text-[10px] text-slate-400">Sinh mục tiêu bài học gắn nhãn Bloom's</p>
+                                <div class="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold">✓ Actionability check</div>
                             </div>
-                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-40">
+                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-44">
                                 <div class="text-xs font-bold text-secondary uppercase tracking-wider">Bước 3</div>
                                 <h5 class="font-bold text-sm text-slate-800 dark:text-slate-200">Activity Design</h5>
                                 <p class="text-[10px] text-slate-400">Phác thảo tiến trình, phân bổ thời gian bài giảng</p>
+                                <div class="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold">✓ Tổng thời gian ≤ 45 phút</div>
                             </div>
-                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-40">
+                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-44">
                                 <div class="text-xs font-bold text-secondary uppercase tracking-wider">Bước 4</div>
                                 <h5 class="font-bold text-sm text-slate-800 dark:text-slate-200">Content Dev</h5>
                                 <p class="text-[10px] text-slate-400">Viết chi tiết kịch bản, lời thuyết minh slide</p>
+                                <div class="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold">✓ Đồng bộ thuật ngữ</div>
                             </div>
-                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-40">
+                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-44">
                                 <div class="text-xs font-bold text-secondary uppercase tracking-wider">Bước 5</div>
                                 <h5 class="font-bold text-sm text-slate-800 dark:text-slate-200">Media Gen</h5>
-                                <p class="text-[10px] text-slate-400">Thiết kế visual và mua học liệu STEM ảo</p>
+                                <p class="text-[10px] text-slate-400">Thiết kế visual và mua học liệu STEM ảo (via AP2)</p>
+                                <div class="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold">✓ Narrative match</div>
                             </div>
-                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-40 bg-secondary/10 dark:bg-emerald-500/10 border-2 border-secondary dark:border-emerald-400">
+                            <div class="glass-card p-4 rounded-xl text-center flex flex-col justify-between h-44 bg-secondary/10 dark:bg-emerald-500/10 border-2 border-secondary dark:border-emerald-400">
                                 <div class="text-xs font-bold text-secondary dark:text-emerald-300 uppercase tracking-wider">Bước 6</div>
                                 <h5 class="font-bold text-sm text-slate-800 dark:text-slate-200">Evaluation Review</h5>
                                 <p class="text-[10px] text-slate-400">Giáo viên phê duyệt trên UI (Human-in-the-loop)</p>
+                                <div class="text-[9px] text-secondary dark:text-emerald-400 font-bold">🔒 HITL Checkpoint</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Agentic Stack Mapping -->
+                    <section class="space-y-6 scroll-mt-20" id="topic-1-agentstack">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">ConnectED Ánh Xạ Lên Agentic Stack Hiện Đại</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">ConnectED là triển khai sản xuất thực tế hoàn chỉnh của Modern Agentic Stack 5 lớp.</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="glass-card p-5 rounded-2xl flex items-start gap-5">
+                                <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-black shrink-0">1</div>
+                                <div>
+                                    <p class="font-bold text-sm text-primary dark:text-emerald-400">Orchestration — Custom State Machine</p>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Sử dụng bộ điều phối máy trạng thái tùy chỉnh thay vì LangChain/CrewAI. Điều hướng deterministic đảm bảo quy trình soạn bài luôn tuân thủ đúng trình tự ADDIE, không bị rò rỉ trạng thái giữa các bước.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card p-5 rounded-2xl flex items-start gap-5">
+                                <div class="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-white font-black shrink-0">2</div>
+                                <div>
+                                    <p class="font-bold text-sm text-secondary dark:text-emerald-400">Reasoning Core — Hybrid Model Routing</p>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Trích xuất khái niệm và thiết kế sư phạm → <strong>Claude 4.6 Sonnet / DeepSeek-R1</strong> (mô hình lớn). Định dạng, dịch thuật từ vựng, gắn thẻ metadata → <strong>Llama 3.3 70B / Gemini 2.5 Flash</strong>. Kết quả: cắt giảm 70% chi phí, giảm 45% độ trễ.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card p-5 rounded-2xl flex items-start gap-5">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-black shrink-0">3</div>
+                                <div>
+                                    <p class="font-bold text-sm text-emerald-700 dark:text-emerald-400">Skills — Gói Kỹ Năng Độc Lập</p>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Mỗi bước trong luồng soạn giáo án là một gói kỹ năng riêng biệt: chứa system prompts chuyên biệt, templates, và JSON validation schemas. Quản lý phiên bản trong Git, kiểm thử độc lập từng module.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card p-5 rounded-2xl flex items-start gap-5">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-black shrink-0">4</div>
+                                <div>
+                                    <p class="font-bold text-sm text-indigo-700 dark:text-indigo-400">Tools &amp; Protocols — MCP &amp; AP2</p>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-1"><strong>MCP</strong> cung cấp quyền truy cập an toàn vào kho sách giáo khoa và chương trình học MOET. <strong>AP2 (Agent Payments Protocol)</strong> cho phép tác nhân thanh toán vi giao dịch mua bản quyền học liệu STEM ảo dựa trên Intent Mandates được ký mã hóa bởi giáo viên.</p>
+                                </div>
+                            </div>
+                            <div class="glass-card p-5 rounded-2xl flex items-start gap-5">
+                                <div class="w-10 h-10 rounded-xl bg-pink-600 flex items-center justify-center text-white font-black shrink-0">5</div>
+                                <div>
+                                    <p class="font-bold text-sm text-pink-700 dark:text-pink-400">Memory — Episodic + Semantic Vector DB</p>
+                                    <p class="text-xs text-slate-600 dark:text-slate-300 mt-1"><strong>Episodic Memory:</strong> Lưu trạng thái phiên soạn giáo án hiện tại để khôi phục nhanh khi mất kết nối. <strong>Semantic Memory (Vector DB):</strong> Ghi lại phong cách hành văn, phương pháp đánh giá yêu thích của giáo viên để cá nhân hóa bài giảng về sau.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Impact Section -->
+                    <section class="space-y-6">
+                        <div class="text-center max-w-2xl mx-auto mb-6">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Tác Động Thực Tế</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">ConnectED chứng minh AI giáo dục chỉ thực sự hiệu quả khi được thiết kế đúng cách.</p>
+                        </div>
+                        <div class="relative overflow-hidden rounded-[2.5rem] p-10 bg-gradient-to-br from-primary to-secondary text-white">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
+                                <div class="text-center">
+                                    <p class="text-4xl font-black">15'</p>
+                                    <p class="text-sm font-bold text-white/80 mt-1">Thời gian soạn giáo án</p>
+                                    <p class="text-xs text-white/60">Từ 3–4 tiếng giảm xuống</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-4xl font-black">80%</p>
+                                    <p class="text-sm font-bold text-white/80 mt-1">Tiết kiệm chi phí token</p>
+                                    <p class="text-xs text-white/60">Qua Prompt Caching MOET</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-4xl font-black">98%</p>
+                                    <p class="text-sm font-bold text-white/80 mt-1">Độ chuẩn thuật ngữ</p>
+                                    <p class="text-xs text-white/60">Kiểm định bởi LLM-as-Judge</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-4xl font-black">100%</p>
+                                    <p class="text-sm font-bold text-white/80 mt-1">Tuân thủ khung MOET</p>
+                                    <p class="text-xs text-white/60">Grounding &amp; Templates</p>
+                                </div>
+                            </div>
+                            <div class="absolute right-[-5%] bottom-[-10%] w-72 h-72 bg-white/5 rounded-full blur-[60px]"></div>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl">
+                            <p class="font-bold text-sm mb-3 text-slate-700 dark:text-slate-200">4 Nguyên Tắc Thành Công Của AI Giáo Dục:</p>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="p-3 bg-primary/5 dark:bg-emerald-500/10 rounded-xl text-center">
+                                    <span class="material-symbols-outlined text-primary dark:text-emerald-400 text-2xl">school</span>
+                                    <p class="text-xs font-bold mt-2 text-primary dark:text-emerald-300">Sư phạm nhúng trong kiến trúc</p>
+                                </div>
+                                <div class="p-3 bg-primary/5 dark:bg-emerald-500/10 rounded-xl text-center">
+                                    <span class="material-symbols-outlined text-primary dark:text-emerald-400 text-2xl">account_tree</span>
+                                    <p class="text-xs font-bold mt-2 text-primary dark:text-emerald-300">Quy trình phân rã phân cấp</p>
+                                </div>
+                                <div class="p-3 bg-primary/5 dark:bg-emerald-500/10 rounded-xl text-center">
+                                    <span class="material-symbols-outlined text-primary dark:text-emerald-400 text-2xl">supervised_user_circle</span>
+                                    <p class="text-xs font-bold mt-2 text-primary dark:text-emerald-300">Human-in-the-Loop</p>
+                                </div>
+                                <div class="p-3 bg-primary/5 dark:bg-emerald-500/10 rounded-xl text-center">
+                                    <span class="material-symbols-outlined text-primary dark:text-emerald-400 text-2xl">language</span>
+                                    <p class="text-xs font-bold mt-2 text-primary dark:text-emerald-300">Bản địa hóa như hạ tầng nền</p>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -672,10 +887,52 @@
                             <span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4">Module 02</span>
                             <h2 class="font-display-lg text-3xl font-extrabold mb-4 leading-tight">Agentic AI Stack: Khung Kiến Trúc AI Hiện Đại</h2>
                             <p class="font-body-lg text-sm text-white/80 leading-relaxed">
-                                Hiểu sâu 5 lớp cốt lõi cấu tạo nên các Agent AI tự chủ trong môi trường doanh nghiệp và sản xuất thực tế.
+                                Hiểu sâu 5 lớp cốt lõi cấu tạo nên các Agent AI tự chủ trong môi trường doanh nghiệp và sản xuất thực tế. Các tác nhân AI hiện đại không phải là mô hình đơn lẻ mà là <strong>hệ thống điều phối đa lớp</strong> chạy các vòng lặp lập luận–thực thi liên tục.
                             </p>
                         </div>
                         <div class="absolute right-[-5%] top-[-5%] w-80 h-80 bg-secondary opacity-25 rounded-full blur-[80px]"></div>
+                    </section>
+
+                    <!-- Gen AI → Agentic AI Transition -->
+                    <section class="space-y-6">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Từ Generative AI Đến Agentic AI</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Sự chuyển đổi mô hình từ phản hồi đơn lượt sang vòng lặp lập luận–thực thi liên tục.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-slate-300">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="material-symbols-outlined text-slate-400 text-3xl">chat</span>
+                                    <h4 class="font-bold text-lg text-slate-600 dark:text-slate-300">GenAI Truyền Thống</h4>
+                                </div>
+                                <div class="bg-slate-100 dark:bg-slate-800 rounded-xl p-4 font-mono text-xs text-center mb-4">
+                                    <span class="text-slate-500">Prompt người dùng</span>
+                                    <span class="text-slate-400 mx-2">→</span>
+                                    <span class="text-slate-500">Phản hồi từ mô hình</span>
+                                </div>
+                                <ul class="space-y-2 text-xs text-slate-500 dark:text-slate-400">
+                                    <li class="flex items-start gap-2"><span class="text-red-400 font-black">✗</span> Single-turn, không có trạng thái</li>
+                                    <li class="flex items-start gap-2"><span class="text-red-400 font-black">✗</span> Không có khả năng tự lên kế hoạch</li>
+                                    <li class="flex items-start gap-2"><span class="text-red-400 font-black">✗</span> Không sử dụng được công cụ ngoài</li>
+                                    <li class="flex items-start gap-2"><span class="text-red-400 font-black">✗</span> Không tự sửa sai (self-correction)</li>
+                                </ul>
+                            </div>
+                            <div class="glass-card p-8 rounded-3xl border-l-4 border-l-secondary">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="material-symbols-outlined text-secondary text-3xl">smart_toy</span>
+                                    <h4 class="font-bold text-lg text-secondary dark:text-emerald-400">Agentic AI</h4>
+                                </div>
+                                <div class="bg-emerald-50 dark:bg-emerald-950/30 rounded-xl p-4 font-mono text-[10px] text-center mb-4 leading-relaxed">
+                                    <span class="text-primary dark:text-emerald-300 font-bold">Goal → Plan → Act → Observe → Reflect → Iterate → Complete</span>
+                                </div>
+                                <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+                                    <li class="flex items-start gap-2"><span class="text-emerald-500 font-black">✓</span> Lập kế hoạch thực hiện nhiệm vụ phức tạp</li>
+                                    <li class="flex items-start gap-2"><span class="text-emerald-500 font-black">✓</span> Gọi các công cụ và APIs bên ngoài</li>
+                                    <li class="flex items-start gap-2"><span class="text-emerald-500 font-black">✓</span> Tự động điều chỉnh chiến lược khi lỗi</li>
+                                    <li class="flex items-start gap-2"><span class="text-emerald-500 font-black">✓</span> Phối hợp với các tác nhân khác</li>
+                                </ul>
+                            </div>
+                        </div>
                     </section>
                     
                     <!-- 5 Layers Bento Breakdown -->
@@ -809,6 +1066,62 @@
                         </div>
                     </section>
                     
+                    <!-- Memory Systems Table -->
+                    <section class="space-y-6">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Hệ Thống Bộ Nhớ (Memory Systems)</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Các loại bộ nhớ giúp tác nhân vượt qua giới hạn cửa sổ ngữ cảnh cố định của mô hình ngôn ngữ.</p>
+                        </div>
+                        <div class="glass-card rounded-2xl overflow-hidden">
+                            <table class="w-full text-xs">
+                                <thead>
+                                    <tr class="bg-primary/5 dark:bg-slate-800">
+                                        <th class="p-4 text-left font-bold text-primary dark:text-emerald-400">Loại Bộ Nhớ</th>
+                                        <th class="p-4 text-left font-bold text-primary dark:text-emerald-400">Vị Trí Lưu Trữ</th>
+                                        <th class="p-4 text-left font-bold text-primary dark:text-emerald-400">Phương Pháp Truy Hồi</th>
+                                        <th class="p-4 text-left font-bold text-primary dark:text-emerald-400">Thời Gian Tồn Tại</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                        <td class="p-4 font-semibold">In-context</td>
+                                        <td class="p-4 text-slate-500">Cửa sổ ngữ cảnh</td>
+                                        <td class="p-4 text-slate-500">Cơ chế tự chú ý (Attention)</td>
+                                        <td class="p-4 text-slate-500">Một lượt thực thi</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                        <td class="p-4 font-semibold text-blue-600 dark:text-blue-400">Episodic</td>
+                                        <td class="p-4 text-slate-500">Bộ đệm trong phiên</td>
+                                        <td class="p-4 text-slate-500">Truy xuất tuần tự</td>
+                                        <td class="p-4 text-blue-600 dark:text-blue-400 font-semibold">Phiên làm việc</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 bg-emerald-50/40 dark:bg-emerald-950/20">
+                                        <td class="p-4 font-bold text-emerald-700 dark:text-emerald-400">Semantic ⭐</td>
+                                        <td class="p-4 text-slate-500">Cơ sở dữ liệu Vector</td>
+                                        <td class="p-4 text-slate-500">Tìm kiếm tương đồng vector</td>
+                                        <td class="p-4 text-emerald-600 dark:text-emerald-400 font-bold">Lâu dài (Persistent)</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                        <td class="p-4 font-semibold">Procedural</td>
+                                        <td class="p-4 text-slate-500">Kho lưu trữ Skill</td>
+                                        <td class="p-4 text-slate-500">Tra cứu siêu dữ liệu</td>
+                                        <td class="p-4 text-slate-500">Lâu dài (Persistent)</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                        <td class="p-4 font-semibold">Structured</td>
+                                        <td class="p-4 text-slate-500">Cơ sở dữ liệu SQL/KV</td>
+                                        <td class="p-4 text-slate-500">Truy vấn theo khóa</td>
+                                        <td class="p-4 text-slate-500">Lâu dài (Persistent)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl border border-secondary/20 bg-secondary/5">
+                            <p class="font-bold text-sm text-secondary dark:text-emerald-400 mb-2">Kiến Trúc Bộ Nhớ Thực Tế</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">Hệ thống kết hợp <strong>Episodic Memory</strong> (giữ trạng thái phiên làm việc, cho phép khôi phục nhanh nếu xảy ra lỗi) và <strong>Semantic Memory</strong> qua Vector DB (lưu lịch sử, sở thích người dùng để cá nhân hóa kết quả đầu ra trong các phiên tiếp theo).</p>
+                        </div>
+                    </section>
+
                     <!-- Core Agentic Loop Visual -->
                     <section class="space-y-6">
                         <div class="text-center max-w-2xl mx-auto mb-8">
@@ -816,18 +1129,57 @@
                             <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Mỗi tác nhân con tự điều hành một quy trình tự phản tư lặp lại khép kín.</p>
                         </div>
                         
-                        <div class="flex flex-col md:flex-row items-center justify-center gap-6 max-w-3xl mx-auto">
-                            <div class="glass-card px-6 py-4 rounded-xl font-bold text-center border-b-4 border-b-primary shrink-0">PLAN (Kế hoạch)</div>
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
+                            <div class="glass-card px-5 py-4 rounded-xl font-bold text-center border-b-4 border-b-primary shrink-0 min-w-[120px]">
+                                <span class="material-symbols-outlined text-primary text-xl block mb-1">edit_note</span>
+                                PLAN
+                                <p class="text-[10px] font-normal text-slate-400 mt-1">Lập kế hoạch cấu trúc</p>
+                            </div>
                             <span class="material-symbols-outlined text-slate-400 rotate-90 md:rotate-0">arrow_forward</span>
-                            <div class="glass-card px-6 py-4 rounded-xl font-bold text-center border-b-4 border-b-primary shrink-0">ACT (Hành động)</div>
+                            <div class="glass-card px-5 py-4 rounded-xl font-bold text-center border-b-4 border-b-indigo-500 shrink-0 min-w-[120px]">
+                                <span class="material-symbols-outlined text-indigo-500 text-xl block mb-1">bolt</span>
+                                ACT
+                                <p class="text-[10px] font-normal text-slate-400 mt-1">Gọi mô hình reasoning</p>
+                            </div>
                             <span class="material-symbols-outlined text-slate-400 rotate-90 md:rotate-0">arrow_forward</span>
-                            <div class="glass-card px-6 py-4 rounded-xl font-bold text-center border-b-4 border-b-emerald-600 shrink-0">OBSERVE (Kiểm tra)</div>
+                            <div class="glass-card px-5 py-4 rounded-xl font-bold text-center border-b-4 border-b-emerald-600 shrink-0 min-w-[120px]">
+                                <span class="material-symbols-outlined text-emerald-600 text-xl block mb-1">verified</span>
+                                OBSERVE
+                                <p class="text-[10px] font-normal text-slate-400 mt-1">Kiểm tra validation gate</p>
+                            </div>
                             <span class="material-symbols-outlined text-slate-400 rotate-90 md:rotate-0">arrow_forward</span>
-                            <div class="glass-card px-6 py-4 rounded-xl font-bold text-center border-b-4 border-b-yellow-500 shrink-0">REFLECT (Phản tư)</div>
+                            <div class="glass-card px-5 py-4 rounded-xl font-bold text-center border-b-4 border-b-yellow-500 shrink-0 min-w-[120px]">
+                                <span class="material-symbols-outlined text-yellow-500 text-xl block mb-1">psychology</span>
+                                REFLECT
+                                <p class="text-[10px] font-normal text-slate-400 mt-1">Phân tích lỗi, suy ngẫm</p>
+                            </div>
                             <span class="material-symbols-outlined text-slate-400 rotate-90 md:rotate-0">arrow_forward</span>
-                            <div class="glass-card px-6 py-4 rounded-xl font-bold text-center border-b-4 border-b-secondary shrink-0">ITERATE (Sửa đổi)</div>
+                            <div class="glass-card px-5 py-4 rounded-xl font-bold text-center border-b-4 border-b-secondary shrink-0 min-w-[120px]">
+                                <span class="material-symbols-outlined text-secondary text-xl block mb-1">refresh</span>
+                                ITERATE
+                                <p class="text-[10px] font-normal text-slate-400 mt-1">Sửa đổi, thử lại</p>
+                            </div>
                         </div>
-                        <p class="text-xs text-center text-on-surface-variant dark:text-slate-400 mt-6 italic">Nếu xác thực ở OBSERVE lỗi (ví dụ: tổng thời gian hoạt động giáo án > 45 phút), tác nhân tự sửa đổi bài học tối đa 3 lần trước khi kích hoạt HITL.</p>
+
+                        <!-- Failure Modes -->
+                        <div class="glass-card p-6 rounded-2xl">
+                            <p class="font-bold text-sm mb-4 text-slate-700 dark:text-slate-200">⚠️ Các Chế Độ Lỗi (Failure Modes) Cần Kiểm Soát</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-red-50 dark:bg-red-950/20 rounded-xl">
+                                    <p class="font-bold text-xs text-red-600 dark:text-red-400 mb-1">Bị Cố Định Kế Hoạch</p>
+                                    <p class="text-[11px] text-slate-500">Tác nhân bỏ qua lỗi phát sinh, tiếp tục thực thi kế hoạch ban đầu bất chấp thực tế thay đổi.</p>
+                                </div>
+                                <div class="p-4 bg-orange-50 dark:bg-orange-950/20 rounded-xl">
+                                    <p class="font-bold text-xs text-orange-600 dark:text-orange-400 mb-1">Vòng Lặp Vô Hạn</p>
+                                    <p class="text-[11px] text-slate-500">Tác nhân không thể hội tụ để hoàn thành, liên tục iterate mà không tiến triển. Cần hard timeout.</p>
+                                </div>
+                                <div class="p-4 bg-yellow-50 dark:bg-yellow-950/20 rounded-xl">
+                                    <p class="font-bold text-xs text-yellow-700 dark:text-yellow-400 mb-1">Kết Thúc Sớm</p>
+                                    <p class="text-[11px] text-slate-500">Tác nhân báo cáo hoàn thành khi thực tế chưa xong. Cần cost caps và human escalation triggers.</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-center text-on-surface-variant dark:text-slate-400 mt-4 italic">Hệ thống cần cấu hình giới hạn thời gian (hard timeouts), hạn mức chi phí (cost caps) và các điểm kích hoạt chuyển giao cho con người (human escalation triggers) để tránh các failure modes này.</p>
+                        </div>
                     </section>
                 </div>
                 
@@ -854,18 +1206,26 @@
 
                     <!-- 4 Challenges Bento Grid -->
                     <section class="space-y-6">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Bốn Thách Thức Kéo Dài</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Các rào cản chính khi đưa hệ thống tác nhân AI vào môi trường sản xuất thực tế.</p>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Challenge 1 -->
                             <div class="glass-card p-8 rounded-3xl border-l-4 border-l-red-500">
                                 <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-950/30 flex items-center justify-center text-red-600 dark:text-red-400 mb-6">
                                     <span class="material-symbols-outlined text-[28px]">report_problem</span>
                                 </div>
-                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">01. Độ tin cậy (Reliability)</h4>
-                                <p class="text-xs text-slate-700 dark:text-slate-300 mt-2">Ảo tưởng (hallucination) trong Agent dẫn đến hành động sai nghiêm trọng như gọi nhầm API, lặp suy nghĩ vô hạn.</p>
-                                <div id="details-challenge-1" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-2">
-                                    <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>Ép buộc định dạng JSON cấp suy luận:</strong> Dùng JSON Mode hoặc Outlines để bảo đảm cấu trúc cú pháp 100% hợp lệ.</p>
-                                    <p>• <strong>Xác thực 2 tầng:</strong> Tầng 1 kiểm tra kiểu (Pydantic), Tầng 2 kiểm tra nội dung sư phạm thực tế (Bloom filter / Domain Index).</p>
+                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">01. Độ Tin Cậy &amp; Ảo Tưởng (Reliability)</h4>
+                                <p class="text-xs text-slate-700 dark:text-slate-300 mt-2">Các tác nhân chạy thực tế thường thất bại theo những cách khó dự đoán và có tính dây chuyền. Một lỗi nhỏ ở bước trung gian có thể khuếch đại thành thảm họa ở đầu ra cuối cùng.</p>
+                                <div id="details-challenge-1" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-3">
+                                    <p class="font-bold text-red-600 dark:text-red-400">Các Dạng Lỗi: Vòng lặp vô hạn · JSON lỗi cú pháp · API không tồn tại · Instruction drift · Hallucinated entities</p>
+                                    <div class="space-y-2">
+                                        <p>• <strong>Guaranteed JSON Generation:</strong> Dùng JSON Mode hoặc thư viện Outlines để ép buộc cú pháp JSON hợp lệ ngay tại cấp độ giải mã token.</p>
+                                        <p>• <strong>Xác Thực 2 Tầng:</strong><br>— Tầng 1 (Structural): Pydantic kiểm tra schema JSON<br>— Tầng 2 (Semantic): Đối chiếu thực thể với Domain Index (Trie/Bloom filter)</p>
+                                        <p>• <strong>Vòng Lặp Tự Sửa Sai (Self-Correction Loop):</strong> Khi phát hiện lỗi, orchestrator trích xuất diff/parser error, đính kèm vào lịch sử và gửi lại cho mô hình tự điều chỉnh.</p>
+                                        <p>• <strong>Human-in-the-Loop (HITL) Dashboard:</strong> Nếu tự sửa sai thất bại >3 lần, hệ thống tạm dừng, lưu episodic state và chuyển giao sang giao diện kiểm trị viên để duyệt thủ công trước khi tiếp tục.</p>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Challenge 2 -->
@@ -873,12 +1233,14 @@
                                 <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6">
                                     <span class="material-symbols-outlined text-[28px]">analytics</span>
                                 </div>
-                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">02. Đánh giá Quỹ đạo (Trajectory Eval)</h4>
-                                <p class="text-xs text-slate-700 dark:text-slate-300 mt-2">Đánh giá tác nhân yêu cầu kiểm duyệt cả hành trình suy nghĩ, lập kế hoạch, gọi công cụ thay vì chỉ xem kết quả đầu ra.</p>
-                                <div id="details-challenge-2" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-2">
-                                    <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>LLM-as-a-Judge:</strong> Hội đồng mô hình (sử dụng Claude 4.6 Sonnet làm giám khảo) đánh giá quỹ đạo dựa trên các rubrics điểm số định lượng.</p>
-                                    <p>• <strong>Golden Trajectory Suite:</strong> Lưu trữ >200 kịch bản thành công mẫu chạy hồi quy CI/CD tự động khi sửa prompts.</p>
+                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">02. Đánh Giá Quỹ Đạo (Trajectory Eval)</h4>
+                                <p class="text-xs text-slate-700 dark:text-slate-300 mt-2">Các bài kiểm tra truyền thống không đánh giá được tính đúng đắn của hành trình tư duy đa bước. Cần đánh giá toàn bộ lộ trình thực thi: lập kế hoạch, gọi công cụ, tự sửa lỗi, tuân thủ chính sách.</p>
+                                <div id="details-challenge-2" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-3">
+                                    <div class="space-y-2">
+                                        <p>• <strong>LLM-as-a-Judge (Hội đồng Giám Khảo):</strong> Sử dụng Claude 4.6 Sonnet làm 3 giám khảo tự động: Trọng tài Nghiệp vụ, Trọng tài Cấu trúc, Trọng tài Xác thực. Chấm điểm 1-5 về độ bao phủ mục tiêu, hiệu năng tài nguyên, tính chuẩn xác logic.</p>
+                                        <p>• <strong>Golden Trajectory Suite:</strong> Duy trì >200 kịch bản mẫu trong CI/CD để chạy regression testing tự động khi thay đổi prompts, skills, hoặc nâng cấp mô hình.</p>
+                                        <p>• <strong>Programmatic Assertions + Embedding Distance:</strong> Kiểm tra logic toán học cứng (tổng chi phí = ngân sách) kết hợp đo cosine distance vector nhúng để phát hiện sai lệch ngữ nghĩa.</p>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Challenge 3 -->
@@ -886,12 +1248,26 @@
                                 <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-primary dark:text-emerald-300 mb-6">
                                     <span class="material-symbols-outlined text-[28px]">payments</span>
                                 </div>
-                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">03. Chi phí &amp; Độ trễ (Cost &amp; Latency)</h4>
-                                <p class="text-xs text-slate-700 dark:text-slate-300 mt-2">Nhiều vòng lặp LLM tuần tự gây tăng chi phí token cấp số nhân và làm tăng thời gian phản hồi người dùng.</p>
-                                <div id="details-challenge-3" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-2">
-                                    <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>Tối ưu cache:</strong> Sắp xếp system prompts MOET nặng lên đầu ngữ cảnh để tối đa hóa Prompt Caching, tiết kiệm đến 80% chi phí token.</p>
-                                    <p>• <strong>Lọc ngữ cảnh (Pruning):</strong> Thu hẹp ngữ cảnh RAG dưới 10k token, chạy song song các luồng độc lập giảm độ trễ 45%.</p>
+                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">03. Chi Phí &amp; Độ Trễ (Cost &amp; Latency)</h4>
+                                <p class="text-xs text-slate-700 dark:text-slate-300 mt-2">Các tác nhân rất tốn kém: hàng chục lệnh gọi LLM tuần tự trong một tác vụ, gây chi phí token lũy tiến và độ trễ thường >2 phút/tác vụ, làm suy giảm trải nghiệm người dùng.</p>
+                                <div id="details-challenge-3" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-3">
+                                    <p class="font-bold">Định Tuyến Mô Hình Phân Tầng (Tiered Routing):</p>
+                                    <div class="space-y-1.5">
+                                        <div class="flex items-start gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                                            <span class="w-2 h-2 rounded-full bg-red-500 shrink-0 mt-1"></span>
+                                            <div><strong>Reasoning Tier (Claude 4.6 Sonnet / DeepSeek-R1):</strong> Lập kế hoạch, phân tích quy trình chuyên sâu</div>
+                                        </div>
+                                        <div class="flex items-start gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                                            <span class="w-2 h-2 rounded-full bg-yellow-500 shrink-0 mt-1"></span>
+                                            <div><strong>Synthesis Tier (Claude 4.6 Haiku / GPT-4o-mini):</strong> Soạn thảo nội dung báo cáo trung gian</div>
+                                        </div>
+                                        <div class="flex items-start gap-2 p-2 bg-emerald-50 dark:bg-emerald-950/20 rounded-lg">
+                                            <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-1"></span>
+                                            <div><strong>Utility Tier (Llama 3.3 70B / Gemini 2.5 Flash):</strong> Dịch thuật, phân loại metadata — <span class="font-bold text-emerald-600">giảm 70% chi phí</span></div>
+                                        </div>
+                                    </div>
+                                    <p>• <strong>Prompt Caching:</strong> Đặt system prompts cố định ở đầu context → <span class="font-bold text-emerald-600">tiết kiệm 80% chi phí token đầu vào</span>.</p>
+                                    <p>• <strong>Context Pruning + Parallelism:</strong> RAG giữ context dưới 10k tokens, chạy async các luồng độc lập → <span class="font-bold text-emerald-600">giảm 45% độ trễ</span>.</p>
                                 </div>
                             </div>
                             <!-- Challenge 4 -->
@@ -899,12 +1275,15 @@
                                 <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6">
                                     <span class="material-symbols-outlined text-[28px]">hub</span>
                                 </div>
-                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">04. Khả năng giám sát (AgentOps)</h4>
-                                <p class="text-xs text-slate-700 dark:text-slate-300 mt-2">Trạng thái tác nhân biểu diễn bằng ngôn ngữ tự nhiên làm các chỉ số giám sát CPU/RAM truyền thống trở nên vô hại.</p>
-                                <div id="details-challenge-4" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-2">
-                                    <p><strong>Giải pháp Production-Grade:</strong></p>
-                                    <p>• <strong>OpenInference Tracing:</strong> Ghi nhận chi tiết từng bước LLM (Plan -> Act -> Observe) dưới dạng các Spans có cấu trúc.</p>
-                                    <p>• <strong>Cây thực thi (Execution Tree):</strong> Biểu diễn trực quan dòng chảy cuộc gọi phân cấp để gỡ lỗi và phát hiện thắt nút cổ chai (latency bottleneck).</p>
+                                <h4 class="font-bold text-lg text-slate-800 dark:text-slate-200">04. Khả Năng Quan Sát (AgentOps)</h4>
+                                <p class="text-xs text-slate-700 dark:text-slate-300 mt-2">Trạng thái tác nhân được biểu diễn bằng lập luận ngôn ngữ tự nhiên, khiến các chỉ số CPU/RAM truyền thống trở nên vô dụng khi cần phát hiện lỗi logic bên trong chuỗi suy nghĩ.</p>
+                                <div id="details-challenge-4" class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-3">
+                                    <div class="space-y-2">
+                                        <p>• <strong>Semantic Tracing (OpenInference):</strong> Dùng Langfuse hoặc Arize Phoenix để ghi nhận từng bước gọi LLM dưới dạng "Spans" có cấu trúc — lưu prompt, thought chain, tools, tokens, độ trễ.</p>
+                                        <p>• <strong>Execution Tree Dashboard:</strong> Trực quan hóa toàn bộ cây cuộc gọi phân cấp. Nhấp vào từng nút để kiểm tra input/output và tìm latency bottleneck.</p>
+                                        <p>• <strong>Offline Trajectory Replay Sandbox:</strong> Tải xuống toàn bộ quỹ đạo lỗi và phát lại cục bộ trong sandbox biệt lập để thử nghiệm prompt mới mà không gây side effects trên hệ thống production.</p>
+                                        <p>• <strong>Real-time Guardrails (Llama Guard):</strong> Mô hình lọc an toàn giám sát cả input (trước khi nạp vào tool) và output (trước khi trả về người dùng), ngăn prompt injection và rò rỉ dữ liệu nhạy cảm.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -936,8 +1315,70 @@ LlamaIndexInstrumentor().instrument()
 print("Agent telemetry active: Tracing Plan-Act-Observe spans.")</code></pre>
                         </div>
                     </section>
+
+                    <!-- Production Summary Table -->
+                    <section class="space-y-6">
+                        <div class="text-center max-w-2xl mx-auto mb-8">
+                            <h3 class="text-2xl font-bold text-primary dark:text-slate-200">Tổng Hợp: Kiến Trúc Hệ Thống Tác Nhân Thực Tế</h3>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 mt-2">Minh họa cách một hệ thống tác nhân production-grade được xây dựng qua từng lớp kiến trúc.</p>
+                        </div>
+
+                        <div class="glass-card rounded-2xl overflow-hidden">
+                            <table class="w-full text-xs">
+                                <thead>
+                                    <tr class="bg-deep-indigo text-white">
+                                        <th class="p-4 text-left font-bold">Lớp (Layer)</th>
+                                        <th class="p-4 text-left font-bold">Chi Tiết Triển Khai Thực Tế</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                        <td class="p-4 font-bold text-primary dark:text-emerald-400 whitespace-nowrap">Orchestration</td>
+                                        <td class="p-4 text-slate-600 dark:text-slate-300">Máy trạng thái hữu hạn (FSM) tùy chỉnh để điều phối tuần tự các giai đoạn, đảm bảo dữ liệu được chuyển giao và ràng buộc được thực hiện nhất quán 100%.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 bg-emerald-50/20 dark:bg-emerald-950/10">
+                                        <td class="p-4 font-bold text-secondary dark:text-emerald-400 whitespace-nowrap">Reasoning Core</td>
+                                        <td class="p-4 text-slate-600 dark:text-slate-300">Định tuyến ngữ nghĩa lai: lập kế hoạch và phân tích sâu → <strong>Claude 4.6 Sonnet / DeepSeek-R1</strong>; sinh văn bản trung gian → <strong>Claude 4.6 Haiku</strong>; dịch thuật và định dạng → <strong>Gemini 2.5 Flash / Llama 3.3 70B</strong>.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                        <td class="p-4 font-bold text-emerald-700 dark:text-emerald-400 whitespace-nowrap">Skills</td>
+                                        <td class="p-4 text-slate-600 dark:text-slate-300">Đóng gói mã nguồn prompt, Pydantic schemas và dữ liệu few-shot của từng giai đoạn thành các kỹ năng (skills) độc lập, quản lý phiên bản qua Git.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 bg-emerald-50/20 dark:bg-emerald-950/10">
+                                        <td class="p-4 font-bold text-indigo-700 dark:text-indigo-400 whitespace-nowrap">Tools &amp; Protocols</td>
+                                        <td class="p-4 text-slate-600 dark:text-slate-300"><strong>MCP</strong> để truy vấn dữ liệu doanh nghiệp; <strong>AP2</strong> để thanh toán mua API dịch vụ ngoài qua Intent Mandates ký mã hóa.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                        <td class="p-4 font-bold text-pink-700 dark:text-pink-400 whitespace-nowrap">Memory</td>
+                                        <td class="p-4 text-slate-600 dark:text-slate-300"><em>Episodic:</em> Lưu trạng thái xử lý hiện tại để tiếp tục quy trình. <em>Semantic:</em> Lưu phong cách định dạng và cấu hình người dùng trong Vector DB để cá nhân hóa tự động.</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 bg-emerald-50/20 dark:bg-emerald-950/10">
+                                        <td class="p-4 font-bold text-yellow-700 dark:text-yellow-400 whitespace-nowrap">Cognitive Loop</td>
+                                        <td class="p-4 text-slate-600 dark:text-slate-300">Vòng lặp nghiêm ngặt: PLAN → ACT → OBSERVE (validation gate) → REFLECT (tự điều chỉnh) → ITERATE. Thất bại >3 lần → HITL Dashboard.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Conclusion Banner -->
+                        <div class="relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-deep-indigo to-primary text-white">
+                            <div class="relative z-10">
+                                <h4 class="text-xl font-bold text-emerald-400 mb-3">Kết Luận</h4>
+                                <p class="text-sm text-slate-300 leading-relaxed mb-4">Tương lai của các ứng dụng AI thực tế nằm ở các hệ thống thông minh được thiết kế chặt chẽ, kết hợp:</p>
+                                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                                    <div class="bg-white/10 rounded-xl p-3 text-center text-xs font-semibold">Điều phối deterministic</div>
+                                    <div class="bg-white/10 rounded-xl p-3 text-center text-xs font-semibold">Skills miền chuyên sâu</div>
+                                    <div class="bg-white/10 rounded-xl p-3 text-center text-xs font-semibold">Giao thức chuẩn (MCP, AP2)</div>
+                                    <div class="bg-white/10 rounded-xl p-3 text-center text-xs font-semibold">Reasoning Cores linh hoạt</div>
+                                    <div class="bg-white/10 rounded-xl p-3 text-center text-xs font-semibold">Human-in-the-Loop</div>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-4 italic">Thành công của hệ thống tác nhân AI phụ thuộc nhiều vào tính nghiêm ngặt trong kiến trúc và khả năng kiểm thử, giám sát vận hành hơn là năng lực thô của riêng mô hình ngôn ngữ lớn.</p>
+                            </div>
+                            <div class="absolute right-[-5%] bottom-[-10%] w-72 h-72 bg-emerald-500/10 rounded-full blur-[60px]"></div>
+                        </div>
+                    </section>
                 </div>
-                
+
                 <!-- Detailed Notes Tab (Populated dynamically) -->
                 <div id="topic-3-notes" class="hidden glass-card p-8 rounded-3xl markdown-body">
                 </div>
