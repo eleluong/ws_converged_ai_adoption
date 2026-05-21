@@ -12,7 +12,7 @@ import os
 app = FastAPI(title="AI Adoption Workshop — Presentation Hub")
 
 # Base directory where all files were copied into the image
-BASE_DIR = "/app"
+BASE_DIR = "/app" if os.path.exists("/app") else os.path.dirname(os.path.abspath(__file__))
 
 
 @app.get("/", response_class=HTMLResponse)
